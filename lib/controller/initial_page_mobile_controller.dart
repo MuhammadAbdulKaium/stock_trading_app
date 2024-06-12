@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class InitialPageMobileController extends GetxController {
   var isFirstTime = true.obs;
+  var isLoading = true.obs;
 
   @override
   void onInit() {
@@ -13,14 +14,15 @@ class InitialPageMobileController extends GetxController {
 
   void checkFirstTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // isFirstTime.value = prefs.getBool('isFirstTime') ?? true;
+    isFirstTime.value = prefs.getBool('isFirstTime') ?? true;
+    isLoading.value = false;
 
-    if (isFirstTime.value) {
-      prefs.setBool('isFirstTime', false);
-      Get.offAllNamed('/app_introduction_slider');
-    } else {
-      Get.offAllNamed('/sign_in_sign_up_mobile');
-      // Get.offAll(() => const SignInSignUpMobile());
-    }
+    // if (isFirstTime.value) {
+    //   prefs.setBool('isFirstTime', false);
+    //   Get.offAllNamed('/app_introduction_slider');
+    // } else {
+    //   Get.offAllNamed('/sign_in_sign_up_mobile');
+    //   // Get.offAll(() => const SignInSignUpMobile());
+    // }
   }
 }
