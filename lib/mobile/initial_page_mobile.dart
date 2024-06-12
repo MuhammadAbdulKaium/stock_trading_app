@@ -16,11 +16,20 @@ class InitialPageMobile extends StatelessWidget {
           // if (initialPageMobileController.isFirstTime.value == null) {
           //   return const CircularProgressIndicator();
           // } else 
-          if (initialPageMobileController.isFirstTime.value) {
-            return const AppIntroductionSlider();
+          if (initialPageMobileController.isLoading.value) {
+            return const CircularProgressIndicator(); // Show loading indicator
           } else {
-            return const SignInSignUpMobile();
+            if (initialPageMobileController.isFirstTime.value) {
+              return const AppIntroductionSlider();
+            } else {
+              return const SignInSignUpMobile();
+            }
           }
+          // if (initialPageMobileController.isFirstTime.value) {
+          //   return const AppIntroductionSlider();
+          // } else {
+          //   return const SignInSignUpMobile();
+          // }
         }),
       ),
     );

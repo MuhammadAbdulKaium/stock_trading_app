@@ -1,20 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:stock_trading_app/controller/login_controller.dart';
-import 'package:stock_trading_app/mobile/sign_in_sign_up/login_form.dart';
 
-
-class SignInSignUpMobile extends StatelessWidget {
-  const SignInSignUpMobile({super.key});
-  
+class ForgetPassword extends StatelessWidget {
+  const ForgetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: true,
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      // ),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -47,9 +39,9 @@ class SignInSignUpMobile extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Flexible(
+                Flexible(
                   flex: 63,
-                  child: LoginForm()
+                  child: Container()
                 ),
               ],
             ),
