@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   shared_preferences: ^2.2.3
+  google_nav_bar: ^5.0.6
   
 
 dev_dependencies:
@@ -109,6 +110,9 @@ flutter:
           weight: 700
         - asset: fonts/Gilroy-Extrabold.ttf
           weight: 800
+    - family: landingicons
+      fonts:
+        - asset: images/icons/landingicons.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

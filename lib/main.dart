@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/login_controller.dart';
 import 'package:stock_trading_app/mobile/app_Introduction_slider.dart';
 import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
-import 'package:stock_trading_app/mobile/landing_mobile.dart';
+import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:stock_trading_app/service/shared_preferences_service.dart';

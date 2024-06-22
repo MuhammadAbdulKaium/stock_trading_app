@@ -73,7 +73,7 @@ class LoginController extends GetxController {
         await prefs.remove('password');
       }
       // Navigate to the home screen or next page
-      Get.toNamed('/landing_mobile');
+      Get.offAllNamed('/landing_mobile');
     } catch (e) {
       // Handle errors (show snackbar, etc.)
       Get.dialog(

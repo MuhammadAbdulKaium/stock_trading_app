@@ -17,6 +17,7 @@ class TextInputField extends StatelessWidget {
   // final String label;
   final Widget? suffix;
   final dynamic controller;
+  final FocusNode? focusNode;
   // final TextEditingController? controller;
   // final Widget prefix;
   final dynamic style;
@@ -29,9 +30,12 @@ class TextInputField extends StatelessWidget {
   final BoxConstraints? suffixIconConstraints;
   final TextStyle? hintStyle;
   final InputBorder? enabledBorder;
+  final int? maxLength;
+  final TextAlign? textAlign;
+  final dynamic onFieldSubmitted;
+  final dynamic onTap;
   const TextInputField(
       {Key? key,
-      // this.controller,
       required this.validator,
       this.keyboardType = TextInputType.text,
       this.obsecure = false,
@@ -48,6 +52,7 @@ class TextInputField extends StatelessWidget {
       this.hintText = '',
       // this.onEditingCompleted,
       this.controller,
+      this.focusNode,
       this.onChanged,
       this.style,
       this.contentPaddingVertical,
@@ -59,6 +64,10 @@ class TextInputField extends StatelessWidget {
       this.suffixIconConstraints,
       this.hintStyle,
       this.enabledBorder,
+      this.maxLength,
+      this.textAlign,
+      this.onFieldSubmitted,
+      this.onTap,
       })
       : super(key: key);
   @override
@@ -66,11 +75,15 @@ class TextInputField extends StatelessWidget {
     return TextFormField(
         onChanged: onChanged,
         controller: controller,
+        focusNode: focusNode,
         // onEditingComplete: onEditingCompleted,
         autofocus: autofocus,
         minLines: isMulti ? 4 : 1,
         maxLines: isMulti ? null : 1,
-        // onTap: onTap,
+        maxLength: maxLength,
+        textAlign: textAlign ?? TextAlign.start,
+        onFieldSubmitted: onFieldSubmitted,
+        onTap: onTap,
         enabled: enabled,
         readOnly: readOnly,
         obscureText: obsecure,
@@ -83,7 +96,7 @@ class TextInputField extends StatelessWidget {
           filled: filled ?? false,
           fillColor: fillColor ?? Colors.white,
           // errorText: errorText,
-          errorStyle: errorStyle ?? const TextStyle(fontSize: 11, fontFamily: 'FontCircularStd',),
+          errorStyle: errorStyle ?? const TextStyle(fontSize: 11, fontFamily: 'Gilroy',),
           // prefixIcon: prefix,
           suffixIcon: suffix,
           suffixIconConstraints: suffixIconConstraints ?? const BoxConstraints(),

@@ -2,29 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
-import 'package:stock_trading_app/common/custom_check_box.dart';
 import 'package:stock_trading_app/common/text_input_field.dart';
-import 'package:stock_trading_app/controller/login_controller.dart';
+import 'package:stock_trading_app/controller/reset_password_controller.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
-import 'package:stock_trading_app/mobile/sign_in_sign_up/authentication_with_social_media.dart';
 
-// final GlobalKey<FormState> _loginFormkey = GlobalKey<FormState>();
-// final LoginController _loginController = Get.put(LoginController());
-final LoginController _loginController = Get.find<LoginController>();
+final ResetPasswordController _resetPasswordController = Get.put(ResetPasswordController());
 final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+class ResetPassword extends StatelessWidget {
+  const ResetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
+    final GlobalKey<FormState> resetPasswordFormkey = GlobalKey<FormState>();
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    
     return Column(
       children: [
         Flexible(
@@ -39,12 +30,12 @@ class LoginForm extends StatelessWidget {
               Flexible(
                 flex: 36,
                 child: Form(
-                  key: loginFormkey,
+                  key: resetPasswordFormkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const Text(
-                        'Login',
+                        'Reset Password',
                         style: TextStyle(
                           fontSize: 30,
                           fontFamily: 'Gilroy',
@@ -53,7 +44,7 @@ class LoginForm extends StatelessWidget {
                         ),
                       ),
                       Flexible(
-                        flex: 3,
+                        flex: 38,
                         child: Container()
                       ),
                       const Row(
@@ -61,7 +52,7 @@ class LoginForm extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 5),
                             child: Text(
-                              'Email',
+                              'Code from Email',
                               style: TextStyle(
                                 fontSize: 15.2,
                                 fontFamily: 'Gilroy',
@@ -72,44 +63,94 @@ class LoginForm extends StatelessWidget {
                           ),
                         ],
                       ),
-                      TextInputField(
-                        controller: TextEditingController(text: _loginController.email.value),
-                        onChanged: _loginController.validateEmail,
-                        keyboardType: TextInputType.emailAddress,
-                        hintText: 'Enter your email here',
-                        hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color(0xFF191414),
-                          fontFamily: 'Gilroy',
-                          fontWeight: FontWeight.w500
-                        ),
-                        errorStyle: const TextStyle(
-                          fontSize: 11, 
-                          fontFamily: 'Gilroy',
-                          height: 0.5, 
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: const Color(0xFFF4FCF7),
-                        contentPaddingVertical: 11,
-                        contentPaddingHorizontal: 10,
-                        validator: (value) {
-                          _loginController.validateEmail;
-                          if (value.trim().isEmpty) {
-                            return 'Email cannot be empty';
-                          } else if (!GetUtils.isEmail(value.trim())) {
-                            return 'Enter a valid email';
+
+                      Obx(() => Flex(
+                        direction: Axis.horizontal,
+                        children: List.generate(9, (index) {
+                          if(index % 2 == 0) {
+                            int fieldIndex = index ~/ 2;
+                            return Expanded(
+                              flex: 12,
+                              child: TextFormField(
+                                controller: _resetPasswordController.codeControllers[fieldIndex],
+                                focusNode: _resetPasswordController.focusNodes[fieldIndex],
+                                keyboardType: TextInputType.number,
+                                maxLength: 1,
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  filled: true,
+                                  fillColor: const Color(0xFFF4FCF7),
+                                  counterText: "",
+                                  errorText: _resetPasswordController.isValidationAttempted.value &&
+                                          !_resetPasswordController.isCodeValid.value
+                                      ? (fieldIndex == 0 ? null : null)
+                                      : null, // Empty string to show error only once
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
+                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
+                                    borderRadius: BorderRadius.all(Radius.circular(7),),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
+                                    borderRadius: BorderRadius.all(Radius.circular(7),),
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  if (value.length == 1 && fieldIndex < 4) {
+                                    _resetPasswordController.focusNodes[fieldIndex + 1].requestFocus();
+                                  } else if (value.isEmpty && fieldIndex > 0) {
+                                    _resetPasswordController.focusNodes[fieldIndex - 1].requestFocus();
+                                  }
+                                  _resetPasswordController.validateCode();
+                                },
+                                onFieldSubmitted: (value) {
+                                  _resetPasswordController.validateCode();
+                                },
+                                onTap: () async {
+                                  final clipboardData =
+                                      await Clipboard.getData('text/plain');
+                                  if (clipboardData?.text != null &&
+                                      clipboardData?.text!.length == 5) {
+                                    _resetPasswordController.handlePaste(clipboardData!.text!);
+                                  }
+                                },
+                              ),
+                            );
+                          } else {
+                            // Spacers between input fields
+                            return const Spacer(flex: 3);
                           }
-                          return null;
-                        },
+                        }),
+                      )),
+
+                      Obx(() => Visibility(
+                          visible: !_resetPasswordController.isCodeValid.value && _resetPasswordController.isValidationAttempted.value,
+                          child: const Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 8.0, left: 11),
+                                child: Text(
+                                  'Invalid Code',
+                                  style: TextStyle(
+                                    fontSize: 10.85, 
+                                    fontFamily: 'Gilroy',
+                                    // height: 0.5, 
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFFB32921)
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ),
                       Flexible(
-                        flex: 4,
+                        flex: 10,
                         child: Container()
                       ),
                       const Row(
@@ -117,7 +158,7 @@ class LoginForm extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 5),
                             child: Text(
-                              'Password',
+                              'New Password',
                               style: TextStyle(
                                 fontSize: 15.2,
                                 fontFamily: 'Gilroy',
@@ -130,10 +171,10 @@ class LoginForm extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          // controller: TextEditingController(text: _loginController.password.value),
-                          onChanged: _loginController.updatePasswordVariable,
+                          // controller: TextEditingController(text: _resetPasswordController.newPassword.value),
+                          onChanged: _resetPasswordController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
-                          hintText: 'Enter your password here',
+                          hintText: 'Enter your new password here',
                           hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
                           style: const TextStyle(
                             fontSize: 15,
@@ -153,20 +194,20 @@ class LoginForm extends StatelessWidget {
                           isDense: true,
                           filled: true,
                           fillColor: const Color(0xFFF4FCF7),
-                          contentPaddingVertical: 11,
+                          contentPaddingVertical: 10,
                           contentPaddingHorizontal: 10,
-                          obsecure: !_loginController.isPasswordVisible.value,
+                          obsecure: !_resetPasswordController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
                               height: 33,
                               width: 33,
                               child: IconButton(
-                                icon: Icon(_loginController.isPasswordVisible.value
+                                icon: Icon(_resetPasswordController.isPasswordVisible.value
                                     ? Icons.visibility_off
                                     : Icons.visibility, size: 17),
                                 onPressed: () {
-                                  _loginController.passwordVisibility();
+                                  _resetPasswordController.passwordVisibility();
                                 },
                               ),
                             ),
@@ -185,44 +226,7 @@ class LoginForm extends StatelessWidget {
                         ),
                       ),
                       Flexible(
-                        flex: 3,
-                        child: Container()
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(
-                            () => CustomCheckBox(
-                              checkBoxLabel: 'Remember me',
-                              isChecked: _loginController.checkedRememberMe.value,
-                              onChanged: (bool? value) {
-                                _loginController.checkedRememberMe.value = !_loginController.checkedRememberMe.value;
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 3),
-                            child: GestureDetector(
-                              onTap: () async {
-                                // Get.toNamed("/forget_password");
-                                _signinSignupNavigationController.navigateTo(1); // Navigate to ForgetPassword
-                              },
-                              child: const Text(
-                                'Forgot password?',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Color(0xFF71717A),
-                                  fontFamily: 'Gilroy',
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      // const SizedBox(height: 29,),
-                      Flexible(
-                        flex: 4,
+                        flex: 19,
                         child: Container()
                       ),
                       SizedBox(
@@ -231,7 +235,7 @@ class LoginForm extends StatelessWidget {
                         child: CommonButton(
                           borderRadius: 8,
                           backgroundColor: const Color(0xFF008037),
-                          child: const Text('Login',
+                          child: const Text('Reset Password',
                             style: TextStyle(
                               fontSize: 17,
                               fontFamily: 'Gilroy',
@@ -239,28 +243,18 @@ class LoginForm extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            if (loginFormkey.currentState!.validate()) {
-                              _loginController.login(_loginController.email.value, _loginController.password.value);
-                  
-                              // Get.offNamed('/landing');
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   const SnackBar(
-                              //     content: Text('Grate!',
-                              //       style: TextStyle(
-                              //         fontSize: 12,
-                              //         color: Color.fromARGB(255, 255, 255, 255),
-                              //         fontFamily: 'FontCircularStd',
-                              //         fontWeight: FontWeight.w400
-                              //       ),
-                              //     ),
-                              //   ),
-                              // );
+                            _resetPasswordController.validationAttempt();
+                            if (resetPasswordFormkey.currentState!.validate()) {
+                              if(_resetPasswordController.isCodeValid.value) {
+                                _resetPasswordController.resetPassword(_resetPasswordController.confirmationCodeByUser, _resetPasswordController.newPassword.value);
+                              }
+                              // _resetPasswordController.resetPassword(_resetPasswordController.confirmationCodeByUser, _resetPasswordController.newPassword.value);
                             }
                           },
                         ),
                       ),
                       Flexible(
-                        flex: 10,
+                        flex: 30,
                         child: Container()
                       ),
                     ],
@@ -279,43 +273,16 @@ class LoginForm extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      height: 0,
-                      thickness: 0.8,
-                      color: Color(0xFFCFCFCF),
-                    ),
-                  )
-                ],
-              ),
               Flexible(
-                flex: 4,
-                child: Container()
-              ),
-              const Text('Or continue with',
-                style: TextStyle(
-                  fontSize: 15.1,
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF008037)
-                ),
-              ),
-              Flexible(
-                flex: 5,
-                child: Container()
-              ),
-              const AuthenticationWithSocialMedia(),
-              Flexible(
-                flex: 9,
+                flex: 13,
                 child: Container()
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const Text(
-                    "Don't have an account? ",
+                    "Remember Password? ",
                     style: TextStyle(
                       fontSize: 13.5,
                       color: Color(0xFF71717A),
@@ -327,10 +294,10 @@ class LoginForm extends StatelessWidget {
                     onTap: () {
                       // signInAndSignUpController.onClose();
                       // signInAndSignUpController.toggleSignInSignUp();
-                      _signinSignupNavigationController.navigateTo(3); // Navigate to SignUp
+                      _signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
                     },
                     child: const Text(
-                      'Sign Up',
+                      'Sign in',
                       style: TextStyle(
                         fontSize: 12.3,
                         color: Color(0xFF008037),
@@ -342,10 +309,9 @@ class LoginForm extends StatelessWidget {
                 ],
               ),
               Flexible(
-                flex: 13,
+                flex: 5,
                 child: Container()
               ),
-              // const SizedBox(height: 10),
             ],
           ),
         ),

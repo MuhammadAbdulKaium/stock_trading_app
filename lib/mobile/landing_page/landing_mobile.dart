@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_trading_app/mobile/landing_page/bottom_navigation_bar.dart';
 
 class LandingMobile extends StatelessWidget {
   const LandingMobile({super.key});
@@ -50,6 +51,7 @@ class LandingMobile extends StatelessWidget {
       //   tooltip: 'Increment',
       //   child: const Icon(Icons.add),
       // ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
