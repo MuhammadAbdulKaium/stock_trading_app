@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
+import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class LoginController extends GetxController {
   final email = ''.obs;
@@ -57,6 +58,7 @@ class LoginController extends GetxController {
   }
 
   // Function to handle login
+  final SharedPreferencesService _sharedPreferences = Get.find<SharedPreferencesService>();
   Future<void> login(String email, String password) async {
     isLoading(true);
     try {
@@ -72,6 +74,9 @@ class LoginController extends GetxController {
         await prefs.remove('email');
         await prefs.remove('password');
       }
+
+      _sharedPreferences.saveString('email', 'makaium33@gmail.com');
+      _sharedPreferences.saveString('username', 'Abdul Kaium');
       // Navigate to the home screen or next page
       Get.offAllNamed('/landing_mobile');
     } catch (e) {
