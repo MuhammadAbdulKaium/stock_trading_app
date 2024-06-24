@@ -11,7 +11,7 @@ class SigninSignupNavigationController extends GetxController {
   final canGoBack = true.obs;
 
   void navigateTo(int index) {
-    print('Navigate To: ${index}');
+    // print('Navigate To: ${index}');
     currentIndex.value = index;
     if (_navigationStack.isNotEmpty) {
       canGoBack.value = false;
@@ -30,11 +30,6 @@ class SigninSignupNavigationController extends GetxController {
   // }
 
   Future<void> onWillPop() async {
-    print('onWillPop invoked');
-
-    print('Backtracked to index: ${currentIndex.value}');
-    print('Navigation stack: $_navigationStack');
-    print('Stack Length: ${_navigationStack.length}');
     if (_navigationStack.isNotEmpty) {
       canGoBack.value = false;
     }
@@ -46,12 +41,8 @@ class SigninSignupNavigationController extends GetxController {
       // if (_navigationStack.length == 1 && _navigationStack.last == 0) {
       //   canGoBack.value = true;
       // }
-      print('Backtracked to index: ${currentIndex.value}');
-      print('Navigation stack: $_navigationStack');
-      print('Stack Length: ${_navigationStack.length}');
     } else {
       // Allow the app to close if there's no page to go back to
-      print('No more pages to pop, exiting');
       // canGoBack.value = true;
       // Get.back();
       // return;
@@ -72,7 +63,6 @@ class SigninSignupNavigationController extends GetxController {
         canGoBack.value = false;
         return const ResetPassword();
       case 3:
-        print('Signup Form...............');
         canGoBack.value = false;
         return const SignupForm();
       default:

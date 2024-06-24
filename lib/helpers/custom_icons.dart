@@ -14,4 +14,13 @@ class CustomIcons {
   static const IconData profileOutline = IconData(0xe007, fontFamily: 'landingicons');
   static const IconData marketplaceFill = IconData(0xe008, fontFamily: 'landingicons');
   static const IconData marketplaceOutline = IconData(0xe009, fontFamily: 'landingicons');
+
+  static const IconData menuIcon = IconData(0xe000, fontFamily: 'menu');
+
+  static const IconData notificationIcon = IconData(0xe000, fontFamily: 'notification');
+
+  static const IconData close1 = IconData(0xe000, fontFamily: 'menuicons');
+  static const IconData close2 = IconData(0xe001, fontFamily: 'menuicons');
+  static const IconData logOut = IconData(0xe002, fontFamily: 'menuicons');
+  static const IconData close3 = IconData(0xe003, fontFamily: 'menuicons');
 }

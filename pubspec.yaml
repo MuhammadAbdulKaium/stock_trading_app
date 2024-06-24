@@ -79,6 +79,7 @@ flutter:
     - images/invest_with_ease/
     - images/profit_and_manage/
     - images/facebook_icon.png
+    - images/blank_profile_picture.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -113,6 +114,15 @@ flutter:
     - family: landingicons
       fonts:
         - asset: images/icons/landingicons.ttf
+    - family: menu
+      fonts:
+        - asset: images/icons/menu.ttf
+    - family: notification
+      fonts:
+        - asset: images/icons/notification.ttf
+    - family: menuicons
+      fonts:
+        - asset: images/icons/menuicons.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
