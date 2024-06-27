@@ -23,4 +23,12 @@ class CustomIcons {
   static const IconData close2 = IconData(0xe001, fontFamily: 'menuicons');
   static const IconData logOut = IconData(0xe002, fontFamily: 'menuicons');
   static const IconData close3 = IconData(0xe003, fontFamily: 'menuicons');
+
+  static const IconData arrowUp = IconData(0xe000, fontFamily: 'homeicons');
+  static const IconData currencyTaka = IconData(0xe001, fontFamily: 'homeicons');
+  static const IconData dollarCircle = IconData(0xe002, fontFamily: 'homeicons');
+  static const IconData information = IconData(0xe003, fontFamily: 'homeicons');
+  static const IconData moneySend = IconData(0xe004, fontFamily: 'homeicons');
+  static const IconData trendUp = IconData(0xe005, fontFamily: 'homeicons');
+  static const IconData wallet = IconData(0xe006, fontFamily: 'homeicons');
 }

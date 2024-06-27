@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
+import 'package:stock_trading_app/mobile/dashboard/dashboard_page.dart';
+import 'package:stock_trading_app/mobile/home/home_page.dart';
 import 'package:stock_trading_app/mobile/landing_page/bottom_navigation_bar.dart';
 import 'package:stock_trading_app/mobile/landing_page/custom_drawer.dart';
+import 'package:stock_trading_app/mobile/marketplace/marketplace_page.dart';
+import 'package:stock_trading_app/mobile/my_investments/my_investments_page.dart';
 
 final LandingPageController landingPageController = Get.put(LandingPageController());
+final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage()];
 final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'Profile', 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification'];
 
 class LandingMobile extends StatelessWidget {
@@ -124,19 +129,17 @@ class LandingMobile extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+
+                SliverToBoxAdapter(
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                      child: page.length > landingPageController.selectedPageIndex.value ? page[landingPageController.selectedPageIndex.value] : Container(),
+                  ),
+                ),
               ],
             ),
-          )
-            // const Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     Text(
-            //       'landing_mobile',
-            //     ),
-            //   ],
-            // ),
-          ),
+          )),
 
           Obx(() {
             return landingPageController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
