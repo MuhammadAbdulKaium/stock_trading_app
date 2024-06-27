@@ -24,7 +24,7 @@ class LandingPageController extends GetxController {
       previousPageIndex.value = selectedPageIndex.value;
       selectedPageIndex.value = index;
 
-      print('Selected Page Index:::: ${selectedPageIndex.value}');
+      // print('Selected Page Index:::: ${selectedPageIndex.value}');
       // scrollController.addListener(() {
       //   scrollPosition.value = scrollController.offset;
       //   pageScrollPositionHistoryStack[selectedPageIndex.value] = scrollController.offset;

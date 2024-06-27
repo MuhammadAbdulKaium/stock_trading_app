@@ -37,6 +37,8 @@ dependencies:
   get: ^4.6.6
   shared_preferences: ^2.2.3
   google_nav_bar: ^5.0.6
+  intl: ^0.19.0
+  smooth_page_indicator: ^1.1.0
   
 
 dev_dependencies:
@@ -80,6 +82,7 @@ flutter:
     - images/profit_and_manage/
     - images/facebook_icon.png
     - images/blank_profile_picture.jpg
+    - images/welcome_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -123,6 +126,9 @@ flutter:
     - family: menuicons
       fonts:
         - asset: images/icons/menuicons.ttf
+    - family: homeicons
+      fonts:
+        - asset: images/icons/homeicons.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
