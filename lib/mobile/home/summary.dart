@@ -1,5 +1,6 @@
   // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
@@ -12,6 +13,8 @@ class Summary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -20,15 +23,15 @@ class Summary extends StatelessWidget {
               flex: 5,
               child: Container()
             ),
-            const Expanded(
+            Expanded(
               flex: 100,
               child: Text(
                 'Summary',
                 style: TextStyle(
-                  fontSize: 18.5,
+                  fontSize: 17.25.sp,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF1D192B),
+                  color: const Color(0xFF1D192B),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -39,7 +42,7 @@ class Summary extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 18,),
+        SizedBox(height: screenHeight * 0.0190,),
         Row(
           children: [
             Expanded(
@@ -83,29 +86,29 @@ class Summary extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               CustomIcons.dollarCircle,
-                              color: Color(0xFF008037),
-                              size: 42,
+                              color: const Color(0xFF008037),
+                              size: screenWidth * 0.1010,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: 9.13, bottom: 3),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9.13, bottom: 3),
                               child: Text("Active Investments",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFFA1A1AA),
+                                  color: const Color(0xFFA1A1AA),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
                             Text(NumberFormat.decimalPattern().format(homePageController.activeInvestments.value).length == 1 ? '0${NumberFormat.decimalPattern().format(homePageController.activeInvestments.value)}' : NumberFormat.decimalPattern().format(homePageController.activeInvestments.value),
-                              style: const TextStyle(
-                                fontSize: 25,
+                              style: TextStyle(
+                                fontSize: 22.3.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF08602E),
+                                color: const Color(0xFF08602E),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -120,29 +123,29 @@ class Summary extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               CustomIcons.information,
-                              color: Color(0xFF008037),
-                              size: 42,
+                              color: const Color(0xFF008037),
+                              size: screenWidth * 0.1010,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: 9.13, bottom: 3),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9.13, bottom: 3),
                               child: Text("Action Required",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFFA1A1AA),
+                                  color: const Color(0xFFA1A1AA),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
                             Text(NumberFormat.decimalPattern().format(homePageController.actionRequired.value).length == 1 ? '0${NumberFormat.decimalPattern().format(homePageController.actionRequired.value)}' : NumberFormat.decimalPattern().format(homePageController.actionRequired.value),
-                              style: const TextStyle(
-                                fontSize: 25,
+                              style: TextStyle(
+                                fontSize: 22.3.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF08602E),
+                                color: const Color(0xFF08602E),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -157,29 +160,29 @@ class Summary extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               CustomIcons.moneySend,
-                              color: Color(0xFF008037),
-                              size: 42,
+                              color: const Color(0xFF008037),
+                              size: screenWidth * 0.1010,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: 9.13, bottom: 3),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9.13, bottom: 3),
                               child: Text("Currently Invested",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFFA1A1AA),
+                                  color: const Color(0xFFA1A1AA),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
                             Text('${NumberFormat.decimalPattern().format(homePageController.currentlyInvested.value)} TK',
-                              style: const TextStyle(
-                                fontSize: 25,
+                              style: TextStyle(
+                                fontSize: 22.3.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF08602E),
+                                color: const Color(0xFF08602E),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -194,29 +197,29 @@ class Summary extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               CustomIcons.wallet,
-                              color: Color(0xFF008037),
-                              size: 42,
+                              color: const Color(0xFF008037),
+                              size: screenWidth * 0.1010,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: 9.13, bottom: 3),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9.13, bottom: 3),
                               child: Text("Withdrawable",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFFA1A1AA),
+                                  color: const Color(0xFFA1A1AA),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
                             Text('${NumberFormat.decimalPattern().format(homePageController.withdrawable.value)} TK',
-                              style: const TextStyle(
-                                fontSize: 25,
+                              style: TextStyle(
+                                fontSize: 22.3.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF08602E),
+                                color: const Color(0xFF08602E),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -231,29 +234,29 @@ class Summary extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               CustomIcons.trendUp,
-                              color: Color(0xFF008037),
-                              size: 42,
+                              color: const Color(0xFF008037),
+                              size: screenWidth * 0.1010,
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: 9.13, bottom: 3),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 9.13, bottom: 3),
                               child: Text("Current Profit",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 13.sp,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xFFA1A1AA),
+                                  color: const Color(0xFFA1A1AA),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ),
                             Text('${NumberFormat.decimalPattern().format(homePageController.currentProfit.value)} TK',
-                              style: const TextStyle(
-                                fontSize: 25,
+                              style: TextStyle(
+                                fontSize: 22.3.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF08602E),
+                                color: const Color(0xFF08602E),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

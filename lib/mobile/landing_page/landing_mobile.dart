@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
@@ -19,6 +20,8 @@ class LandingMobile extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -45,10 +48,9 @@ class LandingMobile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                          padding: const EdgeInsets.only(left: 5, right: 5, top: 18, bottom: 18),
+                          padding: EdgeInsets.only(left: screenWidth * 0.013, right: screenWidth * 0.013, top: screenHeight * 0.020, bottom: screenHeight * 0.020),
                           margin: const EdgeInsets.only(top: 0, left: 0, right: 0),
                           decoration: const BoxDecoration(
-                            // borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                           ),
                           child: Row(
@@ -56,7 +58,7 @@ class LandingMobile extends StatelessWidget {
                               Expanded(
                                 flex: 3,
                                 child: Builder(builder: (context) => Padding(
-                                    padding: const EdgeInsets.only(top: 8, left: 0),
+                                    padding: EdgeInsets.only(top: screenHeight * 0.0088888, left: 0),
                                     child: Row(
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
@@ -67,12 +69,12 @@ class LandingMobile extends StatelessWidget {
                                         Expanded(
                                           flex: 3,
                                           child: GestureDetector(
-                                            child: const SizedBox(
-                                              height: 27,
-                                              width: 27,
+                                            child: SizedBox(
+                                              height: screenWidth * 0.0702,
+                                              width: screenWidth * 0.0702,
                                               child: Icon(
                                                 CustomIcons.menuIcon,
-                                                size: 45,
+                                                size: screenWidth * 0.110,
                                               ),
                                             ),
                                             onTap: () {
@@ -93,30 +95,30 @@ class LandingMobile extends StatelessWidget {
                                   alignment: Alignment.center,
                                   child: Obx(() => Text(
                                       pageTitle.length > landingPageController.selectedPageIndex.value ? pageTitle[landingPageController.selectedPageIndex.value] : '',
-                                      style: const TextStyle(
-                                        fontSize: 24,
+                                      style: TextStyle(
+                                        fontSize: 21.sp,
                                         fontFamily: 'Gilroy',
                                         fontWeight: FontWeight.w700,
-                                        color: Color(0xFF1D192B),
+                                        color: const Color(0xFF1D192B),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ),
                                 )
                               ),
-                              const Expanded(
+                              Expanded(
                                 flex: 3,
                                 child: Row(
                                   children: [
                                     CircleAvatar(
-                                      radius: 22,
-                                      backgroundColor: Color(0xFFF4FCF7),
+                                      radius: screenWidth * 0.0520,
+                                      backgroundColor: const Color(0xFFF4FCF7),
                                       // backgroundImage: AssetImage('images/blank_profile_picture.jpg'),
                                       child: Center(
                                         child: Icon(
                                           CustomIcons.notificationIcon,
-                                          size: 27.5,
-                                          color: Color(0xFF008037),
+                                          size: screenWidth * 0.065,
+                                          color: const Color(0xFF008037),
                                         ),
                                       ),
                                     ),
@@ -161,17 +163,3 @@ class LandingMobile extends StatelessWidget {
     );
   }
 }
-
-
-
-
-// Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text(
-//               'landing_mobile',
-//             ),
-//           ],
-//         ),
-//       ),

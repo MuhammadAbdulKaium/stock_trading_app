@@ -32,7 +32,9 @@ class HomePageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _startAutoSlide();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startAutoSlide();
+    });
 
     activeCropsToBuy.assignAll([
       Product(productId: '1', productName: 'Aman Rice', productCategory: 'rice', productStatus: 'Active', conversionPercentage: '+5', purchasePrice: 1000, sellingPrice: 1000, monthlyStorageCost: 1000),
@@ -52,13 +54,15 @@ class HomePageController extends GetxController {
 
   void _startAutoSlide() {
     _timer = Timer.periodic(const Duration(milliseconds: 5000), (timer) {
-      final currentPage = (pageController.page ?? 0).toInt();
-      final nextPage = (currentPage + 1) % _numberOfPages; // Assuming 5 pages
-      pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 500), // Adjust animation duration
-        curve: Curves.easeInOut,
-      );
+      if (pageController.hasClients) {
+        final currentPage = (pageController.page ?? 0).toInt();
+        final nextPage = (currentPage + 1) % _numberOfPages;
+        pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 500), // Adjust animation duration
+          curve: Curves.easeInOut,
+        );
+      }
     });
   }
 }

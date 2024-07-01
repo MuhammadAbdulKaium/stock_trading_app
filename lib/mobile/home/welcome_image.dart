@@ -16,14 +16,12 @@ class WelcomeImage extends StatelessWidget {
           flex: 100,
           child: Container(
             decoration: BoxDecoration(
-              // color: Colors.blue,
               borderRadius: BorderRadius.circular(10),
             ),
             constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
             child: Image.asset(
               'images/welcome_image.png',
               fit: BoxFit.cover,
-              // height: 74,
             ),
           ),
         ),
