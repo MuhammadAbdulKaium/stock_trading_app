@@ -13,22 +13,24 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    // double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Column(
       children: [
-        SizedBox(height: 13,),
-        WelcomeMessage(),
-        SizedBox(height: 35,),
-        WelcomeImage(),
-        SizedBox(height: 45,),
-        Summary(),
-        SizedBox(height: 45,),
-        ProductCategories(),
-        SizedBox(height: 50,),
-        LearnAsYouGo(),
-        SizedBox(height: 55,),
-        ActiveCropsToBuy(),
-        SizedBox(height: 20,),
-        BestOffers(),
+        SizedBox(height: screenHeight * 0.0166666,),
+        const WelcomeMessage(),
+        SizedBox(height: screenHeight * 0.0448718,),
+        const WelcomeImage(),
+        SizedBox(height: screenHeight * 0.0515,),
+        const Summary(),
+        SizedBox(height: screenHeight * 0.0510,),
+        const ProductCategories(),
+        SizedBox(height: screenHeight * 0.0540,),
+        const LearnAsYouGo(),
+        SizedBox(height: screenHeight * 0.0585,),
+        const ActiveCropsToBuy(),
+        SizedBox(height: screenHeight * 0.0140,),
+        const BestOffers(),
       ],
     );
   }

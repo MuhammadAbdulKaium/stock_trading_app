@@ -31,4 +31,10 @@ class CustomIcons {
   static const IconData moneySend = IconData(0xe004, fontFamily: 'homeicons');
   static const IconData trendUp = IconData(0xe005, fontFamily: 'homeicons');
   static const IconData wallet = IconData(0xe006, fontFamily: 'homeicons');
+
+  static const IconData filterSquare = IconData(0xe000, fontFamily: 'marketplaceicons');
+
+  static const IconData setting2 = IconData(0xe000, fontFamily: 'myinvestmentsicons');
+  static const IconData timer = IconData(0xe001, fontFamily: 'myinvestmentsicons');
+  static const IconData verify = IconData(0xe002, fontFamily: 'myinvestmentsicons');
 }

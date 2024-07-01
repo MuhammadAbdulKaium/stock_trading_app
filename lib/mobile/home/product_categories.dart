@@ -1,11 +1,14 @@
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductCategories extends StatelessWidget {
   const ProductCategories({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -14,15 +17,15 @@ class ProductCategories extends StatelessWidget {
               flex: 5,
               child: Container()
             ),
-            const Expanded(
+            Expanded(
               flex: 100,
               child: Text(
                 'Agri-Product Categories',
                 style: TextStyle(
-                  fontSize: 18.5,
+                  fontSize: 17.25.sp,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF1D192B),
+                  color: const Color(0xFF1D192B),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -33,7 +36,7 @@ class ProductCategories extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 18,),
+        SizedBox(height: screenHeight * 0.0190,),
         Row(
           children: [
             Expanded(
@@ -52,8 +55,8 @@ class ProductCategories extends StatelessWidget {
                   primary: false,
                   childAspectRatio: 0.80,
                   padding: const EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0),
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
+                  crossAxisSpacing: screenWidth * 0.0550,
+                  mainAxisSpacing: screenWidth * 0.0500,
                   crossAxisCount: 3,
                   children: <Widget>[
                     Center(
@@ -69,25 +72,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/grain.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Grain',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -108,25 +111,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/jute.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Jute',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -147,25 +150,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/fruit.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Fruit',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -186,25 +189,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/tea.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Tea',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -225,25 +228,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/vegetable.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Vegetable',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -264,25 +267,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/spices.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Spices',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -303,25 +306,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/textiles.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Textiles',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -342,25 +345,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/agriculture.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Agriculture',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -381,25 +384,25 @@ class ProductCategories extends StatelessWidget {
                               ),
                               child: Center(
                                 child: SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                  height: screenWidth * 0.1390,
+                                  width: screenWidth * 0.1390,
                                   child: Image.asset(
                                     'images/others.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    // height: 74,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                             flex: 20,
                             child: Text('Others',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF52525B),
+                                color: const Color(0xFF52525B),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

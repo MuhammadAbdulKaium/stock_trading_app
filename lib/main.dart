@@ -11,6 +11,7 @@ import 'package:stock_trading_app/mobile/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:stock_trading_app/service/shared_preferences_service.dart';
 import 'package:stock_trading_app/web/landing_web.dart';
 import 'package:stock_trading_app/web/sign_in_sign_up/sign_in_sign_up.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final LoginController loginController = Get.put(LoginController());
 
@@ -42,30 +43,37 @@ class MyApp extends StatelessWidget {
       ]
     );
 
-    return FutureBuilder(
-      future: loginController.loadCredentials(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else {
-          return GetMaterialApp(
-            debugShowCheckedModeBanner: false, // This removes the debug banner
+    return ScreenUtilInit(
+      designSize: const Size(360, 780), // Set the design size (based on your design)
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return FutureBuilder(
+          future: loginController.loadCredentials(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false, // This removes the debug banner
 
-            // initialRoute: '/sign_in_sign_up_mobile',
-            initialRoute: getInitialRoute(),
+                // initialRoute: '/sign_in_sign_up_mobile',
+                initialRoute: getInitialRoute(),
 
-            getPages: [
-              GetPage(name: '/app_introduction_slider', page: () => const AppIntroductionSlider()),
-              // GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.cupertino),
-              GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.native),
-              GetPage(name: '/landing_mobile', page: () => const LandingMobile()),
-              GetPage(name: '/initial_page_mobile', page: () => const InitialPageMobile()),
-              GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
-              GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
-              GetPage(name: '/landing_web', page: () => const LandingWeb()),
-            ],
-          );
-        }
+                getPages: [
+                  GetPage(name: '/app_introduction_slider', page: () => const AppIntroductionSlider()),
+                  // GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.cupertino),
+                  GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.native),
+                  GetPage(name: '/landing_mobile', page: () => const LandingMobile()),
+                  GetPage(name: '/initial_page_mobile', page: () => const InitialPageMobile()),
+                  GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
+                  GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
+                  GetPage(name: '/landing_web', page: () => const LandingWeb()),
+                ],
+              );
+            }
+          }
+        );
       }
     );
   }

@@ -1,5 +1,6 @@
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
@@ -11,8 +12,8 @@ class LearnAsYouGo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final PageController pageController = PageController(viewportFraction: 0.5, initialPage: 1,);
-    // final cardWidth = MediaQuery.of(context).size.width / 2;
+    // double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -21,15 +22,15 @@ class LearnAsYouGo extends StatelessWidget {
               flex: 5,
               child: Container()
             ),
-            const Expanded(
+            Expanded(
               flex: 100,
               child: Text(
                 'Learn as you go',
                 style: TextStyle(
-                  fontSize: 18.5,
+                  fontSize: 17.25.sp,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF1D192B),
+                  color: const Color(0xFF1D192B),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -40,9 +41,9 @@ class LearnAsYouGo extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 18,),
+        SizedBox(height: screenHeight * 0.0190,),
         SizedBox( // <-- Added SizedBox to constrain PageView's height
-          height: 180,  // <-- Adjust this height as needed
+          height: screenHeight * 0.2095,  // <-- Adjust this height as needed
           child: Column(
             children: [
               Expanded(
@@ -56,7 +57,7 @@ class LearnAsYouGo extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10,),
+              SizedBox(height: screenHeight * 0.0150,),
               SmoothPageIndicator(
                 controller: homePageController.pageController,
                 count: 4, // Number of cards
@@ -93,7 +94,7 @@ class LearnAsYouGo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Flexible(
-                flex: 65,
+                flex: 63,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8.0),
@@ -102,12 +103,11 @@ class LearnAsYouGo extends StatelessWidget {
                   child: Image.asset(
                     imagePath,
                     fit: BoxFit.cover,
-                    // height: 74,
                   ),
                 ),
               ),
               Flexible(
-                flex: 35,
+                flex: 37,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10),
                   child: Column(
@@ -115,20 +115,20 @@ class LearnAsYouGo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(title,
-                        style: const TextStyle(
-                          fontSize: 13,
+                        style: TextStyle(
+                          fontSize: 11.65.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF008037),
+                          color: const Color(0xFF008037),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text(description,
-                        style: const TextStyle(
-                          fontSize: 11,
+                        style: TextStyle(
+                          fontSize: 9.9.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF1D192B),
+                          color: const Color(0xFF1D192B),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

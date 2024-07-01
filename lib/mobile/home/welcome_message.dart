@@ -1,5 +1,6 @@
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
@@ -12,6 +13,8 @@ class WelcomeMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Row(
       children: [
         Expanded(
@@ -22,37 +25,38 @@ class WelcomeMessage extends StatelessWidget {
           flex: 100,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Obx(() => Text(
                     'Hello, ${homePageController.extractFirstName(landingPageController.userName.value)}',
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: 14.5.sp,
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFF1D192B),
+                      color: const Color(0xFF1D192B),
                       overflow: TextOverflow.ellipsis,
                     ),
                   )),
-                  const SizedBox(height: 5,),
-                  const Text(
+                  SizedBox(height: screenHeight * 0.006410,),
+                  Text(
                     'What do you want to do?',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14.5.sp,
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFFA1A1AA),
+                      color: const Color(0xFFA1A1AA),
                       overflow: TextOverflow.ellipsis,
                     ),
                   )
                 ],
               ),
-              const CircleAvatar(
-                radius: 21,
+              CircleAvatar(
+                radius: screenWidth * 0.0540,
                 backgroundColor: Colors.white,
-                backgroundImage: AssetImage('images/blank_profile_picture.jpg'),
+                backgroundImage: const AssetImage('images/blank_profile_picture.jpg'),
               ),
             ],
           ),

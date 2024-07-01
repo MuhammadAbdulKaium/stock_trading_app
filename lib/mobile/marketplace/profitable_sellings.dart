@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
-import 'package:stock_trading_app/controller/home_page_controller.dart';
+import 'package:stock_trading_app/controller/marketplace_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final HomePageController homePageController = Get.put(HomePageController());
+final MarketplaceController marketplaceController = Get.put(MarketplaceController());
 
-class ActiveCropsToBuy extends StatelessWidget {
-  const ActiveCropsToBuy({super.key});
+class ProfitableSellings extends StatelessWidget {
+  const ProfitableSellings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ActiveCropsToBuy extends StatelessWidget {
             Expanded(
               flex: 100,
               child: Text(
-                'Active Crops To Buy',
+                'Profitable Sellings',
                 style: TextStyle(
                   fontSize: 17.25.sp,
                   fontFamily: 'Gilroy',
@@ -51,7 +51,7 @@ class ActiveCropsToBuy extends StatelessWidget {
             Expanded(
               flex: 100,
               child: Obx(() => Column(
-                children: homePageController.activeCropsToBuy.map((activeCrop) => 
+                children: marketplaceController.profitableSellings.map((profitableSell) => 
                 Container(
                   margin: EdgeInsets.only(bottom: screenHeight * 0.0337,),
                   padding: EdgeInsets.only(top: screenHeight * 0.017000, bottom: screenHeight * 0.02500,),
@@ -95,7 +95,7 @@ class ActiveCropsToBuy extends StatelessWidget {
                                         child: Center(
                                           child: SizedBox(
                                             height: screenHeight * 0.0382,
-                                            child: decideImageToShow(activeCrop.productCategory!),
+                                            child: decideImageToShow(profitableSell.productCategory!),
                                           ),
                                         ),
                                       ),
@@ -104,7 +104,7 @@ class ActiveCropsToBuy extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            activeCrop.productName!,
+                                            profitableSell.productName!,
                                             style: TextStyle(
                                               fontSize: 16.5.sp,
                                               fontFamily: 'Gilroy',
@@ -119,7 +119,7 @@ class ActiveCropsToBuy extends StatelessWidget {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                '${activeCrop.conversionPercentage!}%',
+                                                '${profitableSell.conversionPercentage!}%',
                                                 style: TextStyle(
                                                   fontSize: 11.015625.sp,
                                                   fontFamily: 'Gilroy',
@@ -142,15 +142,15 @@ class ActiveCropsToBuy extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0102857, vertical: screenHeight * 0.00214),
-                                  margin: EdgeInsets.only(top: screenHeight * 0.0034285),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2.5),
+                                  margin: const EdgeInsets.only(top: 4),
                                   // color: const Color(0xFFDFFFEB),
                                   decoration: BoxDecoration(
                                     color: const Color(0xFFDFFFEB),
                                     borderRadius: BorderRadius.circular(27),
                                   ),
                                   child: Text(
-                                    activeCrop.productStatus!,
+                                    profitableSell.productStatus!,
                                     style: TextStyle(
                                       fontSize: 11.5.sp,
                                       fontFamily: 'Gilroy',
@@ -201,7 +201,7 @@ class ActiveCropsToBuy extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          activeCrop.purchasePrice?.toString() ?? '',
+                                          profitableSell.purchasePrice?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -255,7 +255,7 @@ class ActiveCropsToBuy extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          activeCrop.sellingPrice?.toString() ?? '',
+                                          profitableSell.sellingPrice?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -309,7 +309,7 @@ class ActiveCropsToBuy extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          activeCrop.monthlyStorageCost?.toString() ?? '',
+                                          profitableSell.monthlyStorageCost?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -343,17 +343,16 @@ class ActiveCropsToBuy extends StatelessWidget {
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width: screenWidth * 0.190,
+                                  width: screenWidth * 0.170,
                                   height: screenHeight * 0.040,
                                   child: CommonButton(
                                     borderRadius: 8,
                                     backgroundColor: const Color(0xFF008037),
-                                    child: Text('Invest',
+                                    child: Text('Sell',
                                       style: TextStyle(
                                         fontSize: 13.5.sp,
                                         fontFamily: 'Gilroy',
-                                        fontWeight: FontWeight.w600,
-                                        overflow: TextOverflow.ellipsis,
+                                        fontWeight: FontWeight.w600
                                       ),
                                     ),
                                     onPressed: () {},

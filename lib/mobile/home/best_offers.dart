@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
@@ -11,6 +12,8 @@ class BestOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -38,7 +41,7 @@ class BestOffers extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 18,),
+        SizedBox(height: screenHeight * 0.0190,),
         Row(
           children: [
             Expanded(
@@ -50,8 +53,8 @@ class BestOffers extends StatelessWidget {
               child: Obx(() => Column(
                 children: homePageController.bestOffers.map((bestOffer) => 
                 Container(
-                  margin: const EdgeInsets.only(bottom: 25),
-                  padding: const EdgeInsets.only(top: 13, bottom: 20),
+                  margin: EdgeInsets.only(bottom: screenHeight * 0.0337,),
+                  padding: EdgeInsets.only(top: screenHeight * 0.017000, bottom: screenHeight * 0.02500,),
                   decoration: BoxDecoration(
                     color: Colors.white, // Background color of the container
                     borderRadius: BorderRadius.circular(8), // Rounded corners
@@ -87,12 +90,11 @@ class BestOffers extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       CircleAvatar(
-                                        radius: 29,
+                                        radius: screenHeight * 0.034,
                                         backgroundColor: const Color(0xFFF4FCF7),
                                         child: Center(
                                           child: SizedBox(
-                                            height: 33,
-                                            // width: 32,
+                                            height: screenHeight * 0.0382,
                                             child: decideImageToShow(bestOffer.productCategory!),
                                           ),
                                         ),
@@ -103,31 +105,33 @@ class BestOffers extends StatelessWidget {
                                         children: [
                                           Text(
                                             bestOffer.productName!,
-                                            style: const TextStyle(
-                                              fontSize: 17.6,
+                                            style: TextStyle(
+                                              fontSize: 16.5.sp,
                                               fontFamily: 'Gilroy',
                                               fontWeight: FontWeight.w500,
-                                              color: Color(0xFF1D192B),
+                                              color: const Color(0xFF1D192B),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                          const SizedBox(height: 3.5,),
+                                          SizedBox(height: screenHeight * 0.0030,),
                                           Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
                                                 '${bestOffer.conversionPercentage!}%',
-                                                style: const TextStyle(
-                                                  fontSize: 11.75,
+                                                style: TextStyle(
+                                                  fontSize: 11.015625.sp,
                                                   fontFamily: 'Gilroy',
                                                   fontWeight: FontWeight.w600,
-                                                  color: Color(0xFF008037),
+                                                  color: const Color(0xFF008037),
                                                   overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              const Icon(
+                                              Icon(
                                                 CustomIcons.arrowUp,
-                                                color: Color(0xFF008037),
-                                                size: 14.1,
+                                                color: const Color(0xFF008037),
+                                                size: screenHeight * 0.018,
                                               ),
                                             ],
                                           )
@@ -138,8 +142,8 @@ class BestOffers extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2.5),
-                                  margin: const EdgeInsets.only(top: 4),
+                                  padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.0102857, vertical: screenHeight * 0.00214),
+                                  margin: EdgeInsets.only(top: screenHeight * 0.0034285),
                                   // color: const Color(0xFFDFFFEB),
                                   decoration: BoxDecoration(
                                     color: const Color(0xFFDFFFEB),
@@ -147,11 +151,11 @@ class BestOffers extends StatelessWidget {
                                   ),
                                   child: Text(
                                     bestOffer.productStatus!,
-                                    style: const TextStyle(
-                                      fontSize: 13,
+                                    style: TextStyle(
+                                      fontSize: 11.5.sp,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xFF008037),
+                                      color: const Color(0xFF008037),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -165,7 +169,7 @@ class BestOffers extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15,),
+                      SizedBox(height: screenHeight * 0.015833,),
                       Row(
                         children: [
                           Expanded(
@@ -179,30 +183,30 @@ class BestOffers extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Purchase price (Per MT) :',
                                       style: TextStyle(
-                                        fontSize: 13.5,
+                                        fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
                                         fontWeight: FontWeight.w600,
-                                        color: Color(0xFF1D192B),
+                                        color: const Color(0xFF1D192B),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     Row(
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           CustomIcons.currencyTaka,
-                                          color: Color(0xFF1D192B),
-                                          size: 14.1,
+                                          color: const Color(0xFF1D192B),
+                                          size: screenHeight * 0.0155,
                                         ),
                                         Text(
                                           bestOffer.purchasePrice?.toString() ?? '',
-                                          style: const TextStyle(
-                                            fontSize: 13.5,
+                                          style: TextStyle(
+                                            fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
                                             fontWeight: FontWeight.w600,
-                                            color: Color(0xFF1D192B),
+                                            color: const Color(0xFF1D192B),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -219,7 +223,7 @@ class BestOffers extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15,),
+                      SizedBox(height:  screenHeight * 0.015833,),
                       Row(
                         children: [
                           Expanded(
@@ -233,30 +237,30 @@ class BestOffers extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Selling price (Per MT) :',
                                       style: TextStyle(
-                                        fontSize: 13.5,
+                                        fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
                                         fontWeight: FontWeight.w600,
-                                        color: Color(0xFF1D192B),
+                                        color: const Color(0xFF1D192B),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     Row(
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           CustomIcons.currencyTaka,
-                                          color: Color(0xFF1D192B),
-                                          size: 14.1,
+                                          color: const Color(0xFF1D192B),
+                                          size: screenHeight * 0.0155,
                                         ),
                                         Text(
                                           bestOffer.sellingPrice?.toString() ?? '',
-                                          style: const TextStyle(
-                                            fontSize: 13.5,
+                                          style: TextStyle(
+                                            fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
                                             fontWeight: FontWeight.w600,
-                                            color: Color(0xFF1D192B),
+                                            color: const Color(0xFF1D192B),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -273,7 +277,7 @@ class BestOffers extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 15,),
+                      SizedBox(height:  screenHeight * 0.015833,),
                       Row(
                         children: [
                           Expanded(
@@ -287,30 +291,30 @@ class BestOffers extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Monthly storage cost (Per MT) :',
                                       style: TextStyle(
-                                        fontSize: 13.5,
+                                        fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
                                         fontWeight: FontWeight.w600,
-                                        color: Color(0xFF1D192B),
+                                        color: const Color(0xFF1D192B),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     Row(
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           CustomIcons.currencyTaka,
-                                          color: Color(0xFF1D192B),
-                                          size: 14.1,
+                                          color: const Color(0xFF1D192B),
+                                          size: screenHeight * 0.0155,
                                         ),
                                         Text(
                                           bestOffer.monthlyStorageCost?.toString() ?? '',
-                                          style: const TextStyle(
-                                            fontSize: 13.5,
+                                          style: TextStyle(
+                                            fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
                                             fontWeight: FontWeight.w600,
-                                            color: Color(0xFF1D192B),
+                                            color: const Color(0xFF1D192B),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -327,7 +331,7 @@ class BestOffers extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 25,),
+                      SizedBox(height: screenHeight * 0.0315,),
                       Row(
                         children: [
                           Expanded(
@@ -339,16 +343,17 @@ class BestOffers extends StatelessWidget {
                             child: Row(
                               children: [
                                 SizedBox(
-                                  width: 78,
-                                  height: 35,
+                                  width: screenWidth * 0.190,
+                                  height: screenHeight * 0.040,
                                   child: CommonButton(
                                     borderRadius: 8,
                                     backgroundColor: const Color(0xFF008037),
-                                    child: const Text('Invest',
+                                    child: Text('Invest',
                                       style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 13.5.sp,
                                         fontFamily: 'Gilroy',
-                                        fontWeight: FontWeight.w600
+                                        fontWeight: FontWeight.w600,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     onPressed: () {},
