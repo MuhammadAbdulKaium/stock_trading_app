@@ -74,14 +74,16 @@ class MyInvestmentSummary extends StatelessWidget {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          myInvestmentsController.pendingInvestment.value,
-                                          style: TextStyle(
-                                            fontSize: 34.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w700,
-                                            color: const Color(0xFF1D192B),
-                                            overflow: TextOverflow.ellipsis,
+                                        Obx(() => 
+                                          Text(
+                                            myInvestmentsController.pendingInvestment.value,
+                                            style: TextStyle(
+                                              fontSize: 34.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xFF1D192B),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -153,14 +155,16 @@ class MyInvestmentSummary extends StatelessWidget {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          myInvestmentsController.activeInvestment.value,
-                                          style: TextStyle(
-                                            fontSize: 34.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w700,
-                                            color: const Color(0xFF1D192B),
-                                            overflow: TextOverflow.ellipsis,
+                                        Obx(() => 
+                                          Text(
+                                            myInvestmentsController.activeInvestment.value,
+                                            style: TextStyle(
+                                              fontSize: 34.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xFF1D192B),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -232,14 +236,16 @@ class MyInvestmentSummary extends StatelessWidget {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          myInvestmentsController.actionRequired.value,
-                                          style: TextStyle(
-                                            fontSize: 34.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w700,
-                                            color: const Color(0xFF1D192B),
-                                            overflow: TextOverflow.ellipsis,
+                                        Obx(() => 
+                                          Text(
+                                            myInvestmentsController.actionRequired.value,
+                                            style: TextStyle(
+                                              fontSize: 34.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xFF1D192B),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -311,16 +317,33 @@ class MyInvestmentSummary extends StatelessWidget {
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          '\$${myInvestmentsController.readyForCashout.value}',
-                                          style: TextStyle(
-                                            fontSize: 34.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w700,
-                                            color: const Color(0xFF1D192B),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '৳',
+                                              style: TextStyle(
+                                                fontSize: 34.sp,
+                                                fontFamily: 'Gilroy',
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xFF1D192B),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            Obx(() => 
+                                              Text(
+                                                myInvestmentsController.readyForCashout.value,
+                                                style: TextStyle(
+                                                  fontSize: 34.sp,
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w700,
+                                                  color: const Color(0xFF1D192B),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ),

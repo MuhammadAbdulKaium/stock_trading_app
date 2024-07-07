@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LandingPageController extends GetxController {
   var isLoading = false.obs;
   final selectedPageIndex = 0.obs;
+  final bottomNavigationPageIndex = 0.obs;
   final previousPageIndex = 0.obs;
   final canGoBack = true.obs;
   final isBanglaActive = false.obs;
@@ -23,6 +24,10 @@ class LandingPageController extends GetxController {
     if(selectedPageIndex.value != index) {
       previousPageIndex.value = selectedPageIndex.value;
       selectedPageIndex.value = index;
+
+      if(index <= 4) {
+        bottomNavigationPageIndex.value = index;
+      }
 
       // print('Selected Page Index:::: ${selectedPageIndex.value}');
       // scrollController.addListener(() {

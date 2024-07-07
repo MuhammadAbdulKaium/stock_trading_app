@@ -37,4 +37,12 @@ class CustomIcons {
   static const IconData setting2 = IconData(0xe000, fontFamily: 'myinvestmentsicons');
   static const IconData timer = IconData(0xe001, fontFamily: 'myinvestmentsicons');
   static const IconData verify = IconData(0xe002, fontFamily: 'myinvestmentsicons');
+
+  static const IconData donate = IconData(0xe000, fontFamily: 'dashboard-icons');
+  static const IconData dotsThreeOutline = IconData(0xe001, fontFamily: 'dashboard-icons');
+  static const IconData healthiconsMoneyBag = IconData(0xe002, fontFamily: 'dashboard-icons');
+
+  static const IconData backArrow1 = IconData(0xe000, fontFamily: 'arrow-icons');
+  static const IconData backArrow2 = IconData(0xe001, fontFamily: 'arrow-icons');
+  static const IconData backArrow3 = IconData(0xe002, fontFamily: 'arrow-icons');
 }

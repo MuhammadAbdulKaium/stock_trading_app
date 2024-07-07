@@ -103,15 +103,17 @@ class Summary extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(NumberFormat.decimalPattern().format(homePageController.activeInvestments.value).length == 1 ? '0${NumberFormat.decimalPattern().format(homePageController.activeInvestments.value)}' : NumberFormat.decimalPattern().format(homePageController.activeInvestments.value),
-                              style: TextStyle(
-                                fontSize: 22.3.sp,
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF08602E),
-                                overflow: TextOverflow.ellipsis,
+                            Obx(() => 
+                              Text(NumberFormat.decimalPattern().format(homePageController.activeInvestments.value).length == 1 ? '0${NumberFormat.decimalPattern().format(homePageController.activeInvestments.value)}' : NumberFormat.decimalPattern().format(homePageController.activeInvestments.value),
+                                style: TextStyle(
+                                  fontSize: 22.3.sp,
+                                  fontFamily: 'Gilroy',
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF08602E),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         )
                       ),
@@ -140,15 +142,17 @@ class Summary extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(NumberFormat.decimalPattern().format(homePageController.actionRequired.value).length == 1 ? '0${NumberFormat.decimalPattern().format(homePageController.actionRequired.value)}' : NumberFormat.decimalPattern().format(homePageController.actionRequired.value),
-                              style: TextStyle(
-                                fontSize: 22.3.sp,
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF08602E),
-                                overflow: TextOverflow.ellipsis,
+                            Obx(() => 
+                              Text(NumberFormat.decimalPattern().format(homePageController.actionRequired.value).length == 1 ? '0${NumberFormat.decimalPattern().format(homePageController.actionRequired.value)}' : NumberFormat.decimalPattern().format(homePageController.actionRequired.value),
+                                style: TextStyle(
+                                  fontSize: 22.3.sp,
+                                  fontFamily: 'Gilroy',
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF08602E),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         )
                       ),
@@ -177,15 +181,17 @@ class Summary extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text('${NumberFormat.decimalPattern().format(homePageController.currentlyInvested.value)} TK',
-                              style: TextStyle(
-                                fontSize: 22.3.sp,
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF08602E),
-                                overflow: TextOverflow.ellipsis,
+                            Obx(() => 
+                              Text('${NumberFormat.decimalPattern().format(homePageController.currentlyInvested.value)} TK',
+                                style: TextStyle(
+                                  fontSize: 22.3.sp,
+                                  fontFamily: 'Gilroy',
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF08602E),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         )
                       ),
@@ -214,15 +220,17 @@ class Summary extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text('${NumberFormat.decimalPattern().format(homePageController.withdrawable.value)} TK',
-                              style: TextStyle(
-                                fontSize: 22.3.sp,
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF08602E),
-                                overflow: TextOverflow.ellipsis,
+                            Obx(() => 
+                              Text('${NumberFormat.decimalPattern().format(homePageController.withdrawable.value)} TK',
+                                style: TextStyle(
+                                  fontSize: 22.3.sp,
+                                  fontFamily: 'Gilroy',
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF08602E),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         )
                       ),
@@ -251,13 +259,15 @@ class Summary extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text('${NumberFormat.decimalPattern().format(homePageController.currentProfit.value)} TK',
-                              style: TextStyle(
-                                fontSize: 22.3.sp,
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF08602E),
-                                overflow: TextOverflow.ellipsis,
+                            Obx(() => 
+                              Text('${NumberFormat.decimalPattern().format(homePageController.currentProfit.value)} TK',
+                                style: TextStyle(
+                                  fontSize: 22.3.sp,
+                                  fontFamily: 'Gilroy',
+                                  fontWeight: FontWeight.w600,
+                                  color: const Color(0xFF08602E),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
                           ],
