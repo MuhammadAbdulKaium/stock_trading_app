@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/login_controller.dart';
 import 'package:stock_trading_app/mobile/app_Introduction_slider.dart';
+import 'package:stock_trading_app/mobile/cash_out/cash_out_page.dart';
 import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
 import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/landing_mobile', page: () => const LandingMobile()),
                   GetPage(name: '/initial_page_mobile', page: () => const InitialPageMobile()),
                   GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
+                  GetPage(name: '/cash_out', page: () => const CashOutPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],

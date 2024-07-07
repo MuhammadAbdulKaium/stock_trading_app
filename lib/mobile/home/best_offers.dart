@@ -22,15 +22,15 @@ class BestOffers extends StatelessWidget {
               flex: 5,
               child: Container()
             ),
-            const Expanded(
+            Expanded(
               flex: 100,
               child: Text(
                 'Best Offers',
                 style: TextStyle(
-                  fontSize: 18.5,
+                  fontSize: 17.25.sp,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF1D192B),
+                  color: const Color(0xFF1D192B),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

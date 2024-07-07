@@ -34,6 +34,7 @@ class TextInputField extends StatelessWidget {
   final TextAlign? textAlign;
   final dynamic onFieldSubmitted;
   final dynamic onTap;
+  final String? prefixText;
   const TextInputField(
       {Key? key,
       required this.validator,
@@ -68,6 +69,7 @@ class TextInputField extends StatelessWidget {
       this.textAlign,
       this.onFieldSubmitted,
       this.onTap,
+      this.prefixText,
       })
       : super(key: key);
   @override
@@ -92,6 +94,7 @@ class TextInputField extends StatelessWidget {
         // controller: controller,
         // style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black,),
         decoration: InputDecoration(
+          prefixText: prefixText ?? '',
           isDense: isDense,
           filled: filled ?? false,
           fillColor: fillColor ?? Colors.white,
@@ -110,12 +113,12 @@ class TextInputField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
           border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
-            borderRadius: BorderRadius.all(Radius.circular(7),),
+            borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
+            borderRadius: BorderRadius.all(Radius.circular(8),),
           ),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
-            borderRadius: BorderRadius.all(Radius.circular(7),),
+            borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
+            borderRadius: BorderRadius.all(Radius.circular(8),),
           ),
           // errorBorder: errorrTextFieldBorder(),
           // focusedErrorBorder: errorrTextFieldBorder(),

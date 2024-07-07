@@ -41,6 +41,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   flutter_screenutil: ^5.9.3
   table_calendar: ^3.1.2
+  dropdown_button2: ^2.3.9
+  flutter_statusbarcolor_ns: ^0.5.0
   
 
 dev_dependencies:
@@ -155,6 +157,12 @@ flutter:
     - family: myinvestmentsicons
       fonts:
         - asset: images/icons/myinvestmentsicons.ttf
+    - family: dashboard-icons
+      fonts:
+        - asset: images/icons/dashboard-icons.ttf
+    - family: arrow-icons
+      fonts:
+        - asset: images/icons/arrow-icons.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
