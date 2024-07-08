@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
+import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/cash_out_controller.dart';
 
@@ -37,7 +38,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 13.5.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF27272A)
+                        color: const Color(0xFF27272A),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -57,18 +59,21 @@ class BankDetails extends StatelessWidget {
                     fontSize: 19.sp,
                     color: const Color(0xFFA1A1AA),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w600
+                    fontWeight: FontWeight.w600,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   style: TextStyle(
                     fontSize: 19.sp,
                     color: const Color(0xFF52525B),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w600
+                    fontWeight: FontWeight.w600,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   errorStyle: TextStyle(
                     fontSize: 10.sp, 
                     fontFamily: 'Gilroy',
-                    height: 0.5, 
+                    height: 0.5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -107,7 +112,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 17.3.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w600,
-                        color: const Color(0xFF1D192B)
+                        color: const Color(0xFF1D192B),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -122,7 +128,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 13.5.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF27272A)
+                        color: const Color(0xFF27272A),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -137,18 +144,21 @@ class BankDetails extends StatelessWidget {
                     fontSize: 14.sp,
                     color: const Color(0xFFA1A1AA),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: const Color(0xFF191414),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   errorStyle: TextStyle(
                     fontSize: 10.sp, 
                     fontFamily: 'Gilroy',
-                    height: 0.5, 
+                    height: 0.5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -181,7 +191,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 13.5.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF27272A)
+                        color: const Color(0xFF27272A),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -196,18 +207,21 @@ class BankDetails extends StatelessWidget {
                     fontSize: 14.sp,
                     color: const Color(0xFFA1A1AA),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: const Color(0xFF191414),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   errorStyle: TextStyle(
                     fontSize: 10.sp, 
                     fontFamily: 'Gilroy',
-                    height: 0.5, 
+                    height: 0.5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -240,7 +254,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 13.5.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF27272A)
+                        color: const Color(0xFF27272A),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -255,18 +270,21 @@ class BankDetails extends StatelessWidget {
                     fontSize: 14.sp,
                     color: const Color(0xFFA1A1AA),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: const Color(0xFF191414),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   errorStyle: TextStyle(
                     fontSize: 10.sp, 
                     fontFamily: 'Gilroy',
-                    height: 0.5, 
+                    height: 0.5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -299,7 +317,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 13.5.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF27272A)
+                        color: const Color(0xFF27272A),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -314,18 +333,21 @@ class BankDetails extends StatelessWidget {
                     fontSize: 14.sp,
                     color: const Color(0xFFA1A1AA),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: const Color(0xFF191414),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   errorStyle: TextStyle(
                     fontSize: 10.sp, 
                     fontFamily: 'Gilroy',
-                    height: 0.5, 
+                    height: 0.5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -358,7 +380,8 @@ class BankDetails extends StatelessWidget {
                         fontSize: 13.5.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFF27272A)
+                        color: const Color(0xFF27272A),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -373,18 +396,21 @@ class BankDetails extends StatelessWidget {
                     fontSize: 14.sp,
                     color: const Color(0xFFA1A1AA),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: const Color(0xFF191414),
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   errorStyle: TextStyle(
                     fontSize: 10.sp, 
                     fontFamily: 'Gilroy',
-                    height: 0.5, 
+                    height: 0.5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -402,7 +428,7 @@ class BankDetails extends StatelessWidget {
                     if (value.isEmpty) {
                       return 'Routing Number cannot be empty.';
                     } else if (!validNameRegex.hasMatch(value.trim())) {
-                      return 'Enter a valid Routing Number.';
+                      return 'Enter valid Routing Number.';
                     }
                     return null;
                   },
@@ -418,12 +444,81 @@ class BankDetails extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w600
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     onPressed: () {
                       if (cashOutFormkey.currentState!.validate()) {
-                        // _loginController.login(_loginController.email.value, _loginController.password.value);
+                        Get.dialog(
+                          CustomAlartDialog(
+                            end: -0.03,
+                            horizontalPadding: screenWidth * 0.041666,
+                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                            closeIcon: Padding(
+                              padding: EdgeInsets.only(right: screenWidth * 0.03, top: screenWidth * 0.0215),
+                              child: Icon(
+                                Icons.close,
+                                color: const Color(0xFF71717A),
+                                size: screenWidth * 0.06,
+                              ),
+                            ),
+                            onClose: () {
+                              Future.delayed(const Duration(milliseconds: 300), 
+                                () {
+                                  // signInAndSignUpController.toggleSignInSignUp();
+                                  // signInAndSignUpController.onClose();
+                                }
+                              );
+                            },
+                            dialogContent: Padding(
+                              padding: const EdgeInsets.only(left: 18, right: 18),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: screenHeight * 0.005,),
+                                  Text(
+                                    'Confirm your Withdraw Request. After confirmation, our team will transfer it to your Bank account very shortly.',
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                      fontSize: 12.65.sp,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xFF52525B),
+                                      // overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.0242,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                        width: screenWidth * 0.19,
+                                        height: screenHeight * 0.038,
+                                        child: CommonButton(
+                                          borderRadius: 8,
+                                          backgroundColor: const Color(0xFF008037),
+                                          child: Text('Confirm',
+                                            style: TextStyle(
+                                              fontSize: 11.5.sp,
+                                              fontFamily: 'Gilroy',
+                                              fontWeight: FontWeight.w500,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: screenHeight * 0.0192,),
+                                ],
+                              ),
+                            ),
+                          ),
+                          // barrierDismissible: false,
+                        );
                       }
                     },
                   ),

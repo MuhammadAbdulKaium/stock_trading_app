@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-// final ForgotPasswordDialogController forgotPasswordDialogController =
-//     Get.find();
-
 class CustomAlartDialog extends StatelessWidget {
   final Widget dialogHeader;
   final Widget dialogContent;
@@ -15,6 +12,7 @@ class CustomAlartDialog extends StatelessWidget {
   final AlignmentGeometry? alignment;
   final BorderRadiusGeometry? borderRadius;
   final int? duration;
+  final Widget? closeIcon;
   const CustomAlartDialog({
     Key? key,
     this.dialogHeader = const Row(children: []),
@@ -26,8 +24,10 @@ class CustomAlartDialog extends StatelessWidget {
     this.backgroundColor,
     this.alignment,
     this.borderRadius,
-    this.duration})
-    : super(key: key);
+    this.duration,
+    this.closeIcon,
+  })
+  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class CustomAlartDialog extends StatelessWidget {
                               Get.back();
                               onClose?.call();
                             },
-                            icon: const Icon(Icons.close),
+                            icon: closeIcon ?? const Icon(Icons.close),
                             iconSize: 19,
                           ),
                         ],
