@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
+import 'package:stock_trading_app/controller/cash_out_controller.dart';
 import 'package:stock_trading_app/controller/dashboard_controller.dart';
 
 // final DashboardController dashboardController = Get.put(DashboardController());
@@ -12,6 +13,7 @@ class ReadyForWithdraw extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DashboardController dashboardController = Get.put(DashboardController());
+    final CashOutController cashOutController = Get.put(CashOutController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Row(
@@ -87,7 +89,7 @@ class ReadyForWithdraw extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      dashboardController.loadCashOut();
+                      cashOutController.loadCashOut();
                     },
                   ),
                 )

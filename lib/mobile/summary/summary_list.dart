@@ -31,7 +31,7 @@ class SummaryList extends StatelessWidget {
                   elevation: 2,
                   margin: EdgeInsets.only(bottom: screenWidth * 0.045,),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(top: screenWidth * 0.0425, bottom: screenWidth * 0.0425, left: screenWidth * 0.0325, right: screenWidth * 0.0325),
@@ -211,7 +211,7 @@ class SummaryList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Quantity',
+                                    'Earning',
                                     style: TextStyle(
                                       fontSize: 11.7.sp,
                                       fontFamily: 'Poppins',
@@ -222,7 +222,7 @@ class SummaryList extends StatelessWidget {
                                   ),
                                   SizedBox(height: screenHeight * 0.0049,),
                                   Text(
-                                    '${transactionSummary.purchasePrice.toString()} BDT',
+                                    '${transactionSummary.earning.toString()} BDT',
                                     style: TextStyle(
                                       fontSize: 14.5.sp,
                                       fontFamily: 'Poppins',

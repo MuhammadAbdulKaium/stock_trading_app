@@ -1,37 +1,16 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
-import 'package:stock_trading_app/models/transaction_summary.dart';
+import 'package:stock_trading_app/models/active_investment_model.dart';
 
-class SummaryController extends GetxController {
+class ActiveInvestmentController extends GetxController {
   var isLoading = false.obs;
-  final portfolioBalance = 200.obs;
-  // Dummy data for the chart
-  final List<FlSpot> xDataPoints = [
-    const FlSpot(0, 55000),
-    const FlSpot(1, 85000),
-    const FlSpot(2, 60000),
-    const FlSpot(3, 125000),
-    const FlSpot(4, 60000),
-    const FlSpot(5, 50000)
-  ].obs;
+  final RxList<ActiveInvestmentModel> activeInvestmentList = <ActiveInvestmentModel>[].obs;
 
-  final List<FlSpot> yDataPoints = [
-    const FlSpot(0, 93000),
-    const FlSpot(1, 60000),
-    const FlSpot(2, 85000),
-    const FlSpot(3, 150000),
-    const FlSpot(4, 80000),
-    const FlSpot(5, 60000)
-  ].obs;
-
-  final RxList<TransactionSummary> transactionSummaryList = <TransactionSummary>[].obs;
-
-  Future<void> loadSummaryPage() async {
+  Future<void> loadActiveInvestmentPage() async {
     isLoading(true);
     try {
-      Get.toNamed("/summary");
+      Get.toNamed("/active_investment");
     } catch (e) {
       Get.dialog(
         CustomAlartDialog(
@@ -72,9 +51,10 @@ class SummaryController extends GetxController {
   void onInit() {
     super.onInit();
 
-    transactionSummaryList.assignAll([
-      TransactionSummary(productName: 'Potato', startDate: DateTime.now(), quantity: 2, purchasePrice: 400, sellPrice: 200, earning: 200),
-      TransactionSummary(productName: 'Rice', startDate: DateTime.now(), quantity: 3, purchasePrice: 500, sellPrice: 200, earning: 300)
+    activeInvestmentList.assignAll([
+      ActiveInvestmentModel(productId: '1', productName: 'Aman Rice', productCategory: 'rice', productStatus: 'active', conversionPercentage: '+5', totalFunded: 1000, quantityAvailable: 20, purchasePricePerMT: 1000, monthlyStorageCostPerMT: 100, currentSellingPricePerMT: 900, purchaseDate: DateTime.now()),
+      ActiveInvestmentModel(productId: '2', productName: 'Corn', productCategory: 'corn', productStatus: 'active', conversionPercentage: '+6', totalFunded: 1000, quantityAvailable: 20, purchasePricePerMT: 1000, monthlyStorageCostPerMT: 100, currentSellingPricePerMT: 900, purchaseDate: DateTime.now()),
+      ActiveInvestmentModel(productId: '3', productName: 'Aman Rice', productCategory: 'rice', productStatus: 'active', conversionPercentage: '+5', totalFunded: 1000, quantityAvailable: 20, purchasePricePerMT: 1000, monthlyStorageCostPerMT: 100, currentSellingPricePerMT: 900, purchaseDate: DateTime.now()),
     ]);
   }
 }
