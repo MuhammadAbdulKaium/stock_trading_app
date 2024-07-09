@@ -6,8 +6,8 @@ import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/forget_password_controller.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 
-final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
-final ForgetPasswordController _forgetPasswordController = Get.put(ForgetPasswordController());
+// final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+// final ForgetPasswordController _forgetPasswordController = Get.put(ForgetPasswordController());
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});
@@ -15,6 +15,8 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> forgetPasswordFormkey = GlobalKey<FormState>();
+    final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+    final ForgetPasswordController forgetPasswordController = Get.put(ForgetPasswordController());
 
     return Column(
       children: [
@@ -63,8 +65,8 @@ class ForgetPassword extends StatelessWidget {
                         ],
                       ),
                       TextInputField(
-                        controller: TextEditingController(text: _forgetPasswordController.email.value),
-                        onChanged: _forgetPasswordController.validateEmail,
+                        controller: TextEditingController(text: forgetPasswordController.email.value),
+                        onChanged: forgetPasswordController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'e.g. john@gmail.com',
                         hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -89,7 +91,7 @@ class ForgetPassword extends StatelessWidget {
                         contentPaddingVertical: 11,
                         contentPaddingHorizontal: 10,
                         validator: (value) {
-                          _forgetPasswordController.validateEmail;
+                          forgetPasswordController.validateEmail;
                           if (value.trim().isEmpty) {
                             return 'Email cannot be empty';
                           } else if (!GetUtils.isEmail(value.trim())) {
@@ -117,7 +119,7 @@ class ForgetPassword extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (forgetPasswordFormkey.currentState!.validate()) {
-                              _forgetPasswordController.forgetPasswordSendCodeToEmail(_forgetPasswordController.email.value);
+                              forgetPasswordController.forgetPasswordSendCodeToEmail(forgetPasswordController.email.value);
                   
                               // Get.offNamed('/landing');
                               // ScaffoldMessenger.of(context).showSnackBar(
@@ -183,7 +185,7 @@ class ForgetPassword extends StatelessWidget {
                     onTap: () {
                       // signInAndSignUpController.onClose();
                       // signInAndSignUpController.toggleSignInSignUp();
-                      _signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
+                      signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
                     },
                     child: const Text(
                       'Sign in',

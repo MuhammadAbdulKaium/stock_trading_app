@@ -8,10 +8,8 @@ import 'package:stock_trading_app/controller/login_controller.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/authentication_with_social_media.dart';
 
-// final GlobalKey<FormState> _loginFormkey = GlobalKey<FormState>();
-// final LoginController _loginController = Get.put(LoginController());
-final LoginController _loginController = Get.find<LoginController>();
-final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+// final LoginController loginController = Get.find<LoginController>();
+// final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -19,6 +17,8 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
+    final LoginController loginController = Get.find<LoginController>();
+    final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -73,8 +73,8 @@ class LoginForm extends StatelessWidget {
                         ],
                       ),
                       TextInputField(
-                        controller: TextEditingController(text: _loginController.email.value),
-                        onChanged: _loginController.validateEmail,
+                        controller: TextEditingController(text: loginController.email.value),
+                        onChanged: loginController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'Enter your email here',
                         hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -99,7 +99,7 @@ class LoginForm extends StatelessWidget {
                         contentPaddingVertical: 11,
                         contentPaddingHorizontal: 10,
                         validator: (value) {
-                          _loginController.validateEmail;
+                          loginController.validateEmail;
                           if (value.trim().isEmpty) {
                             return 'Email cannot be empty';
                           } else if (!GetUtils.isEmail(value.trim())) {
@@ -130,8 +130,8 @@ class LoginForm extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          // controller: TextEditingController(text: _loginController.password.value),
-                          onChanged: _loginController.updatePasswordVariable,
+                          // controller: TextEditingController(text: loginController.password.value),
+                          onChanged: loginController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your password here',
                           hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -155,18 +155,18 @@ class LoginForm extends StatelessWidget {
                           fillColor: const Color(0xFFF4FCF7),
                           contentPaddingVertical: 11,
                           contentPaddingHorizontal: 10,
-                          obsecure: !_loginController.isPasswordVisible.value,
+                          obsecure: !loginController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
                               height: 33,
                               width: 33,
                               child: IconButton(
-                                icon: Icon(_loginController.isPasswordVisible.value
+                                icon: Icon(loginController.isPasswordVisible.value
                                     ? Icons.visibility_off
                                     : Icons.visibility, size: 17),
                                 onPressed: () {
-                                  _loginController.passwordVisibility();
+                                  loginController.passwordVisibility();
                                 },
                               ),
                             ),
@@ -194,9 +194,9 @@ class LoginForm extends StatelessWidget {
                           Obx(
                             () => CustomCheckBox(
                               checkBoxLabel: 'Remember me',
-                              isChecked: _loginController.checkedRememberMe.value,
+                              isChecked: loginController.checkedRememberMe.value,
                               onChanged: (bool? value) {
-                                _loginController.checkedRememberMe.value = !_loginController.checkedRememberMe.value;
+                                loginController.checkedRememberMe.value = !loginController.checkedRememberMe.value;
                               },
                             ),
                           ),
@@ -205,7 +205,7 @@ class LoginForm extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () async {
                                 // Get.toNamed("/forget_password");
-                                _signinSignupNavigationController.navigateTo(1); // Navigate to ForgetPassword
+                                signinSignupNavigationController.navigateTo(1); // Navigate to ForgetPassword
                               },
                               child: const Text(
                                 'Forgot password?',
@@ -240,7 +240,7 @@ class LoginForm extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (loginFormkey.currentState!.validate()) {
-                              _loginController.login(_loginController.email.value, _loginController.password.value);
+                              loginController.login(loginController.email.value, loginController.password.value);
                   
                               // Get.offNamed('/landing');
                               // ScaffoldMessenger.of(context).showSnackBar(
@@ -327,7 +327,7 @@ class LoginForm extends StatelessWidget {
                     onTap: () {
                       // signInAndSignUpController.onClose();
                       // signInAndSignUpController.toggleSignInSignUp();
-                      _signinSignupNavigationController.navigateTo(3); // Navigate to SignUp
+                      signinSignupNavigationController.navigateTo(3); // Navigate to SignUp
                     },
                     child: const Text(
                       'Sign Up',

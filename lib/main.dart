@@ -9,6 +9,7 @@ import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
 import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/sign_in_sign_up.dart';
+import 'package:stock_trading_app/mobile/summary/summary_page.dart';
 import 'package:stock_trading_app/service/shared_preferences_service.dart';
 import 'package:stock_trading_app/web/landing_web.dart';
 import 'package:stock_trading_app/web/sign_in_sign_up/sign_in_sign_up.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/initial_page_mobile', page: () => const InitialPageMobile()),
                   GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
                   GetPage(name: '/cash_out', page: () => const CashOutPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+                  GetPage(name: '/summary', page: () => const SummaryPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],

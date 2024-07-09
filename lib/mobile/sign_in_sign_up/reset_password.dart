@@ -6,8 +6,8 @@ import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/reset_password_controller.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 
-final ResetPasswordController _resetPasswordController = Get.put(ResetPasswordController());
-final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+// final ResetPasswordController _resetPasswordController = Get.put(ResetPasswordController());
+// final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({super.key});
@@ -15,6 +15,8 @@ class ResetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> resetPasswordFormkey = GlobalKey<FormState>();
+    final ResetPasswordController resetPasswordController = Get.put(ResetPasswordController());
+    final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
     return Column(
       children: [
@@ -72,8 +74,8 @@ class ResetPassword extends StatelessWidget {
                             return Expanded(
                               flex: 12,
                               child: TextFormField(
-                                controller: _resetPasswordController.codeControllers[fieldIndex],
-                                focusNode: _resetPasswordController.focusNodes[fieldIndex],
+                                controller: resetPasswordController.codeControllers[fieldIndex],
+                                focusNode: resetPasswordController.focusNodes[fieldIndex],
                                 keyboardType: TextInputType.number,
                                 maxLength: 1,
                                 textAlign: TextAlign.center,
@@ -82,8 +84,8 @@ class ResetPassword extends StatelessWidget {
                                   filled: true,
                                   fillColor: const Color(0xFFF4FCF7),
                                   counterText: "",
-                                  errorText: _resetPasswordController.isValidationAttempted.value &&
-                                          !_resetPasswordController.isCodeValid.value
+                                  errorText: resetPasswordController.isValidationAttempted.value &&
+                                          !resetPasswordController.isCodeValid.value
                                       ? (fieldIndex == 0 ? null : null)
                                       : null, // Empty string to show error only once
                                   contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -102,21 +104,21 @@ class ResetPassword extends StatelessWidget {
                                 ),
                                 onChanged: (value) {
                                   if (value.length == 1 && fieldIndex < 4) {
-                                    _resetPasswordController.focusNodes[fieldIndex + 1].requestFocus();
+                                    resetPasswordController.focusNodes[fieldIndex + 1].requestFocus();
                                   } else if (value.isEmpty && fieldIndex > 0) {
-                                    _resetPasswordController.focusNodes[fieldIndex - 1].requestFocus();
+                                    resetPasswordController.focusNodes[fieldIndex - 1].requestFocus();
                                   }
-                                  _resetPasswordController.validateCode();
+                                  resetPasswordController.validateCode();
                                 },
                                 onFieldSubmitted: (value) {
-                                  _resetPasswordController.validateCode();
+                                  resetPasswordController.validateCode();
                                 },
                                 onTap: () async {
                                   final clipboardData =
                                       await Clipboard.getData('text/plain');
                                   if (clipboardData?.text != null &&
                                       clipboardData?.text!.length == 5) {
-                                    _resetPasswordController.handlePaste(clipboardData!.text!);
+                                    resetPasswordController.handlePaste(clipboardData!.text!);
                                   }
                                 },
                               ),
@@ -129,7 +131,7 @@ class ResetPassword extends StatelessWidget {
                       )),
 
                       Obx(() => Visibility(
-                          visible: !_resetPasswordController.isCodeValid.value && _resetPasswordController.isValidationAttempted.value,
+                          visible: !resetPasswordController.isCodeValid.value && resetPasswordController.isValidationAttempted.value,
                           child: const Row(
                             children: [
                               Padding(
@@ -171,8 +173,8 @@ class ResetPassword extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          // controller: TextEditingController(text: _resetPasswordController.newPassword.value),
-                          onChanged: _resetPasswordController.updatePasswordVariable,
+                          // controller: TextEditingController(text: resetPasswordController.newPassword.value),
+                          onChanged: resetPasswordController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your new password here',
                           hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -196,18 +198,18 @@ class ResetPassword extends StatelessWidget {
                           fillColor: const Color(0xFFF4FCF7),
                           contentPaddingVertical: 10,
                           contentPaddingHorizontal: 10,
-                          obsecure: !_resetPasswordController.isPasswordVisible.value,
+                          obsecure: !resetPasswordController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
                               height: 33,
                               width: 33,
                               child: IconButton(
-                                icon: Icon(_resetPasswordController.isPasswordVisible.value
+                                icon: Icon(resetPasswordController.isPasswordVisible.value
                                     ? Icons.visibility_off
                                     : Icons.visibility, size: 17),
                                 onPressed: () {
-                                  _resetPasswordController.passwordVisibility();
+                                  resetPasswordController.passwordVisibility();
                                 },
                               ),
                             ),
@@ -243,12 +245,12 @@ class ResetPassword extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            _resetPasswordController.validationAttempt();
+                            resetPasswordController.validationAttempt();
                             if (resetPasswordFormkey.currentState!.validate()) {
-                              if(_resetPasswordController.isCodeValid.value) {
-                                _resetPasswordController.resetPassword(_resetPasswordController.confirmationCodeByUser, _resetPasswordController.newPassword.value);
+                              if(resetPasswordController.isCodeValid.value) {
+                                resetPasswordController.resetPassword(resetPasswordController.confirmationCodeByUser, resetPasswordController.newPassword.value);
                               }
-                              // _resetPasswordController.resetPassword(_resetPasswordController.confirmationCodeByUser, _resetPasswordController.newPassword.value);
+                              // resetPasswordController.resetPassword(resetPasswordController.confirmationCodeByUser, resetPasswordController.newPassword.value);
                             }
                           },
                         ),
@@ -294,7 +296,7 @@ class ResetPassword extends StatelessWidget {
                     onTap: () {
                       // signInAndSignUpController.onClose();
                       // signInAndSignUpController.toggleSignInSignUp();
-                      _signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
+                      signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
                     },
                     child: const Text(
                       'Sign in',

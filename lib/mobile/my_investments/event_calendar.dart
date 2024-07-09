@@ -1,12 +1,9 @@
-// import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:stock_trading_app/controller/event_calendar_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
-// import 'package:stock_trading_app/helpers/custom_icons.dart';
 
 final EventCalendarController eventCalendarController = Get.put(EventCalendarController());
 
@@ -15,8 +12,10 @@ class EventCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final EventCalendarController eventCalendarController = Get.put(EventCalendarController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       children: [
         Row(

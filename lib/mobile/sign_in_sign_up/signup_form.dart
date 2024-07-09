@@ -7,8 +7,8 @@ import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controll
 import 'package:stock_trading_app/controller/signup_controller.dart';
 
 // final ResetPasswordController _resetPasswordController = Get.put(ResetPasswordController());
-final SignupController _signupController = Get.put(SignupController());
-final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+// final SignupController _signupController = Get.put(SignupController());
+// final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
 class SignupForm extends StatelessWidget {
   const SignupForm({super.key});
@@ -16,6 +16,8 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> resetPasswordFormkey = GlobalKey<FormState>();
+    final SignupController signupController = Get.put(SignupController());
+final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
 
     return Column(
       children: [
@@ -65,8 +67,8 @@ class SignupForm extends StatelessWidget {
                         ],
                       ),
                       TextInputField(
-                        controller: TextEditingController(text: _signupController.fullName.value),
-                        onChanged: _signupController.signUpValidateName,
+                        controller: TextEditingController(text: signupController.fullName.value),
+                        onChanged: signupController.signUpValidateName,
                         keyboardType: TextInputType.text,
                         hintText: 'John Doe',
                         hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -91,7 +93,7 @@ class SignupForm extends StatelessWidget {
                         contentPaddingVertical: 10,
                         contentPaddingHorizontal: 10,
                         validator: (value) {
-                          _signupController.signUpValidateName;
+                          signupController.signUpValidateName;
                           if (value.trim().isEmpty) {
                             return 'Full Name is required';
                           } else if (value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
@@ -121,8 +123,8 @@ class SignupForm extends StatelessWidget {
                         ],
                       ),
                       TextInputField(
-                        controller: TextEditingController(text: _signupController.email.value),
-                        onChanged: _signupController.validateEmail,
+                        controller: TextEditingController(text: signupController.email.value),
+                        onChanged: signupController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'e.g. john@gmail.com',
                         hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -147,7 +149,7 @@ class SignupForm extends StatelessWidget {
                         contentPaddingVertical: 10,
                         contentPaddingHorizontal: 10,
                         validator: (value) {
-                          _signupController.validateEmail;
+                          signupController.validateEmail;
                           if (value.trim().isEmpty) {
                             return 'Email is required';
                           } else if (!GetUtils.isEmail(value.trim())) {
@@ -178,7 +180,7 @@ class SignupForm extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          onChanged: _signupController.updatePassword,
+                          onChanged: signupController.updatePassword,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your password here',
                           hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -202,18 +204,18 @@ class SignupForm extends StatelessWidget {
                           fillColor: const Color(0xFFF4FCF7),
                           contentPaddingVertical: 10,
                           contentPaddingHorizontal: 10,
-                          obsecure: !_signupController.isPasswordVisible.value,
+                          obsecure: !signupController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
                               height: 33,
                               width: 33,
                               child: IconButton(
-                                icon: Icon(_signupController.isPasswordVisible.value
+                                icon: Icon(signupController.isPasswordVisible.value
                                     ? Icons.visibility_off
                                     : Icons.visibility, size: 17),
                                 onPressed: () {
-                                  _signupController.passwordVisibility();
+                                  signupController.passwordVisibility();
                                 },
                               ),
                             ),
@@ -253,7 +255,7 @@ class SignupForm extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          onChanged: _signupController.updateRetypePassword,
+                          onChanged: signupController.updateRetypePassword,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your password again',
                           hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
@@ -277,18 +279,18 @@ class SignupForm extends StatelessWidget {
                           fillColor: const Color(0xFFF4FCF7),
                           contentPaddingVertical: 10,
                           contentPaddingHorizontal: 10,
-                          obsecure: !_signupController.isRetypePasswordVisible.value,
+                          obsecure: !signupController.isRetypePasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
                               height: 33,
                               width: 33,
                               child: IconButton(
-                                icon: Icon(_signupController.isRetypePasswordVisible.value
+                                icon: Icon(signupController.isRetypePasswordVisible.value
                                     ? Icons.visibility_off
                                     : Icons.visibility, size: 17),
                                 onPressed: () {
-                                  _signupController.retypePasswordVisibility();
+                                  signupController.retypePasswordVisibility();
                                 },
                               ),
                             ),
@@ -301,7 +303,7 @@ class SignupForm extends StatelessWidget {
                               return 'Password must be at least 7 characters long';
                             } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
                               return 'Must contain a special [!@....] character.';
-                            } else if (value != _signupController.password.value) {
+                            } else if (value != signupController.password.value) {
                               return "Password don't match.";
                             } 
                             return null;
@@ -327,7 +329,7 @@ class SignupForm extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (resetPasswordFormkey.currentState!.validate()) {
-                              _signinSignupNavigationController.navigateTo(0);
+                              signinSignupNavigationController.navigateTo(0);
                             }
                           },
                         ),
@@ -373,7 +375,7 @@ class SignupForm extends StatelessWidget {
                     onTap: () {
                       // signInAndSignUpController.onClose();
                       // signInAndSignUpController.toggleSignInSignUp();
-                      _signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
+                      signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
                     },
                     child: const Text(
                       'Sign in',

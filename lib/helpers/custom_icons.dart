@@ -45,4 +45,6 @@ class CustomIcons {
   static const IconData backArrow1 = IconData(0xe000, fontFamily: 'arrow-icons');
   static const IconData backArrow2 = IconData(0xe001, fontFamily: 'arrow-icons');
   static const IconData backArrow3 = IconData(0xe002, fontFamily: 'arrow-icons');
+
+  static const IconData import2 = IconData(0xe000, fontFamily: 'summary-icon');
 }

@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/cash_out_controller.dart';
 
 // final CashOutController cashOutController = Get.find<CashOutController>();
-final CashOutController cashOutController = Get.put(CashOutController());
+// final CashOutController cashOutController = Get.put(CashOutController());
 
 class WithdrawableBalance extends StatelessWidget {
   const WithdrawableBalance({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CashOutController cashOutController = Get.put(CashOutController());
     // double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     

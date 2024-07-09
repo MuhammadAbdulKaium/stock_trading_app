@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 
 class CashOutController extends GetxController {
   var isLoading = false.obs;
@@ -99,6 +101,46 @@ class CashOutController extends GetxController {
   void updateRoutingNumber(String input) {
     if (validateRoutingNumber(input)) {
       routingNumber.value = input.trim();
+    }
+  }
+
+  Future<void> loadSummaryPage() async {
+    isLoading(true);
+    try {
+      Get.toNamed("/summary");
+    } catch (e) {
+      Get.dialog(
+        CustomAlartDialog(
+          begin: 0,
+          end: 0,
+          alignment: Alignment.bottomCenter,
+          duration: 300,
+          borderRadius: const BorderRadius.all(Radius.circular(0)),
+          horizontalPadding: 0,
+          backgroundColor: Colors.red,
+          dialogHeader: const SizedBox(
+            height: 50,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Something went wrong please try again.',
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: Colors.white,
+                    fontFamily: 'FontCircularStd',
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+              ],
+            ),
+          ),
+          dialogContent: Container(),
+        )
+      );
+    } finally {
+      isLoading(false);
     }
   }
 }

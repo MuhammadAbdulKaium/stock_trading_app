@@ -7,15 +7,17 @@ import 'package:stock_trading_app/helpers/custom_icons.dart';
 import 'package:stock_trading_app/mobile/cash_out/bank_details.dart';
 import 'package:stock_trading_app/mobile/cash_out/withdrawable_balance.dart';
 
-final CashOutController cashOutController = Get.put(CashOutController());
+// final CashOutController cashOutController = Get.put(CashOutController());
 
 class CashOutPage extends StatelessWidget {
   const CashOutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CashOutController cashOutController = Get.put(CashOutController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

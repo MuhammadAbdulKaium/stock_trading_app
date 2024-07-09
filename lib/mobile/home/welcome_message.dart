@@ -5,14 +5,16 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 
-final LandingPageController landingPageController = Get.find<LandingPageController>();
-final HomePageController homePageController = Get.put(HomePageController());
+// final LandingPageController landingPageController = Get.find<LandingPageController>();
+// final HomePageController homePageController = Get.put(HomePageController());
 
 class WelcomeMessage extends StatelessWidget {
   const WelcomeMessage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final LandingPageController landingPageController = Get.find<LandingPageController>();
+    final HomePageController homePageController = Get.put(HomePageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Row(

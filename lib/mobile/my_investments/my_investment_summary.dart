@@ -4,15 +4,17 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/my_investments_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final MyInvestmentsController myInvestmentsController = Get.put(MyInvestmentsController());
+// final MyInvestmentsController myInvestmentsController = Get.put(MyInvestmentsController());
 
 class MyInvestmentSummary extends StatelessWidget {
   const MyInvestmentSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final MyInvestmentsController myInvestmentsController = Get.put(MyInvestmentsController());
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
+    
     return Column(
       children: [
         Row(
