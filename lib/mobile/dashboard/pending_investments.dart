@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/dashboard_controller.dart';
 import 'package:stock_trading_app/helpers/decide_image_to_show.dart';
 
-final DashboardController dashboardController = Get.put(DashboardController());
+// final DashboardController dashboardController = Get.put(DashboardController());
 
 class PendingInvestments extends StatelessWidget {
   const PendingInvestments({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final DashboardController dashboardController = Get.put(DashboardController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(

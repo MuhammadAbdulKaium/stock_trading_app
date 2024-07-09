@@ -6,13 +6,14 @@ import 'package:stock_trading_app/controller/home_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 import 'package:intl/intl.dart';
 
-final HomePageController homePageController = Get.put(HomePageController());
+// final HomePageController homePageController = Get.put(HomePageController());
 
 class Summary extends StatelessWidget {
   const Summary({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomePageController homePageController = Get.put(HomePageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(

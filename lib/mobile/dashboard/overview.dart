@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_dropdown_button.dart';
 import 'package:stock_trading_app/controller/dashboard_controller.dart';
 
-final DashboardController dashboardController = Get.put(DashboardController());
+// final DashboardController dashboardController = Get.put(DashboardController());
 
 class Overview extends StatelessWidget {
   const Overview({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final DashboardController dashboardController = Get.put(DashboardController());
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
     return Row(

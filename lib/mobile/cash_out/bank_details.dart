@@ -6,16 +6,18 @@ import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/cash_out_controller.dart';
 
-final CashOutController cashOutController = Get.put(CashOutController());
+// final CashOutController cashOutController = Get.put(CashOutController());
 
 class BankDetails extends StatelessWidget {
   const BankDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final CashOutController cashOutController = Get.put(CashOutController());
+    final GlobalKey<FormState> cashOutFormkey = GlobalKey<FormState>();
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final GlobalKey<FormState> cashOutFormkey = GlobalKey<FormState>();
 
     return Row(
       children: [
@@ -506,7 +508,8 @@ class BankDetails extends StatelessWidget {
                                             ),
                                           ),
                                           onPressed: () {
-                                            
+                                            Get.back();
+                                            cashOutController.loadSummaryPage();
                                           },
                                         ),
                                       )

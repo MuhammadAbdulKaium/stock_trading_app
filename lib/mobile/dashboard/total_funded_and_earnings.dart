@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/dashboard_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final DashboardController dashboardController = Get.put(DashboardController());
+// final DashboardController dashboardController = Get.put(DashboardController());
 
 class TotalFundedAndEarnings extends StatelessWidget {
   const TotalFundedAndEarnings({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final DashboardController dashboardController = Get.put(DashboardController());
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
     return Column(

@@ -5,13 +5,14 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
 
-final HomePageController homePageController = Get.put(HomePageController());
+// final HomePageController homePageController = Get.put(HomePageController());
 
 class LearnAsYouGo extends StatelessWidget {
   const LearnAsYouGo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomePageController homePageController = Get.put(HomePageController());
     // double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(
