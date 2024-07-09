@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/login_controller.dart';
+import 'package:stock_trading_app/mobile/Active%20Investment/active_investment_page.dart';
 import 'package:stock_trading_app/mobile/app_Introduction_slider.dart';
 import 'package:stock_trading_app/mobile/cash_out/cash_out_page.dart';
 import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
                   GetPage(name: '/cash_out', page: () => const CashOutPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/summary', page: () => const SummaryPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+                  GetPage(name: '/active_investment', page: () => const ActiveInvestmentPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],
