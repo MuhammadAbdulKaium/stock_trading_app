@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
 import 'package:stock_trading_app/controller/summary_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/cash_out/bank_details.dart';
-import 'package:stock_trading_app/mobile/cash_out/withdrawable_balance.dart';
 import 'package:stock_trading_app/mobile/summary/hader_filter_and_download_button.dart';
 import 'package:stock_trading_app/mobile/summary/portfolio_balance_chart.dart';
 import 'package:stock_trading_app/mobile/summary/summary_list.dart';
