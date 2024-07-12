@@ -47,4 +47,6 @@ class CustomIcons {
   static const IconData backArrow3 = IconData(0xe002, fontFamily: 'arrow-icons');
 
   static const IconData import2 = IconData(0xe000, fontFamily: 'summary-icon');
+
+  static const IconData thermometer = IconData(0xe000, fontFamily: 'active-investment-icon');
 }

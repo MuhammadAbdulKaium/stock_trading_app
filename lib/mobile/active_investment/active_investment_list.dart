@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/active_investment_controller.dart';
+import 'package:stock_trading_app/controller/order_details_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
+import 'package:stock_trading_app/helpers/decide_image_to_show.dart';
 
 class ActiveInvestmentList extends StatelessWidget {
   const ActiveInvestmentList({super.key});
@@ -12,6 +14,7 @@ class ActiveInvestmentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ActiveInvestmentController activeInvestmentController = Get.put(ActiveInvestmentController());
+    final OrderDetailsController orderDetailsController = Get.put(OrderDetailsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -513,7 +516,9 @@ class ActiveInvestmentList extends StatelessWidget {
                                               fontWeight: FontWeight.w600
                                             ),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            orderDetailsController.loadOrderDetailsPage(activeInvestment.productId!);
+                                          },
                                         ),
                                       ),
                                     ],
@@ -544,18 +549,18 @@ class ActiveInvestmentList extends StatelessWidget {
   }
 }
 
-Widget decideImageToShow(String category) {
-  if (category == 'rice') {
-    return Image.asset(
-      'images/rice.png',
-      fit: BoxFit.contain,
-    );
-  } else if (category == 'corn') {
-    return Image.asset(
-      'images/corn.png',
-      fit: BoxFit.contain,
-    );
-  } else {
-    return Container(); // Return an empty container if no condition matches
-  }
-}
+// Widget decideImageToShow(String category) {
+//   if (category == 'rice') {
+//     return Image.asset(
+//       'images/rice.png',
+//       fit: BoxFit.contain,
+//     );
+//   } else if (category == 'corn') {
+//     return Image.asset(
+//       'images/corn.png',
+//       fit: BoxFit.contain,
+//     );
+//   } else {
+//     return Container(); // Return an empty container if no condition matches
+//   }
+// }
