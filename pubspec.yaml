@@ -186,6 +186,9 @@ flutter:
     - family: summary-icon
       fonts:
         - asset: images/icons/summary-icon.ttf
+    - family: active-investment-icon
+      fonts:
+        - asset: images/icons/active-investment-icon.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
-import 'package:stock_trading_app/controller/active_investment_controller.dart';
+import 'package:stock_trading_app/controller/order_details_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/Active%20Investment/active_investment_list.dart';
+import 'package:stock_trading_app/mobile/order_details/order_basic_info.dart';
 
-class ActiveInvestmentPage extends StatelessWidget {
-  const ActiveInvestmentPage({super.key});
+class OrderDetailsPage extends StatelessWidget {
+  const OrderDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ActiveInvestmentController activeInvestmentController = Get.put(ActiveInvestmentController());
+    final OrderDetailsController orderDetailsController = Get.put(OrderDetailsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF4FCF7),
       body: Stack(
         children: [
           PopScope(
@@ -29,7 +29,7 @@ class ActiveInvestmentPage extends StatelessWidget {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: const Color(0xFFF4FCF7),
                   expandedHeight: screenHeight * 0.095,
                   floating: true,
           
@@ -43,7 +43,7 @@ class ActiveInvestmentPage extends StatelessWidget {
                           padding: EdgeInsets.only(left: screenWidth * 0.013, right: screenWidth * 0.013, top: screenHeight * 0.020, bottom: screenHeight * 0.020),
                           margin: const EdgeInsets.only(top: 0, left: 0, right: 0),
                           decoration: const BoxDecoration(
-                            color: Colors.white,
+                            color: Color(0xFFF4FCF7),
                           ),
                           child: Row(
                             children: [
@@ -63,7 +63,7 @@ class ActiveInvestmentPage extends StatelessWidget {
                                           child: GestureDetector(
                                             child: CircleAvatar(
                                               radius: screenWidth * 0.0520,
-                                              backgroundColor: const Color(0xFFF4FCF7),
+                                              backgroundColor: Colors.white,
                                               child: Center(
                                                 child: Padding(
                                                   padding: EdgeInsets.only(top: 0, bottom: screenWidth * 0.003),
@@ -93,7 +93,7 @@ class ActiveInvestmentPage extends StatelessWidget {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Active Investment',
+                                    'Order Details',
                                     style: TextStyle(
                                       fontSize: 21.sp,
                                       fontFamily: 'Gilroy',
@@ -106,22 +106,7 @@ class ActiveInvestmentPage extends StatelessWidget {
                               ),
                               Expanded(
                                 flex: 3,
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: screenWidth * 0.0520,
-                                      backgroundColor: const Color(0xFFF4FCF7),
-                                      // backgroundImage: AssetImage('images/blank_profile_picture.jpg'),
-                                      child: Center(
-                                        child: Icon(
-                                          CustomIcons.filterSquare,
-                                          size: screenWidth * 0.065,
-                                          color: const Color(0xFF008037),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                child: Container(),
                               ),
                             ],
                           ),
@@ -135,9 +120,8 @@ class ActiveInvestmentPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                       child: Column(
                         children: [
-                          SizedBox(height: screenHeight * 0.02,),
-                          const ActiveInvestmentList(),
-                          // SizedBox(height: screenHeight * 0.015,),
+                          SizedBox(height: screenHeight * 0.0281,),
+                          const OrderBasicInfo(),
                         ],
                       ),
                   ),
@@ -147,7 +131,7 @@ class ActiveInvestmentPage extends StatelessWidget {
           ),
 
           Obx(() {
-            return activeInvestmentController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
+            return orderDetailsController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
         ],
       ),

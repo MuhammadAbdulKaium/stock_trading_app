@@ -13,7 +13,8 @@ class WelcomeMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LandingPageController landingPageController = Get.find<LandingPageController>();
+    // final LandingPageController landingPageController = Get.find<LandingPageController>();
+    final LandingPageController landingPageController = Get.put(LandingPageController());
     final HomePageController homePageController = Get.put(HomePageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
