@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/order_details_controller.dart';
+import 'package:stock_trading_app/controller/progress_page_controller.dart';
 import 'package:stock_trading_app/helpers/app_text_styles.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 import 'package:stock_trading_app/helpers/decide_image_to_show.dart';
@@ -13,8 +14,21 @@ class OrderBasicInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OrderDetailsController orderDetailsController = Get.put(OrderDetailsController());
+    final ProgressPageController progressPageController = Get.put(ProgressPageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    // Define breakpoints
+    double productImagePosition;
+    if (screenHeight >= 896) {
+      productImagePosition = screenHeight * 0.37;
+    } else if (screenHeight >= 844) {
+      productImagePosition = screenHeight * 0.3775;
+    } else if (screenHeight >= 778) {
+      productImagePosition = screenHeight * 0.365;
+    } else {
+      productImagePosition = screenHeight * 0.4;
+    }
 
     return Stack(
       children: [
@@ -336,7 +350,9 @@ class OrderBasicInfo extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {}
+                                onPressed: () {
+                                  progressPageController.loadProgressPage();
+                                }
                               ),
                             ),
                             SizedBox(height:  screenHeight * 0.014,),
@@ -477,7 +493,7 @@ class OrderBasicInfo extends StatelessWidget {
           ],
         ),
         Positioned(
-          top: screenHeight * 0.3775,
+          top: productImagePosition,
           left: screenWidth / 2 - ((screenWidth * 0.52) / 2),
           child: SizedBox(
             height: screenHeight * 0.253289,
