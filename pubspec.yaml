@@ -45,6 +45,8 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.5.0
   fl_chart: ^0.68.0
   equatable: ^2.0.5
+  syncfusion_flutter_gauges: ^26.1.41
+  timeline_tile: ^2.0.0
   
 
 dev_dependencies:

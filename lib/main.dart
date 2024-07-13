@@ -9,6 +9,7 @@ import 'package:stock_trading_app/mobile/cash_out/cash_out_page.dart';
 import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
 import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
 import 'package:stock_trading_app/mobile/order_details/order_details_page.dart';
+import 'package:stock_trading_app/mobile/progress/progress_page.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:stock_trading_app/mobile/summary/summary_page.dart';
@@ -61,12 +62,11 @@ class MyApp extends StatelessWidget {
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false, // This removes the debug banner
 
-                // initialRoute: '/sign_in_sign_up_mobile',
-                initialRoute: getInitialRoute(),
+                initialRoute: '/sign_in_sign_up_mobile',
+                // initialRoute: getInitialRoute(),
 
                 getPages: [
                   GetPage(name: '/app_introduction_slider', page: () => const AppIntroductionSlider()),
-                  // GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.cupertino),
                   GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.native),
                   GetPage(name: '/landing_mobile', page: () => const LandingMobile()),
                   GetPage(name: '/initial_page_mobile', page: () => const InitialPageMobile()),
@@ -75,6 +75,7 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/summary', page: () => const SummaryPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/active_investment', page: () => const ActiveInvestmentPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/order_details_page', page: () => const OrderDetailsPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+                  GetPage(name: '/progress_page', page: () => const ProgressPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],
