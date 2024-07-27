@@ -13,6 +13,11 @@ class OrderDetailsModel {
   double? monthlyStoreCost;
   double? transportCost;
   double? handlingFees;
+  double? totalFunded;
+  double? quantityAvailable;
+  double? purchasePricePerUnit;
+  DateTime? purchaseDate;
+  double? currentSellingPrice;
   OrderDetailsModel({
     this.id,
     this.name,
@@ -28,5 +33,10 @@ class OrderDetailsModel {
     this.monthlyStoreCost,
     this.transportCost,
     this.handlingFees,
+    this.totalFunded,
+    this.quantityAvailable,
+    this.purchasePricePerUnit,
+    this.purchaseDate,
+    this.currentSellingPrice,
   });
 }

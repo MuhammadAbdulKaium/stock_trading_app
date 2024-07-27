@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
-import 'package:stock_trading_app/controller/progress_page_controller.dart';
+import 'package:stock_trading_app/controller/sell_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/progress/order_progress_bar.dart';
+import 'package:stock_trading_app/mobile/sell/sell_basic_info.dart';
 
-class ProgressPage extends StatelessWidget {
-  const ProgressPage({super.key});
+class SellPage extends StatelessWidget {
+  const SellPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ProgressPageController progressPageController = Get.put(ProgressPageController());
+    final SellPageController sellPageController = Get.put(SellPageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
+    
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF4FCF7),
       body: Stack(
         children: [
           PopScope(
@@ -29,7 +29,7 @@ class ProgressPage extends StatelessWidget {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: const Color(0xFFF4FCF7),
                   expandedHeight: screenHeight * 0.095,
                   floating: true,
           
@@ -43,7 +43,7 @@ class ProgressPage extends StatelessWidget {
                           padding: EdgeInsets.only(left: screenWidth * 0.013, right: screenWidth * 0.013, top: screenHeight * 0.020, bottom: screenHeight * 0.020),
                           margin: const EdgeInsets.only(top: 0, left: 0, right: 0),
                           decoration: const BoxDecoration(
-                            color: Colors.white,
+                            color: Color(0xFFF4FCF7),
                           ),
                           child: Row(
                             children: [
@@ -63,7 +63,7 @@ class ProgressPage extends StatelessWidget {
                                           child: GestureDetector(
                                             child: CircleAvatar(
                                               radius: screenWidth * 0.0520,
-                                              backgroundColor: const Color(0xFFF4FCF7),
+                                              backgroundColor: Colors.white,
                                               child: Center(
                                                 child: Padding(
                                                   padding: EdgeInsets.only(top: 0, bottom: screenWidth * 0.003),
@@ -93,7 +93,7 @@ class ProgressPage extends StatelessWidget {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Progress',
+                                    'Sell',
                                     style: TextStyle(
                                       fontSize: 21.sp,
                                       fontFamily: 'Gilroy',
@@ -118,9 +118,10 @@ class ProgressPage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Container(
                     alignment: Alignment.topCenter,
-                      child: const Column(
+                      child: Column(
                         children: [
-                          OrderProgressBar(),
+                          SizedBox(height: screenHeight * 0.0281,),
+                          const SellBasicInfo(),
                         ],
                       ),
                   ),
@@ -130,7 +131,7 @@ class ProgressPage extends StatelessWidget {
           ),
 
           Obx(() {
-            return progressPageController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
+            return sellPageController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
         ],
       ),

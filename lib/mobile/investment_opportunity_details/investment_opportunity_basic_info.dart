@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
-import 'package:stock_trading_app/controller/order_details_controller.dart';
-import 'package:stock_trading_app/controller/progress_page_controller.dart';
-import 'package:stock_trading_app/controller/sell_page_controller.dart';
+import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
 import 'package:stock_trading_app/helpers/app_text_styles.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 import 'package:stock_trading_app/helpers/decide_image_to_show.dart';
+import 'package:stock_trading_app/mobile/investment_opportunity_details/total_payable_amount.dart';
 
-class OrderBasicInfo extends StatelessWidget {
-  const OrderBasicInfo({super.key});
+class InvestmentOpportunityBasicInfo extends StatelessWidget {
+  const InvestmentOpportunityBasicInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final OrderDetailsController orderDetailsController = Get.put(OrderDetailsController());
-    final ProgressPageController progressPageController = Get.put(ProgressPageController());
-    final SellPageController sellPageController = Get.put(SellPageController());
+    final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    final GlobalKey<FormState> sellInfoFormkey = GlobalKey<FormState>();
 
     // Define breakpoints
     double productImagePosition;
@@ -73,7 +71,7 @@ class OrderBasicInfo extends StatelessWidget {
                                     child: Center(
                                       child: SizedBox(
                                         height: screenHeight * 0.0386,
-                                        child: decideImageToShow(orderDetailsController.orderDetails.value.category!),
+                                        child: decideImageToShow(investmentOpportunityDetailsController.investmentOpportunityDetails.value.category!),
                                       ),
                                     ),
                                   ),
@@ -83,7 +81,7 @@ class OrderBasicInfo extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      orderDetailsController.orderDetails.value.name!,
+                                      investmentOpportunityDetailsController.investmentOpportunityDetails.value.name!,
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontFamily: 'Gilroy',
@@ -104,14 +102,14 @@ class OrderBasicInfo extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(27),
                                       ),
                                       child: Text(
-                                        orderDetailsController.orderDetails.value.status!.toUpperCase()[0] +
-                                            orderDetailsController.orderDetails.value.status!.substring(1).toLowerCase(),
+                                        investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.toUpperCase()[0] +
+                                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.substring(1).toLowerCase(),
                                         style: TextStyle(
                                           fontSize: 11.5.sp,
                                           fontFamily: 'Gilroy',
                                           fontWeight: FontWeight.w600,
-                                          color: orderDetailsController.orderDetails.value.status!.toLowerCase() == 'active' ? const Color(0xFF008037)
-                                              : orderDetailsController.orderDetails.value.status!.toLowerCase() == 'inactive' ? Colors.red
+                                          color: investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.toLowerCase() == 'active' ? const Color(0xFF008037)
+                                              : investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.toLowerCase() == 'inactive' ? Colors.red
                                               : Colors.white,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -134,7 +132,7 @@ class OrderBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            orderDetailsController.orderDetails.value.warehouse!,
+                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.warehouse!,
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -148,7 +146,7 @@ class OrderBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            orderDetailsController.orderDetails.value.type!,
+                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.type!,
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -162,7 +160,7 @@ class OrderBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            orderDetailsController.orderDetails.value.regionOfOrigin!,
+                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.regionOfOrigin!,
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -176,7 +174,7 @@ class OrderBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            '${orderDetailsController.orderDetails.value.lotSize.toString()} Metric Ton',
+                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize.toString()} Metric Ton',
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -190,7 +188,7 @@ class OrderBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            '${orderDetailsController.orderDetails.value.pricePerUnit.toString()} BDT/MT',
+                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.pricePerUnit.toString()} BDT/MT',
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -204,7 +202,7 @@ class OrderBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            orderDetailsController.orderDetails.value.storageConditions!,
+                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.storageConditions!,
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -233,7 +231,7 @@ class OrderBasicInfo extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${orderDetailsController.orderDetails.value.optimalStorageTemperature!}°C',
+                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.optimalStorageTemperature!}°C',
                             style: TextStyle(
                               fontSize: 11.95.sp,
                               fontFamily: 'Gilroy',
@@ -292,7 +290,7 @@ class OrderBasicInfo extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height:  screenHeight * 0.021,),
+                            SizedBox(height:  screenHeight * 0.0175,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -301,12 +299,12 @@ class OrderBasicInfo extends StatelessWidget {
                                   style: AppTextStyles.cardPropertyBold,
                                 ),
                                 Text(
-                                  '${orderDetailsController.orderDetails.value.monthlyStoreCost!.toString()} BDT /Metric Ton',
+                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.monthlyStoreCost!.toString()} BDT /Metric Ton',
                                   style: AppTextStyles.cardPropertyNormal,
                                 )
                               ],
                             ),
-                            SizedBox(height:  screenHeight * 0.0095,),
+                            SizedBox(height:  screenHeight * 0.0085,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -315,12 +313,12 @@ class OrderBasicInfo extends StatelessWidget {
                                   style: AppTextStyles.cardPropertyBold,
                                 ),
                                 Text(
-                                  '${orderDetailsController.orderDetails.value.transportCost!.toString()} BDT /Shipment',
+                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.transportCost!.toString()} BDT /Shipment',
                                   style: AppTextStyles.cardPropertyNormal,
                                 )
                               ],
                             ),
-                            SizedBox(height:  screenHeight * 0.0095,),
+                            SizedBox(height:  screenHeight * 0.0085,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -329,53 +327,10 @@ class OrderBasicInfo extends StatelessWidget {
                                   style: AppTextStyles.cardPropertyBold,
                                 ),
                                 Text(
-                                  '${orderDetailsController.orderDetails.value.handlingFees!.toString()} BDT /Metric Ton',
+                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.handlingFees!.toString()} BDT /Metric Ton',
                                   style: AppTextStyles.cardPropertyNormal,
                                 )
                               ],
-                            ),
-                            SizedBox(height: screenHeight * 0.0549,),
-                            SizedBox(
-                              width: double.maxFinite,
-                              height: screenHeight * 0.05025,
-                              child: CommonButton(
-                                borderRadius: 8,
-                                backgroundColor: const Color(0xFFF4FCF7),
-                                forgroundColor: const Color(0xFF008037),
-                                child: Center(
-                                  child: Text('Order Progress',
-                                    style: TextStyle(
-                                      fontSize: 14.75.sp,
-                                      fontFamily: 'Gilroy',
-                                      fontWeight: FontWeight.w600,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  progressPageController.loadProgressPage();
-                                }
-                              ),
-                            ),
-                            SizedBox(height:  screenHeight * 0.014,),
-                            SizedBox(
-                              width: double.maxFinite,
-                              height: screenHeight * 0.05025,
-                              child: CommonButton(
-                                borderRadius: 8,
-                                backgroundColor: const Color(0xFF008037),
-                                child: Text('Sell',
-                                  style: TextStyle(
-                                    fontSize: 14.75.sp,
-                                    fontFamily: 'Gilroy',
-                                    fontWeight: FontWeight.w600,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  sellPageController.loadSellPage();
-                                }
-                              ),
                             ),
                           ],
                         ),
@@ -386,11 +341,13 @@ class OrderBasicInfo extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: screenHeight * 0.06,),
+                  SizedBox(height:  screenHeight * 0.033,),
+                  TotalPayableAmount(sellInfoFormkey: sellInfoFormkey,),
+                  SizedBox(height: screenHeight * 0.047,),
                   Column(
                     children: [
                       TabBar(
-                        controller: orderDetailsController.tabController,
+                        controller: investmentOpportunityDetailsController.tabController,
                         indicatorColor: const Color(0xFF008037),
                         indicatorWeight: 4.0,
                         labelStyle: TextStyle(
@@ -413,9 +370,9 @@ class OrderBasicInfo extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: screenHeight * 0.2685, // Adjust height as needed
+                        height: screenHeight * 0.24, // Adjust height as needed
                         child: TabBarView(
-                          controller: orderDetailsController.tabController,
+                          controller: investmentOpportunityDetailsController.tabController,
                           children: [
                             Row(
                               children: [
@@ -428,7 +385,7 @@ class OrderBasicInfo extends StatelessWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: screenHeight * 0.0264,),
+                                      SizedBox(height: screenHeight * 0.024,),
                                       Text(
                                         'Investment Highlights',
                                         style: TextStyle(
@@ -491,6 +448,122 @@ class OrderBasicInfo extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: Container(),
+                      ),
+                      Expanded(
+                        flex: 98,
+                        child: Column(
+                          children: [
+                            // SizedBox(height:  screenHeight * 0.09,),
+                            SizedBox(
+                              width: double.maxFinite,
+                              height: screenHeight * 0.05035,
+                              child: CommonButton(
+                                borderRadius: 8,
+                                backgroundColor: const Color(0xFF008037),
+                                child: Text('Next',
+                                  style: TextStyle(
+                                    fontSize: 14.75.sp,
+                                    fontFamily: 'Gilroy',
+                                    fontWeight: FontWeight.w600,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if(sellInfoFormkey.currentState!.validate()) {
+                                    // Get.dialog(
+                                    //   CustomAlartDialog(
+                                    //     end: -0.03,
+                                    //     horizontalPadding: screenWidth * 0.041666,
+                                    //     borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                    //     closeIcon: Padding(
+                                    //       padding: EdgeInsets.only(right: screenWidth * 0.03, top: screenWidth * 0.0215),
+                                    //       child: Icon(
+                                    //         Icons.close,
+                                    //         color: const Color(0xFF71717A),
+                                    //         size: screenWidth * 0.06,
+                                    //       ),
+                                    //     ),
+                                    //     onClose: () {
+                                    //       Future.delayed(const Duration(milliseconds: 300), 
+                                    //         () {
+                                    //           // signInAndSignUpController.toggleSignInSignUp();
+                                    //           // signInAndSignUpController.onClose();
+                                    //         }
+                                    //       );
+                                    //     },
+                                    //     dialogContent: Padding(
+                                    //       padding: const EdgeInsets.only(left: 18, right: 18),
+                                    //       child: Column(
+                                    //         children: [
+                                    //           SizedBox(height: screenHeight * 0.005,),
+                                    //           Text(
+                                    //             'Confirm your Sell Request. Our team will start the selling process very shortly. Once the Selling is complete, your money will be available for withdraw.',
+                                    //             textAlign: TextAlign.justify,
+                                    //             style: TextStyle(
+                                    //               fontSize: 12.65.sp,
+                                    //               fontFamily: 'Poppins',
+                                    //               fontWeight: FontWeight.w400,
+                                    //               color: const Color(0xFF52525B),
+                                    //               // overflow: TextOverflow.ellipsis,
+                                    //             ),
+                                    //           ),
+                                    //           SizedBox(height: screenHeight * 0.0242,),
+                                    //           Row(
+                                    //             mainAxisAlignment: MainAxisAlignment.end,
+                                    //             children: [
+                                    //               SizedBox(
+                                    //                 width: screenWidth * 0.19,
+                                    //                 height: screenHeight * 0.038,
+                                    //                 child: CommonButton(
+                                    //                   borderRadius: 8,
+                                    //                   backgroundColor: const Color(0xFF008037),
+                                    //                   child: Text('Confirm',
+                                    //                     style: TextStyle(
+                                    //                       fontSize: 11.5.sp,
+                                    //                       fontFamily: 'Gilroy',
+                                    //                       fontWeight: FontWeight.w500,
+                                    //                       overflow: TextOverflow.ellipsis,
+                                    //                     ),
+                                    //                   ),
+                                    //                   onPressed: () {
+                                    //                     Get.back();
+                                                        
+                                    //                     landingPageController.changePage(3);
+                                    //                     Get.offAllNamed('/landing_mobile');
+                                                        
+                                    //                     // landingPageController.bottomNavigationPageIndex.value = 3;
+                                    //                     // Get.offAllNamed('/landing_mobile');
+                                    //                   },
+                                    //                 ),
+                                    //               )
+                                    //             ],
+                                    //           ),
+                                    //           SizedBox(height: screenHeight * 0.0192,),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    //   // barrierDismissible: false,
+                                    // );
+                                  }
+                                }
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.03,),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: Container(),
+                      ),
+                    ],
+                  )
                 ],
               ),
             )

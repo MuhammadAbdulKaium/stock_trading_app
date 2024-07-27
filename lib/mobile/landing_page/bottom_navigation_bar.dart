@@ -29,8 +29,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
         child: NavigationBarTheme(
           data: NavigationBarThemeData(
             indicatorColor: const Color(0xFFF4FCF7),
-            labelTextStyle: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.selected)) {
+            labelTextStyle: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
                 return TextStyle(
                   fontSize: 11.4.sp,
                   fontFamily: 'Gilroy',
@@ -47,7 +47,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               );
             }),
-            iconTheme: MaterialStateProperty.all(
+            iconTheme: WidgetStateProperty.all(
               const IconThemeData(color: Color(0xFF71717A)),
             ),
           ),

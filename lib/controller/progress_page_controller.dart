@@ -73,6 +73,24 @@ class ProgressPageController extends GetxController {
         'event': 'Invoice Sent',
         'note': 'Check email for Invoice Copy',
       },
+      {
+        'date': 'Friday, May 3, 2024',
+        'time': '4:45 PM',
+        'event': 'Seed is in Storage',
+        'note': 'Check email for Invoice Copy',
+      },
+      {
+        'date': 'Thursday, May 2, 2024',
+        'time': '6:45 PM',
+        'event': 'Payment Verified',
+        'note': 'Check email for Invoice Copy',
+      },
+      {
+        'date': 'Wednesday, May 1, 2024',
+        'time': '4:45 PM',
+        'event': 'Invoice Sent',
+        'note': 'Check email for Invoice Copy',
+      },
     ]);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
+import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
 import 'package:stock_trading_app/controller/marketplace_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
@@ -13,6 +14,7 @@ class InvestmentOpportunities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MarketplaceController marketplaceController = Get.put(MarketplaceController());
+    final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(
@@ -366,7 +368,9 @@ class InvestmentOpportunities extends StatelessWidget {
                                         fontWeight: FontWeight.w600
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage();
+                                    },
                                   ),
                                 ),
                               ],

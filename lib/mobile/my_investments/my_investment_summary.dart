@@ -38,365 +38,377 @@ class MyInvestmentSummary extends StatelessWidget {
                 mainAxisSpacing: 20,
                 crossAxisCount: 2,
                 children: <Widget>[
-                  GestureDetector(
-                    child: Column(
-                      children: [
-                        Flexible(
-                          flex: 100,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF4FCF7),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: const Color(0xFFE8E8EA), // Border color
-                                width: 1, // Border width
-                              ),
-                            ),
-                            child: Center(
-                              child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    flex: 33,
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          flex: 7,
-                                          child: Container()
-                                        ),
-                                        Flexible(
-                                          flex: 93,
-                                          child: Icon(
-                                            CustomIcons.timer,
-                                            color: const Color(0xFF008037),
-                                            size: screenWidth * 0.0790,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  Flexible(
-                                    flex: 38,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                  Material(
+                    color: Colors.transparent,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF4FCF7),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFE8E8EA), // Border color
+                          width: 1, // Border width
+                        ),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            Flexible(
+                              flex: 100,
+                              child: Center(
+                                child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      flex: 33,
+                                      child: Row(
                                         children: [
-                                          Obx(() => 
-                                            Text(
-                                              myInvestmentsController.pendingInvestment.value,
-                                              style: TextStyle(
-                                                fontSize: 34.sp,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w700,
-                                                color: const Color(0xFF1D192B),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
+                                          Flexible(
+                                            flex: 7,
+                                            child: Container()
+                                          ),
+                                          Flexible(
+                                            flex: 93,
+                                            child: Icon(
+                                              CustomIcons.timer,
+                                              color: const Color(0xFF008037),
+                                              size: screenWidth * 0.0790,
                                             ),
                                           ),
                                         ],
-                                      ),
+                                      )
                                     ),
-                                  ),
-                                  Flexible(
-                                    flex: 28,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'Pending Investment',
-                                          style: TextStyle(
-                                            fontSize: 11.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xFF71717A),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ) 
-                                ],
-                              ),
-                            ),
-                          )
-                        )
-                      ],
-                    ),
-                    onTap: () {
-
-                    },
-                  ),
-                  GestureDetector(
-                    child: Column(
-                      children: [
-                        Flexible(
-                          flex: 100,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF4FCF7),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: const Color(0xFFE8E8EA), // Border color
-                                width: 1, // Border width
-                              ),
-                            ),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Flexible(
-                                    flex: 33,
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          flex: 7,
-                                          child: Container()
-                                        ),
-                                        Flexible(
-                                          flex: 93,
-                                          child: Icon(
-                                            CustomIcons.verify,
-                                            color: const Color(0xFF008037),
-                                            size: screenWidth * 0.0790,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  Flexible(
-                                    flex: 38,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Obx(() => 
-                                            Text(
-                                              myInvestmentsController.activeInvestment.value,
-                                              style: TextStyle(
-                                                fontSize: 34.sp,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w700,
-                                                color: const Color(0xFF1D192B),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    flex: 28,
-                                    child: Column(
-                                      children: [
-                                          Text(
-                                          'Active Investment',
-                                          style: TextStyle(
-                                            fontSize: 11.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xFF71717A),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ) 
-                                ],
-                              ),
-                            ),
-                          )
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      activeInvestmentController.loadActiveInvestmentPage();
-                    },
-                  ),
-                  GestureDetector(
-                    child: Column(
-                      children: [
-                        Flexible(
-                          flex: 100,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF4FCF7),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: const Color(0xFFE8E8EA), // Border color
-                                width: 1, // Border width
-                              ),
-                            ),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Flexible(
-                                    flex: 33,
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          flex: 7,
-                                          child: Container()
-                                        ),
-                                        Flexible(
-                                          flex: 93,
-                                          child: Icon(
-                                            CustomIcons.setting2,
-                                            color: const Color(0xFF008037),
-                                            size: screenWidth * 0.0790,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  Flexible(
-                                    flex: 38,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Obx(() => 
-                                            Text(
-                                              myInvestmentsController.actionRequired.value,
-                                              style: TextStyle(
-                                                fontSize: 34.sp,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w700,
-                                                color: const Color(0xFF1D192B),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    flex: 28,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'Action Required',
-                                          style: TextStyle(
-                                            fontSize: 11.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xFF71717A),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ) 
-                                ],
-                              ),
-                            ),
-                          )
-                        )
-                      ],
-                    ),
-                    onTap: () {
-
-                    },
-                  ),
-                  GestureDetector(
-                    child: Column(
-                      children: [
-                        Flexible(
-                          flex: 100,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF4FCF7),
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: const Color(0xFFE8E8EA), // Border color
-                                width: 1, // Border width
-                              ),
-                            ),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Flexible(
-                                    flex: 33,
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          flex: 7,
-                                          child: Container()
-                                        ),
-                                        Flexible(
-                                          flex: 93,
-                                          child: Icon(
-                                            CustomIcons.moneySend,
-                                            color: const Color(0xFF008037),
-                                            size: screenWidth * 0.0790,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  Flexible(
-                                    flex: 38,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
+                                    Flexible(
+                                      flex: 38,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Obx(() => 
                                               Text(
-                                                '৳',
+                                                myInvestmentsController.pendingInvestment.value,
                                                 style: TextStyle(
                                                   fontSize: 34.sp,
-                                                  fontFamily: 'Gilroy',
-                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w700,
                                                   color: const Color(0xFF1D192B),
                                                   overflow: TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              Obx(() => 
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 28,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'Pending Investment',
+                                            style: TextStyle(
+                                              fontSize: 11.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xFF71717A),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ) 
+                                  ],
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF4FCF7),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFE8E8EA), // Border color
+                          width: 1, // Border width
+                        ),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {
+                          activeInvestmentController.loadActiveInvestmentPage();
+                        },
+                        child: Column(
+                          children: [
+                            Flexible(
+                              flex: 100,
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      flex: 33,
+                                      child: Row(
+                                        children: [
+                                          Flexible(
+                                            flex: 7,
+                                            child: Container()
+                                          ),
+                                          Flexible(
+                                            flex: 93,
+                                            child: Icon(
+                                              CustomIcons.verify,
+                                              color: const Color(0xFF008037),
+                                              size: screenWidth * 0.0790,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ),
+                                    Flexible(
+                                      flex: 38,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Obx(() => 
+                                              Text(
+                                                myInvestmentsController.activeInvestment.value,
+                                                style: TextStyle(
+                                                  fontSize: 34.sp,
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w700,
+                                                  color: const Color(0xFF1D192B),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 28,
+                                      child: Column(
+                                        children: [
+                                            Text(
+                                            'Active Investment',
+                                            style: TextStyle(
+                                              fontSize: 11.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xFF71717A),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ) 
+                                  ],
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF4FCF7),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFE8E8EA), // Border color
+                          width: 1, // Border width
+                        ),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            Flexible(
+                              flex: 100,
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      flex: 33,
+                                      child: Row(
+                                        children: [
+                                          Flexible(
+                                            flex: 7,
+                                            child: Container()
+                                          ),
+                                          Flexible(
+                                            flex: 93,
+                                            child: Icon(
+                                              CustomIcons.setting2,
+                                              color: const Color(0xFF008037),
+                                              size: screenWidth * 0.0790,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ),
+                                    Flexible(
+                                      flex: 38,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Obx(() => 
+                                              Text(
+                                                myInvestmentsController.actionRequired.value,
+                                                style: TextStyle(
+                                                  fontSize: 34.sp,
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w700,
+                                                  color: const Color(0xFF1D192B),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 28,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'Action Required',
+                                            style: TextStyle(
+                                              fontSize: 11.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xFF71717A),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ) 
+                                  ],
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF4FCF7),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFE8E8EA), // Border color
+                          width: 1, // Border width
+                        ),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {
+                          cashOutController.loadCashOut();
+                        },
+                        child: Column(
+                          children: [
+                            Flexible(
+                              flex: 100,
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Flexible(
+                                      flex: 33,
+                                      child: Row(
+                                        children: [
+                                          Flexible(
+                                            flex: 7,
+                                            child: Container()
+                                          ),
+                                          Flexible(
+                                            flex: 93,
+                                            child: Icon(
+                                              CustomIcons.moneySend,
+                                              color: const Color(0xFF008037),
+                                              size: screenWidth * 0.0790,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ),
+                                    Flexible(
+                                      flex: 38,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
                                                 Text(
-                                                  myInvestmentsController.readyForCashout.value,
+                                                  '৳',
                                                   style: TextStyle(
                                                     fontSize: 34.sp,
-                                                    fontFamily: 'Poppins',
-                                                    fontWeight: FontWeight.w700,
+                                                    fontFamily: 'Gilroy',
+                                                    fontWeight: FontWeight.w400,
                                                     color: const Color(0xFF1D192B),
                                                     overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
+                                                Obx(() => 
+                                                  Text(
+                                                    myInvestmentsController.readyForCashout.value,
+                                                    style: TextStyle(
+                                                      fontSize: 34.sp,
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight: FontWeight.w700,
+                                                      color: const Color(0xFF1D192B),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Flexible(
-                                    flex: 28,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'Ready for Cashout',
-                                          style: TextStyle(
-                                            fontSize: 11.sp,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w600,
-                                            color: const Color(0xFF71717A),
-                                            overflow: TextOverflow.ellipsis,
+                                    Flexible(
+                                      flex: 28,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'Ready for Cashout',
+                                            style: TextStyle(
+                                              fontSize: 11.sp,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xFF71717A),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ) 
-                                ],
-                              ),
-                            ),
-                          )
-                        )
-                      ],
+                                        ],
+                                      ),
+                                    ) 
+                                  ],
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
                     ),
-                    onTap: () {
-                      cashOutController.loadCashOut();
-                    },
                   )
                 ]
               )
