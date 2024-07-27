@@ -12,9 +12,9 @@ import 'package:stock_trading_app/mobile/landing_page/custom_drawer.dart';
 import 'package:stock_trading_app/mobile/marketplace/marketplace_page.dart';
 import 'package:stock_trading_app/mobile/my_investments/my_investments_page.dart';
 
-final LandingPageController landingPageController = Get.put(LandingPageController());
+final LandingPageController landingPageController = Get.put(LandingPageController(), permanent: true);
 final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage()];
-final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'Profile', 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'];
+final List pageTitle = ['Home', 'My Investmentstr', 'Marketplace', 'Dashboard', 'Profile', 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'];
 final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,];
 
 class LandingMobile extends StatelessWidget {
@@ -78,11 +78,13 @@ class LandingMobile extends StatelessWidget {
                                               child: CircleAvatar(
                                                 radius: screenWidth * 0.0520,
                                                 backgroundColor: Colors.white,
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(top: screenWidth * 0.0340),
-                                                  child: Icon(
-                                                    CustomIcons.menuIcon,
-                                                    size: screenWidth * 0.110,
+                                                child: Center(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(top: screenWidth * 0.0155),
+                                                    child: Icon(
+                                                      CustomIcons.menuIcon,
+                                                      size: screenWidth * 0.105,
+                                                    ),
                                                   ),
                                                 ),
                                               ),

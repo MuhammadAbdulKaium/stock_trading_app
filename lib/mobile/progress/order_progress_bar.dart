@@ -17,117 +17,118 @@ class OrderProgressBar extends StatelessWidget {
 
     // Define breakpoints
     double progressPercentagePosition;
-    double orderTimelinePosition;
+    double  gapBetweenProgressBarAndTimeline;
     if (screenHeight >= 896) {
       progressPercentagePosition = screenHeight * 0.098;
-      orderTimelinePosition = screenHeight * 0.2;
+      gapBetweenProgressBarAndTimeline = screenHeight * 0.25;
     } else if (screenHeight >= 844) {
       progressPercentagePosition = screenHeight * 0.114;
-      orderTimelinePosition = screenHeight * 0.2;
+      gapBetweenProgressBarAndTimeline = screenHeight * 0.25;
     } else if (screenHeight >= 800) {
       progressPercentagePosition = screenHeight * 0.1375;
-      orderTimelinePosition = screenHeight * 0.2;
+      gapBetweenProgressBarAndTimeline = screenHeight * 0.265;
     } else if (screenHeight >= 780) {
       progressPercentagePosition = screenHeight * 0.145;
-      orderTimelinePosition = screenHeight * 0.2;
+      gapBetweenProgressBarAndTimeline = screenHeight * 0.27;
     } else {
       progressPercentagePosition = screenHeight * 0.2;
-      orderTimelinePosition = screenHeight * 0.2;
+      gapBetweenProgressBarAndTimeline = screenHeight * 0.34;
     }
     
     return  Stack(
       children: [
         Column(
           children: [
-            Stack(
-              children: [
-                Center(
-                  child: Obx(() {
-                    return SizedBox(
-                      width: screenWidth * 0.7,
-                      // height: screenWidth * 0.6,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SfRadialGauge(
-                            axes: <RadialAxis>[
-                              RadialAxis(
-                                startAngle: 180,
-                                endAngle: 0,
-                                minimum: 0,
-                                maximum: 100,
-                                showLabels: false,
-                                showTicks: false,
-                                axisLineStyle: const AxisLineStyle(
-                                  thickness: 0.15,
-                                  cornerStyle: CornerStyle.bothCurve,
-                                  thicknessUnit: GaugeSizeUnit.factor,
-                                  color: Color(0xFFF4FCF7),
-                                ),
-                                pointers: <GaugePointer>[
-                                  RangePointer(
-                                    value: progressPageController.progressValue.value,
-                                    cornerStyle: CornerStyle.bothCurve,
-                                    width: 0.15,
-                                    sizeUnit: GaugeSizeUnit.factor,
-                                    color: const Color(0xFF008037),
-                                  ),
-                                  MarkerPointer(
-                                    value: progressPageController.progressValue.value,
-                                    markerType: MarkerType.circle,
-                                    color: const Color(0xFF008037),
-                                    borderWidth: 3.35,
-                                    borderColor: Colors.white,
-                                    markerOffset: 0,
-                                    markerWidth: 30, // Set the width of the marker
-                                    markerHeight: 30, // Set the height of the marker
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-                Positioned(
-                  top: ScreenUtil().setHeight(progressPercentagePosition),
-                  left: screenWidth / 3,
-                  child: SizedBox(
-                    width: screenWidth / 3,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            Text('${progressPageController.progressValue.value.toInt()}%',
-                              style: TextStyle(
-                                fontSize: 46.sp,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFF1D192B),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Text('Order Timeline',
-                              style: TextStyle(
-                                fontSize: 14.0.sp,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF008037),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // Stack(
+            //   children: [
+            //     Center(
+            //       child: Obx(() {
+            //         return SizedBox(
+            //           width: screenWidth * 0.7,
+            //           // height: screenWidth * 0.6,
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               SfRadialGauge(
+            //                 axes: <RadialAxis>[
+            //                   RadialAxis(
+            //                     startAngle: 180,
+            //                     endAngle: 0,
+            //                     minimum: 0,
+            //                     maximum: 100,
+            //                     showLabels: false,
+            //                     showTicks: false,
+            //                     axisLineStyle: const AxisLineStyle(
+            //                       thickness: 0.15,
+            //                       cornerStyle: CornerStyle.bothCurve,
+            //                       thicknessUnit: GaugeSizeUnit.factor,
+            //                       color: Color(0xFFF4FCF7),
+            //                     ),
+            //                     pointers: <GaugePointer>[
+            //                       RangePointer(
+            //                         value: progressPageController.progressValue.value,
+            //                         cornerStyle: CornerStyle.bothCurve,
+            //                         width: 0.15,
+            //                         sizeUnit: GaugeSizeUnit.factor,
+            //                         color: const Color(0xFF008037),
+            //                       ),
+            //                       MarkerPointer(
+            //                         value: progressPageController.progressValue.value,
+            //                         markerType: MarkerType.circle,
+            //                         color: const Color(0xFF008037),
+            //                         borderWidth: 3.35,
+            //                         borderColor: Colors.white,
+            //                         markerOffset: 0,
+            //                         markerWidth: 30, // Set the width of the marker
+            //                         markerHeight: 30, // Set the height of the marker
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //             ],
+            //           ),
+            //         );
+            //       }),
+            //     ),
+            //     Positioned(
+            //       top: ScreenUtil().setHeight(progressPercentagePosition),
+            //       left: screenWidth / 3,
+            //       child: SizedBox(
+            //         width: screenWidth / 3,
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             Column(
+            //               children: [
+            //                 Text('${progressPageController.progressValue.value.toInt()}%',
+            //                   style: TextStyle(
+            //                     fontSize: 46.sp,
+            //                     fontFamily: 'Poppins',
+            //                     fontWeight: FontWeight.w700,
+            //                     color: const Color(0xFF1D192B),
+            //                     overflow: TextOverflow.ellipsis,
+            //                   ),
+            //                 ),
+            //                 Text('Order Timeline',
+            //                   style: TextStyle(
+            //                     fontSize: 14.0.sp,
+            //                     fontFamily: 'Poppins',
+            //                     fontWeight: FontWeight.w600,
+            //                     color: const Color(0xFF008037),
+            //                     overflow: TextOverflow.ellipsis,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            SizedBox(height:  gapBetweenProgressBarAndTimeline,),
             Row(
               children: [
                 Expanded(
@@ -262,6 +263,100 @@ class OrderProgressBar extends StatelessWidget {
               ],
             )
           ],
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: screenWidth * 0.15),
+                child: Obx(() {
+                  return SizedBox(
+                    width: screenWidth * 0.7,
+                    // height: screenWidth * 0.6,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SfRadialGauge(
+                          axes: <RadialAxis>[
+                            RadialAxis(
+                              startAngle: 180,
+                              endAngle: 0,
+                              minimum: 0,
+                              maximum: 100,
+                              showLabels: false,
+                              showTicks: false,
+                              axisLineStyle: const AxisLineStyle(
+                                thickness: 0.15,
+                                cornerStyle: CornerStyle.bothCurve,
+                                thicknessUnit: GaugeSizeUnit.factor,
+                                color: Color(0xFFF4FCF7),
+                              ),
+                              pointers: <GaugePointer>[
+                                RangePointer(
+                                  value: progressPageController.progressValue.value,
+                                  cornerStyle: CornerStyle.bothCurve,
+                                  width: 0.15,
+                                  sizeUnit: GaugeSizeUnit.factor,
+                                  color: const Color(0xFF008037),
+                                ),
+                                MarkerPointer(
+                                  value: progressPageController.progressValue.value,
+                                  markerType: MarkerType.circle,
+                                  color: const Color(0xFF008037),
+                                  borderWidth: 3.35,
+                                  borderColor: Colors.white,
+                                  markerOffset: 0,
+                                  markerWidth: 30, // Set the width of the marker
+                                  markerHeight: 30, // Set the height of the marker
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+              Positioned(
+                top: ScreenUtil().setHeight(progressPercentagePosition),
+                left: screenWidth / 3,
+                child: SizedBox(
+                  width: screenWidth / 3,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text('${progressPageController.progressValue.value.toInt()}%',
+                            style: TextStyle(
+                              fontSize: 46.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF1D192B),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Text('Order Timeline',
+                            style: TextStyle(
+                              fontSize: 14.0.sp,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF008037),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         // Positioned(
         //   top: ScreenUtil().setHeight(orderTimelinePosition),

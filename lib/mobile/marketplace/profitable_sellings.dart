@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/marketplace_controller.dart';
+import 'package:stock_trading_app/controller/order_details_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
 // final MarketplaceController marketplaceController = Get.put(MarketplaceController());
@@ -13,6 +14,7 @@ class ProfitableSellings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MarketplaceController marketplaceController = Get.put(MarketplaceController());
+    final OrderDetailsController orderDetailsController = Get.put(OrderDetailsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(
@@ -356,7 +358,9 @@ class ProfitableSellings extends StatelessWidget {
                                         fontWeight: FontWeight.w600
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      orderDetailsController.loadOrderDetailsPage(profitableSell.productId!);
+                                    },
                                   ),
                                 ),
                               ],

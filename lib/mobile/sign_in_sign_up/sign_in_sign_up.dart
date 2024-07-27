@@ -16,6 +16,7 @@ class SignInSignUpMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final SigninSignupNavigationController signinSignupNavigationController = Get.put(SigninSignupNavigationController());
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Obx(() => 
         PopScope(
           canPop: signinSignupNavigationController.canGoBack.value,

@@ -17,4 +17,20 @@ class AppTextStyles {
     color: const Color(0xFF1D192B),
     overflow: TextOverflow.ellipsis,
   );
+
+  static final TextStyle cardPropertyBold1 = TextStyle(
+    fontSize: 15.5.sp,
+    fontFamily: 'Gilroy',
+    fontWeight: FontWeight.w600,
+    color: const Color(0xFF1D192B),
+    overflow: TextOverflow.ellipsis,
+  );
+
+  static final TextStyle cardPropertyNormal1 = TextStyle(
+    fontSize: 15.5.sp,
+    fontFamily: 'Gilroy',
+    fontWeight: FontWeight.w400,
+    color: const Color(0xFF1D192B),
+    overflow: TextOverflow.ellipsis,
+  );
 }
