@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/login_controller.dart';
 import 'package:stock_trading_app/mobile/active_investment/active_investment_page.dart';
 import 'package:stock_trading_app/mobile/app_Introduction_slider.dart';
+import 'package:stock_trading_app/mobile/booking/booking_page.dart';
 import 'package:stock_trading_app/mobile/cash_out/cash_out_page.dart';
+import 'package:stock_trading_app/mobile/confirmation/confirmation_page.dart';
 import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
 import 'package:stock_trading_app/mobile/investment_opportunity_details/investment_opportunity_details_page.dart';
 import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
@@ -80,6 +82,8 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/progress_page', page: () => const ProgressPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sell_page', page: () => const SellPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/investment_opportunity_details_page', page: () => const InvestmentOpportunityDetailsPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+                  GetPage(name: '/booking_page', page: () => const BookingPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+                  GetPage(name: '/confirmation_page', page: () => const ConfirmationPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],

@@ -89,14 +89,6 @@ class SellPageController extends GetxController {
       remainingLot.value = maximumLot.value = orderDetails.value.quantityAvailable!.toInt();
       currentSellingPrice.value = orderDetails.value.currentSellingPrice!.toDouble();
 
-      // if(orderDetails.value.quantityAvailable! <= maximumLot.value) {
-      //   remainingLot.value = maximumLot.value = orderDetails.value.quantityAvailable!.toInt();
-      // } else {
-      //   remainingLot.value = maximumLot.value;
-      // }
-
-      // enteredLotNumerToSellTextEditingController = TextEditingController(text: enteredLotNumerToSell.toString());
-
       Get.toNamed("/sell_page");
     } catch (e) {
       // throw Exception('Error: $e');
@@ -133,6 +125,13 @@ class SellPageController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  void resetVariables() {
+    totalReceiveableAmount.value = 0.0;
+    enteredLotNumerToSell.value = 0;
+    enteredLotNumerToSellPlaceHolder.value = '';
+    enteredLotNumerToSellTextEditingController = TextEditingController(text: enteredLotNumerToSellPlaceHolder.value.toString());
   }
 
   @override

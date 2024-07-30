@@ -49,4 +49,8 @@ class CustomIcons {
   static const IconData import2 = IconData(0xe000, fontFamily: 'summary-icon');
 
   static const IconData thermometer = IconData(0xe000, fontFamily: 'active-investment-icon');
+
+  static const IconData copyFilled = IconData(0xe000, fontFamily: 'booking-page-icons');
+  static const IconData copyOutline = IconData(0xe001, fontFamily: 'booking-page-icons');
+  static const IconData copyOutline2 = IconData(0xe002, fontFamily: 'booking-page-icons');
 }

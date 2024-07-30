@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
+import 'package:stock_trading_app/controller/booking_page_controller.dart';
 import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
 import 'package:stock_trading_app/helpers/app_text_styles.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
@@ -14,9 +15,10 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
+    final BookingPageController bookingPageController = Get.put(BookingPageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    final GlobalKey<FormState> sellInfoFormkey = GlobalKey<FormState>();
+    final GlobalKey<FormState> buyInfoFormkey = GlobalKey<FormState>();
 
     // Define breakpoints
     double productImagePosition;
@@ -342,7 +344,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height:  screenHeight * 0.033,),
-                  TotalPayableAmount(sellInfoFormkey: sellInfoFormkey,),
+                  TotalPayableAmount(buyInfoFormkey: buyInfoFormkey,),
                   SizedBox(height: screenHeight * 0.047,),
                   Column(
                     children: [
@@ -458,7 +460,6 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                         flex: 98,
                         child: Column(
                           children: [
-                            // SizedBox(height:  screenHeight * 0.09,),
                             SizedBox(
                               width: double.maxFinite,
                               height: screenHeight * 0.05035,
@@ -474,82 +475,11 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  if(sellInfoFormkey.currentState!.validate()) {
-                                    // Get.dialog(
-                                    //   CustomAlartDialog(
-                                    //     end: -0.03,
-                                    //     horizontalPadding: screenWidth * 0.041666,
-                                    //     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                    //     closeIcon: Padding(
-                                    //       padding: EdgeInsets.only(right: screenWidth * 0.03, top: screenWidth * 0.0215),
-                                    //       child: Icon(
-                                    //         Icons.close,
-                                    //         color: const Color(0xFF71717A),
-                                    //         size: screenWidth * 0.06,
-                                    //       ),
-                                    //     ),
-                                    //     onClose: () {
-                                    //       Future.delayed(const Duration(milliseconds: 300), 
-                                    //         () {
-                                    //           // signInAndSignUpController.toggleSignInSignUp();
-                                    //           // signInAndSignUpController.onClose();
-                                    //         }
-                                    //       );
-                                    //     },
-                                    //     dialogContent: Padding(
-                                    //       padding: const EdgeInsets.only(left: 18, right: 18),
-                                    //       child: Column(
-                                    //         children: [
-                                    //           SizedBox(height: screenHeight * 0.005,),
-                                    //           Text(
-                                    //             'Confirm your Sell Request. Our team will start the selling process very shortly. Once the Selling is complete, your money will be available for withdraw.',
-                                    //             textAlign: TextAlign.justify,
-                                    //             style: TextStyle(
-                                    //               fontSize: 12.65.sp,
-                                    //               fontFamily: 'Poppins',
-                                    //               fontWeight: FontWeight.w400,
-                                    //               color: const Color(0xFF52525B),
-                                    //               // overflow: TextOverflow.ellipsis,
-                                    //             ),
-                                    //           ),
-                                    //           SizedBox(height: screenHeight * 0.0242,),
-                                    //           Row(
-                                    //             mainAxisAlignment: MainAxisAlignment.end,
-                                    //             children: [
-                                    //               SizedBox(
-                                    //                 width: screenWidth * 0.19,
-                                    //                 height: screenHeight * 0.038,
-                                    //                 child: CommonButton(
-                                    //                   borderRadius: 8,
-                                    //                   backgroundColor: const Color(0xFF008037),
-                                    //                   child: Text('Confirm',
-                                    //                     style: TextStyle(
-                                    //                       fontSize: 11.5.sp,
-                                    //                       fontFamily: 'Gilroy',
-                                    //                       fontWeight: FontWeight.w500,
-                                    //                       overflow: TextOverflow.ellipsis,
-                                    //                     ),
-                                    //                   ),
-                                    //                   onPressed: () {
-                                    //                     Get.back();
-                                                        
-                                    //                     landingPageController.changePage(3);
-                                    //                     Get.offAllNamed('/landing_mobile');
-                                                        
-                                    //                     // landingPageController.bottomNavigationPageIndex.value = 3;
-                                    //                     // Get.offAllNamed('/landing_mobile');
-                                    //                   },
-                                    //                 ),
-                                    //               )
-                                    //             ],
-                                    //           ),
-                                    //           SizedBox(height: screenHeight * 0.0192,),
-                                    //         ],
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    //   // barrierDismissible: false,
-                                    // );
+                                  if(buyInfoFormkey.currentState!.validate()) {
+                                    bookingPageController.loadBookingPage();
+                                    Future.delayed(const Duration(milliseconds: 300), () {
+                                      investmentOpportunityDetailsController.resetVariables();
+                                    });
                                   }
                                 }
                               ),

@@ -3,11 +3,9 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/models/order_details_model.dart';
 
-class InvestmentOpportunityDetailsController extends GetxController with GetSingleTickerProviderStateMixin {
+class ConfirmationController extends GetxController {
   var isLoading = false.obs;
-  var investmentOpportunityDetails = OrderDetailsModel().obs;
-
-  late TabController tabController;
+  var confirmingOrderDetails = OrderDetailsModel().obs;
 
   Rx<num> maximumLot = 0.obs;
   Rx<num> remainingLot = 0.obs;
@@ -22,12 +20,9 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
     if(enteredLotNumerToBuy >= 0 && enteredLotNumerToBuy < maximumLot.value && maximumLot.value >= remainingLot.value && remainingLot.value > 0) {
       enteredLotNumerToBuy.value += 1;
       enteredLotNumerToBuyPlaceHolder.value = enteredLotNumerToBuy.value.toString();
-      // print(enteredLotNumerToBuyPlaceHolder);
       enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
       remainingLot.value -= 1;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentOpportunityDetails.value.pricePerUnit!.toDouble();
-
-      // print(enteredLotNumerToBuy.value);
+      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * confirmingOrderDetails.value.pricePerUnit!.toDouble();
     }
   }
 
@@ -37,7 +32,7 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
       enteredLotNumerToBuyPlaceHolder.value = enteredLotNumerToBuy.value.toString();
       enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
       remainingLot.value += 1;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * confirmingOrderDetails.value.pricePerUnit!.toDouble();
     }
   }
 
@@ -65,14 +60,14 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
       enteredLotNumerToBuy.value = parsedValue ?? 0;
       enteredLotNumerToBuyPlaceHolder.value = value.toString();
       remainingLot.value -= parsedValue ?? 0;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * confirmingOrderDetails.value.pricePerUnit!.toDouble();
     }
   }
 
-  Future<void> loadInvestmentOpportunityDetailsPage() async {
+  Future<void> loadConfirmationPage() async {
     isLoading(true);
     try {
-      investmentOpportunityDetails.value = OrderDetailsModel(
+      confirmingOrderDetails.value = OrderDetailsModel(
         id: '1',
         name: 'Aman Rice',
         category: 'rice',
@@ -90,10 +85,10 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
         quantityAvailable: 19,
       );
 
-      remainingLot.value = maximumLot.value = investmentOpportunityDetails.value.lotSize!.toInt();
-      currentBuyingPrice.value = investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      remainingLot.value = maximumLot.value = confirmingOrderDetails.value.lotSize!.toInt();
+      currentBuyingPrice.value = confirmingOrderDetails.value.pricePerUnit!.toDouble();
 
-      Get.toNamed("/investment_opportunity_details_page");
+      Get.toNamed("/confirmation_page");
     } catch (e) {
       // throw Exception('Error: $e');
       Get.dialog(
@@ -134,7 +129,7 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
   void resetVariables() {
     totalPayableAmount.value = 0.0;
     enteredLotNumerToBuy.value = 0;
-    remainingLot.value = maximumLot.value = investmentOpportunityDetails.value.lotSize!.toInt();
+    remainingLot.value = maximumLot.value = confirmingOrderDetails.value.lotSize!.toInt();
     enteredLotNumerToBuyPlaceHolder.value = '';
     enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
   }
@@ -142,13 +137,11 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
   @override
   void onInit() {
     super.onInit();
-    tabController = TabController(length: 2, vsync: this);
     enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
   }
 
   @override
   void onClose() {
-    tabController.dispose();
     enteredLotNumerToBuyTextEditingController.dispose();
     super.onClose();
   }

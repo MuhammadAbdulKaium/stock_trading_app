@@ -316,24 +316,6 @@ class SellBasicInfo extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // Row(
-                      //   children: [
-                      //     Text(
-                      //       'Remaining: ',
-                      //       style: AppTextStyles.cardPropertyBold1,
-                      //     ),
-                      //     Obx(() =>
-                      //       AnimatedSwitcher(
-                      //         duration: const Duration(milliseconds: 300),
-                      //         child: Text(
-                      //           '${sellPageController.remainingLot} Lot',
-                      //           key: ValueKey<int>(sellPageController.remainingLot.toInt()),
-                      //           style: AppTextStyles.cardPropertyNormal1,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // )
                     ],
                   ),
                 ],
@@ -452,43 +434,6 @@ class SellBasicInfo extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // RichText(
-                        //   textAlign: TextAlign.center,
-                        //   text: TextSpan(
-
-                        //     children: [
-                        //       TextSpan(
-                        //         text: 'Total Receiveable Amount : ',
-                        //         style: TextStyle(
-                        //           fontSize: 15.1.sp,
-                        //           fontFamily: 'Gilroy',
-                        //           fontWeight: FontWeight.w600,
-                        //           color: const Color(0xFF1D192B),
-                        //           // overflow: TextOverflow.ellipsis,
-                        //         ),
-                        //       ),
-                        //       WidgetSpan(
-                        //         alignment: PlaceholderAlignment.baseline,
-                        //         baseline: TextBaseline.alphabetic,
-                        //         child: Obx(
-                        //           () => AnimatedSwitcher(
-                        //             duration: const Duration(milliseconds: 300),
-                        //             child: Text(
-                        //               '${sellPageController.totalReceiveableAmount} BDT',
-                        //               key: ValueKey<int>(sellPageController.totalReceiveableAmount.toInt()),
-                        //               style: TextStyle(
-                        //                 fontSize: 15.1.sp,
-                        //                 fontFamily: 'Gilroy',
-                        //                 fontWeight: FontWeight.w400,
-                        //                 color: const Color(0xFF1D192B),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // )
                       ],
                     ),
                   )

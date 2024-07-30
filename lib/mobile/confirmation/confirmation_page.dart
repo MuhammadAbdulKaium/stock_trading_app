@@ -2,32 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
-import 'package:stock_trading_app/controller/sell_page_controller.dart';
+import 'package:stock_trading_app/controller/confirmation_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/sell/sell_basic_info.dart';
+import 'package:stock_trading_app/mobile/confirmation/confirmation_basic_info.dart';
 
-class SellPage extends StatelessWidget {
-  const SellPage({super.key});
+class ConfirmationPage extends StatelessWidget {
+  const ConfirmationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final SellPageController sellPageController = Get.put(SellPageController());
+    final ConfirmationController confirmationController = Get.put(ConfirmationController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF4FCF7),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           PopScope(
             canPop: true,
             onPopInvoked: (_) async{
-              Future.delayed(const Duration(milliseconds: 300), () {sellPageController.resetVariables();});
+              Future.delayed(const Duration(milliseconds: 300), () {
+                confirmationController.resetVariables();
+              });
             },
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: const Color(0xFFF4FCF7),
+                  backgroundColor: Colors.white,
                   expandedHeight: screenHeight * 0.095,
                   floating: true,
           
@@ -41,7 +43,7 @@ class SellPage extends StatelessWidget {
                           padding: EdgeInsets.only(left: screenWidth * 0.013, right: screenWidth * 0.013, top: screenHeight * 0.020, bottom: screenHeight * 0.020),
                           margin: const EdgeInsets.only(top: 0, left: 0, right: 0),
                           decoration: const BoxDecoration(
-                            color: Color(0xFFF4FCF7),
+                            color: Colors.white,
                           ),
                           child: Row(
                             children: [
@@ -61,7 +63,7 @@ class SellPage extends StatelessWidget {
                                           child: GestureDetector(
                                             child: CircleAvatar(
                                               radius: screenWidth * 0.0520,
-                                              backgroundColor: Colors.white,
+                                              backgroundColor: const Color(0xFFF4FCF7),
                                               child: Center(
                                                 child: Padding(
                                                   padding: EdgeInsets.only(top: 0, bottom: screenWidth * 0.003),
@@ -91,9 +93,9 @@ class SellPage extends StatelessWidget {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Sell',
+                                    'Confirmation',
                                     style: TextStyle(
-                                      fontSize: 21.sp,
+                                      fontSize: 23.sp,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,
                                       color: const Color(0xFF1D192B),
@@ -118,8 +120,8 @@ class SellPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                       child: Column(
                         children: [
-                          SizedBox(height: screenHeight * 0.0281,),
-                          const SellBasicInfo(),
+                          SizedBox(height: screenHeight * 0.0235,),
+                          const ConfirmationBasicInfo(),
                         ],
                       ),
                   ),
@@ -129,7 +131,7 @@ class SellPage extends StatelessWidget {
           ),
 
           Obx(() {
-            return sellPageController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
+            return confirmationController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
         ],
       ),
