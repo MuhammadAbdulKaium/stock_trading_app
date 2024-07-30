@@ -440,13 +440,13 @@ class BankDetails extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.0425,),
                 SizedBox(
                   width: double.maxFinite,
-                  height: screenHeight * 0.045,
+                  height: screenHeight * 0.05035,
                   child: CommonButton(
                     borderRadius: 8,
                     backgroundColor: const Color(0xFF008037),
                     child: Text('Withdraw',
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 14.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w600,
                         overflow: TextOverflow.ellipsis,
