@@ -7,6 +7,10 @@ class CustomCheckBox extends StatelessWidget {
   final double? height;
   final double? width;
   final double? scale;
+  final Color? borderColor;
+  final TextStyle? checkBoxLabelStyle;
+  // final Color? checkBoxLabelColor;
+  // final double? checkBoxLabelFontSize;
   const CustomCheckBox(
     {
       Key? key,
@@ -16,6 +20,10 @@ class CustomCheckBox extends StatelessWidget {
       this.height,
       this.width,
       this.scale,
+      this.borderColor,
+      this.checkBoxLabelStyle,
+      // this.checkBoxLabelColor,
+      // this.checkBoxLabelFontSize,
     })
     : super(key: key);
 
@@ -37,8 +45,9 @@ class CustomCheckBox extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  side: const BorderSide(
-                    color: Color(0xFFA1A1AA),
+                  side: BorderSide(
+                    width: 1.8,
+                    color: borderColor ?? const Color(0xFFA1A1AA),
                   ),
                   activeColor: const Color(0xFF008037),
                   value: isChecked,
@@ -50,7 +59,7 @@ class CustomCheckBox extends StatelessWidget {
             checkBoxLabel.isNotEmpty 
             ? Text(
               checkBoxLabel,
-              style: const TextStyle(
+              style: checkBoxLabelStyle ?? const TextStyle(
                 fontSize: 13, 
                 fontWeight: FontWeight.w500,
                 color: Color(0xFF71717A),

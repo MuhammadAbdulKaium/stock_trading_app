@@ -22,9 +22,9 @@ class InvestmentOpportunityDetailsPage extends StatelessWidget {
           PopScope(
             canPop: true,
             onPopInvoked: (_) async{
-              // if(!landingPageController.canGoBack.value) {
-              //   landingPageController.goBack();
-              // }
+              Future.delayed(const Duration(milliseconds: 300), () {
+                investmentOpportunityDetailsController.resetVariables();
+              });
             },
             child: CustomScrollView(
               slivers: [
@@ -95,7 +95,7 @@ class InvestmentOpportunityDetailsPage extends StatelessWidget {
                                   child: Text(
                                     'Details',
                                     style: TextStyle(
-                                      fontSize: 21.sp,
+                                      fontSize: 23.sp,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,
                                       color: const Color(0xFF1D192B),

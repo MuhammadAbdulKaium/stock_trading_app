@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
-import 'package:stock_trading_app/controller/sell_page_controller.dart';
+import 'package:stock_trading_app/controller/booking_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/sell/sell_basic_info.dart';
+import 'package:stock_trading_app/mobile/booking/booking_basic_info.dart';
 
-class SellPage extends StatelessWidget {
-  const SellPage({super.key});
+class BookingPage extends StatelessWidget {
+  const BookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final SellPageController sellPageController = Get.put(SellPageController());
+    final BookingPageController bookingPageController = Get.put(BookingPageController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -22,7 +22,7 @@ class SellPage extends StatelessWidget {
           PopScope(
             canPop: true,
             onPopInvoked: (_) async{
-              Future.delayed(const Duration(milliseconds: 300), () {sellPageController.resetVariables();});
+              // Future.delayed(const Duration(milliseconds: 300), () {sellPageController.resetVariables();});
             },
             child: CustomScrollView(
               slivers: [
@@ -91,9 +91,9 @@ class SellPage extends StatelessWidget {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Sell',
+                                    'Booking',
                                     style: TextStyle(
-                                      fontSize: 21.sp,
+                                      fontSize: 23.sp,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w700,
                                       color: const Color(0xFF1D192B),
@@ -118,8 +118,8 @@ class SellPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                       child: Column(
                         children: [
-                          SizedBox(height: screenHeight * 0.0281,),
-                          const SellBasicInfo(),
+                          SizedBox(height: screenHeight * 0.0235,),
+                          const BookingBasicInfo(),
                         ],
                       ),
                   ),
@@ -129,7 +129,7 @@ class SellPage extends StatelessWidget {
           ),
 
           Obx(() {
-            return sellPageController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
+            return bookingPageController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
         ],
       ),

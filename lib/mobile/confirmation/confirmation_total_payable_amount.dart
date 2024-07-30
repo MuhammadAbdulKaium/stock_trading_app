@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_inputfield_with_increment_and_decrement.dart';
-import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
-import 'package:stock_trading_app/helpers/app_text_styles.dart';
+import 'package:stock_trading_app/controller/confirmation_controller.dart';
+// import 'package:stock_trading_app/helpers/app_text_styles.dart';
 
-class TotalPayableAmount extends StatelessWidget {
-  final GlobalKey<FormState> buyInfoFormkey;
+class ConfirmationTotalPayableAmount extends StatelessWidget {
+  final GlobalKey<FormState> confirmationInfoFormkey;
 
-  const TotalPayableAmount({super.key, required this.buyInfoFormkey});
+  const ConfirmationTotalPayableAmount({super.key, required this.confirmationInfoFormkey});
 
   @override
   Widget build(BuildContext context) {
-    final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
+    final ConfirmationController confirmationController = Get.put(ConfirmationController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -27,74 +27,74 @@ class TotalPayableAmount extends StatelessWidget {
         ),
       ),
       child: Form(
-        key: buyInfoFormkey,
+        key: confirmationInfoFormkey,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Container(),
-                ),
-                Expanded(
-                  flex: 98,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Maximum: ',
-                            style: AppTextStyles.cardPropertyBold1,
-                          ),
-                          Obx(() =>
-                            Text(
-                              '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize! < investmentOpportunityDetailsController.maximumLot.value 
-                              ? investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize!.toString()
-                              : investmentOpportunityDetailsController.maximumLot} Lot',
-                              style: AppTextStyles.cardPropertyNormal1,
-                            )
-                          )
-                        ],
-                      ),
-                      Obx(
-                        () => AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          transitionBuilder: (Widget child, Animation<double> animation) {
-                            return FadeTransition(opacity: animation, child: child);
-                          },
-                          child: Row(
-                            key: ValueKey<int>(investmentOpportunityDetailsController.remainingLot.toInt()),
-                            children: [
-                              Text(
-                                'Remaining: ',
-                                style: AppTextStyles.cardPropertyBold1,
-                              ),
-                              Text(
-                                '${investmentOpportunityDetailsController.remainingLot} Lot',
-                                style: AppTextStyles.cardPropertyNormal1,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Container(),
-                ),
-              ],
-            ),
-            SizedBox(height:  screenHeight * 0.0115,),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Expanded(
+            //       flex: 5,
+            //       child: Container(),
+            //     ),
+            //     Expanded(
+            //       flex: 98,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           Row(
+            //             children: [
+            //               Text(
+            //                 'Maximum: ',
+            //                 style: AppTextStyles.cardPropertyBold1,
+            //               ),
+            //               Obx(() =>
+            //                 Text(
+            //                   '${confirmationController.confirmingOrderDetails.value.lotSize! < confirmationController.maximumLot.value 
+            //                   ? confirmationController.confirmingOrderDetails.value.lotSize!.toString()
+            //                   : confirmationController.maximumLot} Lot',
+            //                   style: AppTextStyles.cardPropertyNormal1,
+            //                 )
+            //               )
+            //             ],
+            //           ),
+            //           Obx(
+            //             () => AnimatedSwitcher(
+            //               duration: const Duration(milliseconds: 300),
+            //               transitionBuilder: (Widget child, Animation<double> animation) {
+            //                 return FadeTransition(opacity: animation, child: child);
+            //               },
+            //               child: Row(
+            //                 key: ValueKey<int>(confirmationController.remainingLot.toInt()),
+            //                 children: [
+            //                   Text(
+            //                     'Remaining: ',
+            //                     style: AppTextStyles.cardPropertyBold1,
+            //                   ),
+            //                   Text(
+            //                     '${confirmationController.remainingLot} Lot',
+            //                     style: AppTextStyles.cardPropertyNormal1,
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //     Expanded(
+            //       flex: 5,
+            //       child: Container(),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(height:  screenHeight * 0.0115,),
             Card(
               color: const Color(0xFFF4F4F5), 
               semanticContainer: false,
               surfaceTintColor: Colors.white,
               elevation: 0,
-              margin: EdgeInsets.all(screenWidth * 0.0425,),
+              margin: EdgeInsets.only(top: screenWidth * 0.0425, bottom: screenWidth * 0.033, left: screenWidth * 0.0425, right: screenWidth * 0.0425),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(14),
               ),
@@ -110,28 +110,28 @@ class TotalPayableAmount extends StatelessWidget {
                     Obx(() => 
                       CommonInputFieldWithIncrementAndDecrement(
                         backgroundColor: const Color(0xFFF4FCF7),
-                        initialValue: investmentOpportunityDetailsController.enteredLotNumerToBuyPlaceHolder.value,
-                        isFieldClicked: investmentOpportunityDetailsController.isenteredLotNumerToBuyFieldClicked.value,
-                        incrementButtonOnTap: investmentOpportunityDetailsController.enteredLotNumerToBuyFieldIncrementButtonOnTap,
-                        decrementButtonOnTap: investmentOpportunityDetailsController.enteredLotNumerToBuyFieldDecrementButtonOnTap,
+                        initialValue: confirmationController.enteredLotNumerToBuyPlaceHolder.value,
+                        isFieldClicked: confirmationController.isenteredLotNumerToBuyFieldClicked.value,
+                        incrementButtonOnTap: confirmationController.enteredLotNumerToBuyFieldIncrementButtonOnTap,
+                        decrementButtonOnTap: confirmationController.enteredLotNumerToBuyFieldDecrementButtonOnTap,
                         onTap: () {
-                          investmentOpportunityDetailsController.isenteredLotNumerToBuyFieldClicked.value = true;
+                          confirmationController.isenteredLotNumerToBuyFieldClicked.value = true;
                         },
                         onEditingComplete: () {
-                          investmentOpportunityDetailsController.isenteredLotNumerToBuyFieldClicked.value = false;
+                          confirmationController.isenteredLotNumerToBuyFieldClicked.value = false;
                         },
                         onTapOutside: (_) {
-                          investmentOpportunityDetailsController.isenteredLotNumerToBuyFieldClicked.value = false;
+                          confirmationController.isenteredLotNumerToBuyFieldClicked.value = false;
                         },
-                        controller: investmentOpportunityDetailsController.enteredLotNumerToBuyTextEditingController,
+                        controller: confirmationController.enteredLotNumerToBuyTextEditingController,
                         onChanged: (value) {
-                          investmentOpportunityDetailsController.setEnteredLotNumerToBuy(value);
+                          confirmationController.setEnteredLotNumerToBuy(value);
                         },
                         validator: (value) {
                           final regex = RegExp(r'^\d*\.?\d*$');
                           final amount = value.trim().isNotEmpty ? num.tryParse(value) : 0;
                 
-                          investmentOpportunityDetailsController.setEnteredLotNumerToBuy;
+                          confirmationController.setEnteredLotNumerToBuy;
                 
                           if (value.trim().isEmpty) {
                             return 'No. of Unit cannot be empty.';
@@ -139,7 +139,7 @@ class TotalPayableAmount extends StatelessWidget {
                             return 'Enter a No. of Unit.';
                           } else if (!regex.hasMatch(value.trim())) {
                             return 'Enter a valid No. of Unit.';
-                          } else if (investmentOpportunityDetailsController.maximumLot.value < amount) {
+                          } else if (confirmationController.maximumLot.value < amount) {
                             return 'Insufficient Unit.';
                           }
                           return null;
@@ -154,7 +154,7 @@ class TotalPayableAmount extends StatelessWidget {
                           return FadeTransition(opacity: animation, child: child);
                         },
                         child: RichText(
-                          key: ValueKey<int>(investmentOpportunityDetailsController.totalPayableAmount.toInt()),
+                          key: ValueKey<int>(confirmationController.totalPayableAmount.toInt()),
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             children: [
@@ -168,7 +168,7 @@ class TotalPayableAmount extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: '${investmentOpportunityDetailsController.totalPayableAmount} BDT',
+                                text: '${confirmationController.totalPayableAmount} BDT',
                                 style: TextStyle(
                                   fontSize: 15.1.sp,
                                   fontFamily: 'Gilroy',
@@ -185,7 +185,6 @@ class TotalPayableAmount extends StatelessWidget {
                 ),
               )
             ),
-            SizedBox(height:  screenHeight * 0.0115,),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -209,7 +208,7 @@ class TotalPayableAmount extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.transportCost!.toString()} BDT',
+                        '${confirmationController.confirmingOrderDetails.value.transportCost!.toString()} BDT',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontFamily: 'Gilroy',

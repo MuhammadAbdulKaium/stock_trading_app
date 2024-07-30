@@ -191,6 +191,9 @@ flutter:
     - family: active-investment-icon
       fonts:
         - asset: images/icons/active-investment-icon.ttf
+    - family: booking-page-icons
+      fonts:
+        - asset: images/icons/booking-page-icons.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
