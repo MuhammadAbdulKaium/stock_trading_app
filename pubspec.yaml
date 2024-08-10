@@ -47,6 +47,10 @@ dependencies:
   equatable: ^2.0.5
   syncfusion_flutter_gauges: ^26.1.41
   timeline_tile: ^2.0.0
+  dotted_border: ^2.1.0
+  file_picker: ^8.0.6
+  dio: ^5.5.0+1
+  flutter_svg: ^2.0.10+1
   
 
 dev_dependencies:
@@ -194,6 +198,9 @@ flutter:
     - family: booking-page-icons
       fonts:
         - asset: images/icons/booking-page-icons.ttf
+    - family: payment-proof
+      fonts:
+        - asset: images/icons/payment-proof.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

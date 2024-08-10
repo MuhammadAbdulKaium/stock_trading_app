@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/confirmation_controller.dart';
+import 'package:stock_trading_app/controller/payment_proof_controller.dart';
 import 'package:stock_trading_app/mobile/confirmation/confirmation_total_payable_amount.dart';
 
 class ConfirmationBasicInfo extends StatelessWidget {
@@ -11,6 +12,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ConfirmationController confirmationController = Get.put(ConfirmationController());
+    final PaymentProofController paymentProofController = Get.put(PaymentProofController());
     // double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final GlobalKey<FormState> confirmationInfoFormkey = GlobalKey<FormState>();
@@ -290,7 +292,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       onPressed: () {
                         if(confirmationInfoFormkey.currentState!.validate()) {
-                          // bookingPageController.loadBookingPage();
+                          paymentProofController.loadPaymentProofPage();
                           Future.delayed(const Duration(milliseconds: 300), () {
                             confirmationController.resetVariables();
                           });

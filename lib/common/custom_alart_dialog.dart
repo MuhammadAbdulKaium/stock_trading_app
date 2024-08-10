@@ -31,6 +31,8 @@ class CustomAlartDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: begin ?? 1.0, end: end ?? -0.1),
       duration: Duration(milliseconds: duration ?? 300),
@@ -56,7 +58,7 @@ class CustomAlartDialog extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 18, right: 0),
+                      padding: EdgeInsets.only(left: screenWidth * 0.04374999, right: 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +73,7 @@ class CustomAlartDialog extends StatelessWidget {
                               onClose?.call();
                             },
                             icon: closeIcon ?? const Icon(Icons.close),
-                            iconSize: 19,
+                            iconSize: screenWidth * 0.046180555,
                           ),
                         ],
                       ),

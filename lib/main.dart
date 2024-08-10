@@ -12,6 +12,7 @@ import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
 import 'package:stock_trading_app/mobile/investment_opportunity_details/investment_opportunity_details_page.dart';
 import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
 import 'package:stock_trading_app/mobile/order_details/order_details_page.dart';
+import 'package:stock_trading_app/mobile/payment_proof/payment_proof_page.dart';
 import 'package:stock_trading_app/mobile/progress/progress_page.dart';
 import 'package:stock_trading_app/mobile/sell/sell_page.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
@@ -84,6 +85,8 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/investment_opportunity_details_page', page: () => const InvestmentOpportunityDetailsPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/booking_page', page: () => const BookingPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/confirmation_page', page: () => const ConfirmationPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+                  GetPage(name: '/payment_proof_page', page: () => const PaymentProofPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],
