@@ -53,4 +53,6 @@ class CustomIcons {
   static const IconData copyFilled = IconData(0xe000, fontFamily: 'booking-page-icons');
   static const IconData copyOutline = IconData(0xe001, fontFamily: 'booking-page-icons');
   static const IconData copyOutline2 = IconData(0xe002, fontFamily: 'booking-page-icons');
+
+  static const IconData uploadCloud = IconData(0xe000, fontFamily: 'payment-proof');
 }
