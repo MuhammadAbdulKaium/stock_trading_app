@@ -93,7 +93,11 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
       remainingLot.value = maximumLot.value = investmentOpportunityDetails.value.lotSize!.toInt();
       currentBuyingPrice.value = investmentOpportunityDetails.value.pricePerUnit!.toDouble();
 
-      Get.toNamed("/investment_opportunity_details_page");
+      // Get.toNamed("/investment_opportunity_details_page");
+      Get.offNamedUntil(
+        "/investment_opportunity_details_page",
+        ModalRoute.withName('/landing_mobile'),
+      );
     } catch (e) {
       // throw Exception('Error: $e');
       Get.dialog(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/login_controller.dart';
+import 'package:stock_trading_app/mobile/about_us/about_us_page.dart';
 import 'package:stock_trading_app/mobile/active_investment/active_investment_page.dart';
 import 'package:stock_trading_app/mobile/app_Introduction_slider.dart';
 import 'package:stock_trading_app/mobile/booking/booking_page.dart';
@@ -72,8 +73,8 @@ class MyApp extends StatelessWidget {
 
                 getPages: [
                   GetPage(name: '/app_introduction_slider', page: () => const AppIntroductionSlider()),
-                  GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.native),
-                  GetPage(name: '/landing_mobile', page: () => const LandingMobile()),
+                  GetPage(name: '/sign_in_sign_up_mobile', page: () => const SignInSignUpMobile(), transition: Transition.native, transitionDuration: const Duration(milliseconds: 300),),
+                  GetPage(name: '/landing_mobile', page: () => const LandingMobile(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300),),
                   GetPage(name: '/initial_page_mobile', page: () => const InitialPageMobile()),
                   GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
                   GetPage(name: '/cash_out', page: () => const CashOutPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
@@ -86,6 +87,8 @@ class MyApp extends StatelessWidget {
                   GetPage(name: '/booking_page', page: () => const BookingPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/confirmation_page', page: () => const ConfirmationPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/payment_proof_page', page: () => const PaymentProofPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
+
+                  GetPage(name: '/about_us_page', page: () => const AboutUsPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300), ),
 
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),

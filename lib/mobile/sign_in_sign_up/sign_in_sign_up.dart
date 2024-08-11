@@ -15,6 +15,8 @@ class SignInSignUpMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SigninSignupNavigationController signinSignupNavigationController = Get.put(SigninSignupNavigationController());
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Obx(() => 
@@ -27,14 +29,13 @@ class SignInSignUpMobile extends StatelessWidget {
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Padding(
-                padding: const EdgeInsets.only(left: 35.0, right: 35.0),
+                padding: EdgeInsets.only(left: screenWidth * 0.08506944444, right: screenWidth * 0.08506944444),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Flexible(
                       flex: 11,
                       child: SizedBox(
-                        // height: 131,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -42,11 +43,11 @@ class SignInSignUpMobile extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 74,
+                                  width: screenWidth * 0.35704861111,
                                   child: Image.asset(
                                     'images/app_icon_inner_page.png',
                                     fit: BoxFit.contain,
-                                    height: 74,
+                                    width: screenWidth * 0.35704861111,
                                   ),
                                 ),
                               ],

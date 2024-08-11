@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LandingPageController extends GetxController {
   var isLoading = false.obs;
   final selectedPageIndex = 0.obs;
+  final selectedDrawerPageIndex = 0.obs;
   final bottomNavigationPageIndex = 0.obs;
   final previousPageIndex = 0.obs;
   final canGoBack = true.obs;

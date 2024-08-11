@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/common/custom_check_box.dart';
@@ -19,6 +20,8 @@ class LoginForm extends StatelessWidget {
     final GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
     final LoginController loginController = Get.find<LoginController>();
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -43,30 +46,30 @@ class LoginForm extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Login',
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 26.2.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF1D192B)
+                          color: const Color(0xFF1D192B)
                         ),
                       ),
                       Flexible(
                         flex: 3,
                         child: Container()
                       ),
-                      const Row(
+                      Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 5),
+                            padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
                               'Email',
                               style: TextStyle(
-                                fontSize: 15.2,
+                                fontSize: 13.27466666666666666.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF27272A)
+                                color: const Color(0xFF27272A)
                               ),
                             ),
                           ),
@@ -77,15 +80,15 @@ class LoginForm extends StatelessWidget {
                         onChanged: loginController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'Enter your email here',
-                        hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color(0xFF191414),
+                        hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          fontSize: 13.1.sp,
+                          color: const Color(0xFF191414),
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w500
                         ),
-                        errorStyle: const TextStyle(
-                          fontSize: 11, 
+                        errorStyle: TextStyle(
+                          fontSize: 9.606666666666.sp, 
                           fontFamily: 'Gilroy',
                           height: 0.5, 
                         ),
@@ -96,8 +99,8 @@ class LoginForm extends StatelessWidget {
                         isDense: true,
                         filled: true,
                         fillColor: const Color(0xFFF4FCF7),
-                        contentPaddingVertical: 11,
-                        contentPaddingHorizontal: 10,
+                        contentPaddingVertical: screenWidth * 0.026736,
+                        contentPaddingHorizontal: screenWidth * 0.02430,
                         validator: (value) {
                           loginController.validateEmail;
                           if (value.trim().isEmpty) {
@@ -112,17 +115,17 @@ class LoginForm extends StatelessWidget {
                         flex: 4,
                         child: Container()
                       ),
-                      const Row(
+                      Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 5),
+                            padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
                               'Password',
                               style: TextStyle(
-                                fontSize: 15.2,
+                                fontSize: 13.27466666666666666.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF27272A)
+                                color: const Color(0xFF27272A)
                               ),
                             ),
                           ),
@@ -134,15 +137,15 @@ class LoginForm extends StatelessWidget {
                           onChanged: loginController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your password here',
-                          hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Color(0xFF191414),
+                          hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            fontSize: 13.1.sp,
+                            color: const Color(0xFF191414),
                             fontFamily: 'Gilroy',
                             fontWeight: FontWeight.w500
                           ),
-                          errorStyle: const TextStyle(
-                            fontSize: 11, 
+                          errorStyle: TextStyle(
+                            fontSize: 9.606666666666.sp,
                             fontFamily: 'Gilroy',
                             height: 0.5, 
                           ),
@@ -153,25 +156,25 @@ class LoginForm extends StatelessWidget {
                           isDense: true,
                           filled: true,
                           fillColor: const Color(0xFFF4FCF7),
-                          contentPaddingVertical: 11,
-                          contentPaddingHorizontal: 10,
+                          contentPaddingVertical: screenWidth * 0.026736,
+                          contentPaddingHorizontal: screenWidth * 0.02430,
                           obsecure: !loginController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
-                              height: 33,
-                              width: 33,
+                              height: screenWidth * 0.0802083,
+                              width: screenWidth * 0.0802083,
                               child: IconButton(
                                 icon: Icon(loginController.isPasswordVisible.value
                                     ? Icons.visibility_off
-                                    : Icons.visibility, size: 17),
+                                    : Icons.visibility, size: screenWidth * 0.04131944444444444),
                                 onPressed: () {
                                   loginController.passwordVisibility();
                                 },
                               ),
                             ),
                           ),
-                          suffixIconConstraints: const BoxConstraints(maxHeight: 35, maxWidth: 40),
+                          suffixIconConstraints: BoxConstraints(maxHeight: screenWidth * 0.085069, maxWidth: screenWidth * 0.0972222),
                           validator: (value) {
                             if (value.trim().isEmpty) {
                               return 'Password cannot be empty';
@@ -207,11 +210,11 @@ class LoginForm extends StatelessWidget {
                                 // Get.toNamed("/forget_password");
                                 signinSignupNavigationController.navigateTo(1); // Navigate to ForgetPassword
                               },
-                              child: const Text(
+                              child: Text(
                                 'Forgot password?',
                                 style: TextStyle(
-                                  fontSize: 13,
-                                  color: Color(0xFF71717A),
+                                  fontSize: 11.39666666666.sp,
+                                  color: const Color(0xFF71717A),
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.w500
                                 ),
@@ -227,13 +230,13 @@ class LoginForm extends StatelessWidget {
                       ),
                       SizedBox(
                         width: double.maxFinite,
-                        height: 43.8,
+                        height: screenWidth * 0.106458333333333,
                         child: CommonButton(
                           borderRadius: 8,
                           backgroundColor: const Color(0xFF008037),
-                          child: const Text('Login',
+                          child: Text('Login',
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 14.846666666666666.sp,
                               fontFamily: 'Gilroy',
                               fontWeight: FontWeight.w600
                             ),
@@ -294,12 +297,12 @@ class LoginForm extends StatelessWidget {
                 flex: 4,
                 child: Container()
               ),
-              const Text('Or continue with',
+              Text('Or continue with',
                 style: TextStyle(
-                  fontSize: 15.1,
+                  fontSize: 13.1873333333333333.sp,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF008037)
+                  color: const Color(0xFF008037)
                 ),
               ),
               Flexible(
@@ -314,11 +317,11 @@ class LoginForm extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Don't have an account? ",
                     style: TextStyle(
-                      fontSize: 13.5,
-                      color: Color(0xFF71717A),
+                      fontSize: 11.79.sp,
+                      color: const Color(0xFF71717A),
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w500
                     )
@@ -329,11 +332,11 @@ class LoginForm extends StatelessWidget {
                       // signInAndSignUpController.toggleSignInSignUp();
                       signinSignupNavigationController.navigateTo(3); // Navigate to SignUp
                     },
-                    child: const Text(
+                    child: Text(
                       'Sign Up',
                       style: TextStyle(
-                        fontSize: 12.3,
-                        color: Color(0xFF008037),
+                        fontSize: 10.742.sp,
+                        color: const Color(0xFF008037),
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500
                       ),
