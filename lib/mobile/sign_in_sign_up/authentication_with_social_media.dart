@@ -5,6 +5,9 @@ class AuthenticationWithSocialMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -17,15 +20,15 @@ class AuthenticationWithSocialMedia extends StatelessWidget {
             borderRadius: BorderRadius.circular(7)
           ),
           child: SizedBox(
-            height: 52,
-            width: 52,
+            height: screenWidth * 0.1263888888889,
+            width: screenWidth * 0.1263888888889,
             child: Padding(
-              padding: const EdgeInsets.all(13.0),
+              padding: EdgeInsets.all(screenWidth * 0.031597222222222221),
               child: Image.asset('images/facebook_icon.png'),
             ),
           ),
         ),
-        const SizedBox(width: 20),
+        SizedBox(width: screenWidth * 0.04861111111111111),
         Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -35,10 +38,10 @@ class AuthenticationWithSocialMedia extends StatelessWidget {
             borderRadius: BorderRadius.circular(7)
           ),
           child: SizedBox(
-            height: 52,
-            width: 52,
+            height: screenWidth * 0.1263888888889,
+            width: screenWidth * 0.1263888888889,
             child: Padding(
-              padding: const EdgeInsets.all(13.5),
+              padding: EdgeInsets.all(screenWidth * 0.0328124999999999991),
               child: Image.asset('images/google_icon.png'),
             ),
           ),

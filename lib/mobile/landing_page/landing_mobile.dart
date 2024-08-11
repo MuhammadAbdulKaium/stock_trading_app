@@ -14,7 +14,7 @@ import 'package:stock_trading_app/mobile/my_investments/my_investments_page.dart
 
 final LandingPageController landingPageController = Get.put(LandingPageController(), permanent: true);
 final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage()];
-final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'Profile', 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'];
+final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'Profile']; //, 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'
 final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,];
 
 class LandingMobile extends StatelessWidget {

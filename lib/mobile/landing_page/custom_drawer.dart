@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:stock_trading_app/controller/about_us_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final LandingPageController landingPageController = Get.find<LandingPageController>();
-final List<String> drawerItemTitles = ['Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Bangla'];
+// final LandingPageController landingPageController = Get.find<LandingPageController>();
+// final List<String> drawerItemTitles = ['Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Bangla'];
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final LandingPageController landingPageController = Get.find<LandingPageController>();
+    final LandingPageController landingPageController = Get.find<LandingPageController>();
+    final AboutUsController aboutUsController = Get.put(AboutUsController());
+    // final List<String> drawerItemTitles = ['Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Bangla'];
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return ClipRRect(
       borderRadius: const BorderRadius.only(
@@ -20,12 +26,10 @@ class CustomDrawer extends StatelessWidget {
       ),
       child: Drawer(
         // width: 270,
-        width: MediaQuery.of(context).size.width * 0.75,
+        width: screenWidth * 0.75,
         backgroundColor: Colors.white,
         elevation: 0.0, // Shadow elevation
-        // duration: Duration(seconds: 1),
         child: Obx(() => Column(
-          // padding: EdgeInsets.zero,
           children: <Widget>[
             Flexible(
               flex: 10,
@@ -37,27 +41,23 @@ class CustomDrawer extends StatelessWidget {
                 Expanded(flex: 2, child: Container()),
                 GestureDetector(
                   child: IconButton(
-                    iconSize: 17.5,
+                    iconSize: screenWidth * 0.04253472222,
                     color: const Color(0xFF1D192B),
                     icon: const Icon(
                         CustomIcons.close3,
-                        // size: 25,
                       ),
                     onPressed: () {
-                      // Navigator.pop(context);
-                      // landingPageController.toggleSideMenu();
-                      // Scaffold.of(context).openDrawer();
                       Scaffold.of(context).closeDrawer();
                     },
                   ),
                 ),
                 Expanded(flex: 2, child: Container()),
                 SizedBox(
-                  height: 74,
+                  height: screenHeight * 0.08519736842,
                   child: Image.asset(
                     'images/app_icon_inner_page.png',
                     fit: BoxFit.contain,
-                    height: 74,
+                    height: screenHeight * 0.08519736842,
                   ),
                 ),
                 Expanded(flex: 10, child: Container()),
@@ -82,17 +82,17 @@ class CustomDrawer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 13, bottom: 13, left: 0, right: 10),
+                      padding: EdgeInsets.only(top: screenHeight * 0.0149671052, bottom: screenHeight * 0.0149671052, left: 0, right: screenWidth * 0.0243055555),
                       child: Row(
                         children: [
                           Expanded(
                             flex: 5,
                             child: Container()
                           ),
-                          const CircleAvatar(
-                            radius: 21,
+                          CircleAvatar(
+                            radius: screenWidth * 0.0510416666,
                             backgroundColor: Colors.white,
-                            backgroundImage: AssetImage('images/blank_profile_picture.jpg'),
+                            backgroundImage: const AssetImage('images/blank_profile_picture.jpg'),
                           ),
                           // const SizedBox(width: 17,),
                           Expanded(
@@ -106,21 +106,21 @@ class CustomDrawer extends StatelessWidget {
                               children: [
                                 Text(
                                   landingPageController.userName.value,
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  style: TextStyle(
+                                    fontSize: 13.75.sp,
                                     fontFamily: 'Gilroy',
                                     fontWeight: FontWeight.w600,
-                                    color: Color(0xFF344054),
+                                    color: const Color(0xFF344054),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                                 Text(
                                   landingPageController.email.value,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 12.83333.sp,
                                     fontFamily: 'Gilroy',
                                     fontWeight: FontWeight.w500,
-                                    color: Color(0xFF344054),
+                                    color: const Color(0xFF344054),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -146,10 +146,10 @@ class CustomDrawer extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444),
                   decoration: BoxDecoration(
-                    color: landingPageController.selectedPageIndex.value == 5 ? const Color(0xFF008037) : null,
+                    color: landingPageController.selectedDrawerPageIndex.value == 1 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
@@ -157,23 +157,24 @@ class CustomDrawer extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
                     title: Text('Market Trends',
                       style: TextStyle(
-                        color: landingPageController.selectedPageIndex.value == 5 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 15,
+                        color: landingPageController.selectedDrawerPageIndex.value == 1 ? Colors.white : const Color(0xFF344054),
+                        fontSize: 13.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     onTap: () {
-                      landingPageController.changePage(5);
+                      // landingPageController.changePage(5);
+                      landingPageController.selectedDrawerPageIndex.value = 1;
                       Navigator.pop(context);
                     },
                   ),
                 ),
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444),
                   decoration: BoxDecoration(
-                    color: landingPageController.selectedPageIndex.value == 6 ? const Color(0xFF008037) : null,
+                    color: landingPageController.selectedDrawerPageIndex.value == 2 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
@@ -181,23 +182,28 @@ class CustomDrawer extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
                     title: Text('About Us',
                       style: TextStyle(
-                        color: landingPageController.selectedPageIndex.value == 6 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 15,
+                        color: landingPageController.selectedDrawerPageIndex.value == 2 ? Colors.white : const Color(0xFF344054),
+                        fontSize: 13.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     onTap: () {
-                      landingPageController.changePage(6);
+                      // landingPageController.changePage(6);
                       Navigator.pop(context);
+                      landingPageController.selectedDrawerPageIndex.value = 2;
+                      aboutUsController.loadAboutUsPage();
+                      Future.delayed(const Duration(milliseconds: 350), () {
+                        landingPageController.selectedDrawerPageIndex.value = 0;
+                      });
                     },
                   ),
                 ),
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444),
                   decoration: BoxDecoration(
-                    color: landingPageController.selectedPageIndex.value == 7 ? const Color(0xFF008037) : null,
+                    color: landingPageController.selectedDrawerPageIndex.value == 3 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
@@ -205,14 +211,15 @@ class CustomDrawer extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
                     title: Text('News & Blogs',
                       style: TextStyle(
-                        color: landingPageController.selectedPageIndex.value == 7? Colors.white : const Color(0xFF344054),
-                        fontSize: 15,
+                        color: landingPageController.selectedDrawerPageIndex.value == 3 ? Colors.white : const Color(0xFF344054),
+                        fontSize: 13.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     onTap: () {
-                      landingPageController.changePage(7);
+                      // landingPageController.changePage(7);
+                      landingPageController.selectedDrawerPageIndex.value = 3;
                       Navigator.pop(context);
                     },
                   ),
@@ -240,10 +247,10 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444),
                   decoration: BoxDecoration(
-                    color: landingPageController.selectedPageIndex.value == 8 ? const Color(0xFF008037) : null,
+                    color: landingPageController.selectedDrawerPageIndex.value == 4 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
@@ -251,23 +258,24 @@ class CustomDrawer extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
                     title: Text('How Munafa Works',
                       style: TextStyle(
-                        color: landingPageController.selectedPageIndex.value == 8 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 15,
+                        color: landingPageController.selectedDrawerPageIndex.value == 4 ? Colors.white : const Color(0xFF344054),
+                        fontSize: 13.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     onTap: () {
-                      landingPageController.changePage(8);
+                      // landingPageController.changePage(8);
+                      landingPageController.selectedDrawerPageIndex.value = 4;
                       Navigator.pop(context);
                     },
                   ),
                 ),
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444),
                   decoration: BoxDecoration(
-                    color: landingPageController.selectedPageIndex.value == 9 ? const Color(0xFF008037) : null,
+                    color: landingPageController.selectedDrawerPageIndex.value == 5 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
@@ -275,23 +283,24 @@ class CustomDrawer extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
                     title: Text('Contact us',
                       style: TextStyle(
-                        color: landingPageController.selectedPageIndex.value == 9? Colors.white : const Color(0xFF344054),
-                        fontSize: 15,
+                        color: landingPageController.selectedDrawerPageIndex.value == 5 ? Colors.white : const Color(0xFF344054),
+                        fontSize: 13.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     onTap: () {
-                      landingPageController.changePage(9);
+                      // landingPageController.changePage(9);
+                      landingPageController.selectedDrawerPageIndex.value = 5;
                       Navigator.pop(context);
                     },
                   ),
                 ),
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444),
                   decoration: BoxDecoration(
-                    color: landingPageController.selectedPageIndex.value == 10 ? const Color(0xFF008037) : null,
+                    color: landingPageController.selectedDrawerPageIndex.value == 6 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
@@ -299,14 +308,15 @@ class CustomDrawer extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
                     title: Text('Notification',
                       style: TextStyle(
-                        color: landingPageController.selectedPageIndex.value == 10 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 15,
+                        color: landingPageController.selectedDrawerPageIndex.value == 6 ? Colors.white : const Color(0xFF344054),
+                        fontSize: 13.75.sp,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     onTap: () {
-                      landingPageController.changePage(10);
+                      // landingPageController.changePage(10);
+                      landingPageController.selectedDrawerPageIndex.value = 6;
                       Navigator.pop(context);
                     },
                   ),
@@ -334,15 +344,15 @@ class CustomDrawer extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: 45,
-                  padding: const EdgeInsets.only(left: 35, right: 15),
+                  height: screenHeight * 0.05180921052631578,
+                  padding: EdgeInsets.only(left: screenWidth * 0.085069444444, right: screenWidth * 0.036458333333),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Bangla',
+                      Text('Bangla',
                         style: TextStyle(
-                          color: Color(0xFF344054),
-                          fontSize: 15,
+                          color: const Color(0xFF344054),
+                          fontSize: 13.75.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w500,
                         ),
@@ -391,35 +401,27 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
             Container(
-              height: 45,
-              padding: const EdgeInsets.only(left: 35, right: 15),
-              // decoration: BoxDecoration(
-              //   color: landingPageController.selectedPageIndex.value == 6 ? const Color(0xFF686AF0) : null,
-              //   borderRadius: BorderRadius.circular(10),
-              // ),
+              height: screenHeight * 0.05180921052631578,
+              padding: EdgeInsets.only(left: screenWidth * 0.085069444444, right: screenWidth * 0.036458333333),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Log out',
+                  Text('Log out',
                     style: TextStyle(
-                      color: Color(0xFF008037),
-                      fontSize: 15,
+                      color: const Color(0xFF008037),
+                      fontSize: 13.75.sp,
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   GestureDetector(
                     child: IconButton(
-                      iconSize: 27,
+                      iconSize: screenWidth * 0.065624999999,
                       color: const Color(0xFF008037),
                       icon: const Icon(
                           CustomIcons.logOut,
-                          // size: 25,
                         ),
                       onPressed: () {
-                        // Navigator.pop(context);
-                        // landingPageController.toggleSideMenu();
-                        // Scaffold.of(context).openDrawer();
                         Scaffold.of(context).closeDrawer();
                       },
                     ),

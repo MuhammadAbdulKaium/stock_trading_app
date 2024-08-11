@@ -1,5 +1,6 @@
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/common/text_input_field.dart';
@@ -172,11 +173,11 @@ class ForgetPassword extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text(
+                  Text(
                     "Remember Password? ",
                     style: TextStyle(
-                      fontSize: 13.5,
-                      color: Color(0xFF71717A),
+                      fontSize: 11.79.sp,
+                      color: const Color(0xFF71717A),
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w500
                     )
@@ -187,11 +188,11 @@ class ForgetPassword extends StatelessWidget {
                       // signInAndSignUpController.toggleSignInSignUp();
                       signinSignupNavigationController.navigateTo(0); // Navigate to SignUp
                     },
-                    child: const Text(
+                    child: Text(
                       'Sign in',
                       style: TextStyle(
-                        fontSize: 12.3,
-                        color: Color(0xFF008037),
+                        fontSize: 10.742.sp,
+                        color: const Color(0xFF008037),
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500
                       ),
