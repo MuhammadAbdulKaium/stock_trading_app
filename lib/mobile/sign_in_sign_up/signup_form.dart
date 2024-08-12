@@ -20,9 +20,10 @@ class SignupForm extends StatelessWidget {
     final SignupController signupController = Get.put(SignupController());
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           flex: 48,
@@ -40,6 +41,7 @@ class SignupForm extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      // SizedBox(height: screenHeight * 0.054,),
                       Text(
                         'Sign Up',
                         style: TextStyle(
@@ -49,6 +51,7 @@ class SignupForm extends StatelessWidget {
                           color: const Color(0xFF1D192B)
                         ),
                       ),
+                      // SizedBox(height: screenHeight * 0.0375,),
                       Flexible(
                         flex: 70,
                         child: Container()
@@ -82,7 +85,7 @@ class SignupForm extends StatelessWidget {
                           fontWeight: FontWeight.w500
                         ),
                         errorStyle: TextStyle(
-                          fontSize: 9.606666666666.sp, 
+                          fontSize: 9.606666666666.sp,
                           fontFamily: 'Gilroy',
                           height: 0.5, 
                         ),
@@ -94,7 +97,7 @@ class SignupForm extends StatelessWidget {
                         filled: true,
                         fillColor: const Color(0xFFF4FCF7),
                         contentPaddingVertical: screenWidth * 0.02430,
-                        contentPaddingHorizontal: screenWidth * 0.02430,
+                        contentPaddingHorizontal: screenHeight * 0.0115131578947,
                         validator: (value) {
                           signupController.signUpValidateName;
                           if (value.trim().isEmpty) {
@@ -105,6 +108,7 @@ class SignupForm extends StatelessWidget {
                           return null;
                         },
                       ),
+                      // SizedBox(height: screenHeight * 0.03175,),
                       Flexible(
                         flex: 60,
                         child: Container()
@@ -150,7 +154,7 @@ class SignupForm extends StatelessWidget {
                         filled: true,
                         fillColor: const Color(0xFFF4FCF7),
                         contentPaddingVertical: screenWidth * 0.02430,
-                        contentPaddingHorizontal: screenWidth * 0.02430,
+                        contentPaddingHorizontal: screenHeight * 0.0115131578947,
                         validator: (value) {
                           signupController.validateEmail;
                           if (value.trim().isEmpty) {
@@ -161,6 +165,7 @@ class SignupForm extends StatelessWidget {
                           return null;
                         },
                       ),
+                      // SizedBox(height: screenHeight * 0.03175,),
                       Flexible(
                         flex: 60,
                         child: Container()
@@ -206,7 +211,7 @@ class SignupForm extends StatelessWidget {
                           filled: true,
                           fillColor: const Color(0xFFF4FCF7),
                           contentPaddingVertical: screenWidth * 0.02430,
-                          contentPaddingHorizontal: screenWidth * 0.02430,
+                          contentPaddingHorizontal: screenHeight * 0.0115131578947,
                           obsecure: !signupController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
@@ -236,6 +241,7 @@ class SignupForm extends StatelessWidget {
                           },
                         ),
                       ),
+                      // SizedBox(height: screenHeight * 0.03175,),
                       Flexible(
                         flex: 60,
                         child: Container()
@@ -281,7 +287,7 @@ class SignupForm extends StatelessWidget {
                           filled: true,
                           fillColor: const Color(0xFFF4FCF7),
                           contentPaddingVertical: screenWidth * 0.02430,
-                          contentPaddingHorizontal: screenWidth * 0.02430,
+                          contentPaddingHorizontal: screenHeight * 0.0115131578947,
                           obsecure: !signupController.isRetypePasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
@@ -313,10 +319,11 @@ class SignupForm extends StatelessWidget {
                           },
                         ),
                       ),
-                      Flexible(
-                        flex: 75,
-                        child: Container()
-                      ),
+                      SizedBox(height: screenHeight * 0.03922,),
+                      // Flexible(
+                      //   flex: 75,
+                      //   child: Container()
+                      // ),
                       SizedBox(
                         width: double.maxFinite,
                         height: screenWidth * 0.106458333333333,
@@ -337,6 +344,7 @@ class SignupForm extends StatelessWidget {
                           },
                         ),
                       ),
+                      // SizedBox(height: screenHeight * 0.03922,),
                     ],
                   ),
                 ),
@@ -347,7 +355,6 @@ class SignupForm extends StatelessWidget {
         Flexible(
           flex: 15,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Flexible(
                 flex: 13,
@@ -384,6 +391,7 @@ class SignupForm extends StatelessWidget {
                   ),
                 ],
               ),
+              // SizedBox(height: screenHeight * 0.0736,),
               Flexible(
                 flex: 9,
                 child: Container()

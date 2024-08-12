@@ -68,8 +68,8 @@ class MyApp extends StatelessWidget {
               return GetMaterialApp(
                 debugShowCheckedModeBanner: false, // This removes the debug banner
 
-                initialRoute: '/sign_in_sign_up_mobile',
-                // initialRoute: getInitialRoute(),
+                // initialRoute: '/sign_in_sign_up_mobile',
+                initialRoute: getInitialRoute(),
 
                 getPages: [
                   GetPage(name: '/app_introduction_slider', page: () => const AppIntroductionSlider()),

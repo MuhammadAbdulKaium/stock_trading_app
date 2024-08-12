@@ -18,6 +18,8 @@ class ForgetPassword extends StatelessWidget {
     final GlobalKey<FormState> forgetPasswordFormkey = GlobalKey<FormState>();
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     final ForgetPasswordController forgetPasswordController = Get.put(ForgetPasswordController());
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
       children: [
@@ -36,30 +38,30 @@ class ForgetPassword extends StatelessWidget {
                   key: forgetPasswordFormkey,
                   child: Column(
                     children: [
-                      const Text(
+                      Text(
                         'Forget Password?',
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 26.2.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF1D192B)
+                          color: const Color(0xFF1D192B)
                         ),
                       ),
                       Flexible(
                         flex: 28,
                         child: Container()
                       ),
-                      const Row(
+                      Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 5),
+                            padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
                               'Email',
                               style: TextStyle(
-                                fontSize: 15.2,
+                                fontSize: 13.27466666666666666.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF27272A)
+                                color: const Color(0xFF27272A)
                               ),
                             ),
                           ),
@@ -70,15 +72,15 @@ class ForgetPassword extends StatelessWidget {
                         onChanged: forgetPasswordController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'e.g. john@gmail.com',
-                        hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color(0xFF191414),
+                        hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          fontSize: 13.1.sp,
+                          color: const Color(0xFF191414),
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w500
                         ),
-                        errorStyle: const TextStyle(
-                          fontSize: 11, 
+                        errorStyle: TextStyle(
+                          fontSize: 9.606666666666.sp,
                           fontFamily: 'Gilroy',
                           height: 0.5, 
                         ),
@@ -89,8 +91,8 @@ class ForgetPassword extends StatelessWidget {
                         isDense: true,
                         filled: true,
                         fillColor: const Color(0xFFF4FCF7),
-                        contentPaddingVertical: 11,
-                        contentPaddingHorizontal: 10,
+                        contentPaddingVertical: screenWidth * 0.02430,
+                        contentPaddingHorizontal: screenHeight * 0.0115131578947,
                         validator: (value) {
                           forgetPasswordController.validateEmail;
                           if (value.trim().isEmpty) {
@@ -107,13 +109,13 @@ class ForgetPassword extends StatelessWidget {
                       ),
                       SizedBox(
                         width: double.maxFinite,
-                        height: 43.8,
+                        height: screenWidth * 0.106458333333333,
                         child: CommonButton(
                           borderRadius: 8,
                           backgroundColor: const Color(0xFF008037),
-                          child: const Text('Send Verification Code',
+                          child: Text('Send Verification Code',
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 14.846666666666666.sp,
                               fontFamily: 'Gilroy',
                               fontWeight: FontWeight.w600
                             ),
