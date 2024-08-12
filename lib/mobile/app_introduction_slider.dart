@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_trading_app/common/common_button.dart';
@@ -10,6 +11,8 @@ class AppIntroductionSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppIntroductionSliderController appIntroductionSliderController = Get.put(AppIntroductionSliderController());
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -17,26 +20,8 @@ class AppIntroductionSlider extends StatelessWidget {
     ]);
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Padding(
-      //     padding: const EdgeInsets.only(top: 8),
-      //     child: Row(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         SizedBox(
-      //           height: 74,
-      //           child: Image.asset(
-      //             'images/app_icon_inner_page.png',
-      //             fit: BoxFit.contain,
-      //             height: 74,
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 35.0, right: 35.0),
+        padding: EdgeInsets.only(left: screenWidth * 0.085069444444, right: screenWidth * 0.085069444444),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -51,11 +36,13 @@ class AppIntroductionSlider extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 74,
+                          // width: screenWidth * 0.35704861111,
+                          height: screenHeight * 0.0851973684210,
                           child: Image.asset(
                             'images/app_icon_inner_page.png',
                             fit: BoxFit.contain,
-                            height: 74,
+                            // width: screenWidth * 0.35704861111,
+                            height: screenHeight * 0.0851973684210,
                           ),
                         ),
                       ],
@@ -76,7 +63,6 @@ class AppIntroductionSlider extends StatelessWidget {
                     Flexible(
                       flex: 23, // Adjusted flex factor
                       child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           // Flexible(
                           //   flex: 1,
@@ -91,7 +77,7 @@ class AppIntroductionSlider extends StatelessWidget {
                                   opacity: opacity,
                                   duration: const Duration(milliseconds: 200),
                                   child: SizedBox(
-                                    height: 185,
+                                    height: screenHeight * 0.212993421,
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
@@ -125,11 +111,11 @@ class AppIntroductionSlider extends StatelessWidget {
                             duration: const Duration(milliseconds: 200),
                             child: Text(
                               appIntroductionSliderController.titles[appIntroductionSliderController.currentIndex.value],
-                              style: const TextStyle(
-                                fontSize: 30,
+                              style: TextStyle(
+                                fontSize: 26.2.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w700,
-                                color: Color(0xFF1D192B),
+                                color: const Color(0xFF1D192B),
                               ),
                             ),
                           ),
@@ -156,8 +142,8 @@ class AppIntroductionSlider extends StatelessWidget {
                                     child: Text(
                                       appIntroductionSliderController.texts[appIntroductionSliderController.currentIndex.value],
                                       textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 17.8,
+                                      style: TextStyle(
+                                        fontSize: 15.54533333.sp,
                                         fontFamily: 'Gilroy',
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -189,9 +175,9 @@ class AppIntroductionSlider extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(appIntroductionSliderController.images.length, (index) {
                             return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                              width: 7.2,
-                              height: 7.2,
+                              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.009722),
+                              width: screenWidth * 0.017499,
+                              height: screenWidth * 0.017499,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: appIntroductionSliderController.currentIndex.value == index ? const Color(0xFF008037) : const Color(0xFFCCE6D7),
@@ -210,14 +196,14 @@ class AppIntroductionSlider extends StatelessWidget {
                       flex: 8,
                       child: SizedBox(
                         width: double.maxFinite,
-                        height: 43.8,
+                        height: screenWidth * 0.106458333333333,
                         child: CommonButton(
                           borderRadius: 8,
                           backgroundColor: const Color(0xFF008037),
                           onPressed: appIntroductionSliderController.next,
-                          child: const Text('Next',
+                          child: Text('Next',
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 14.846666666666666.sp,
                               fontFamily: 'Gilroy',
                               fontWeight: FontWeight.w600
                             ),
@@ -235,15 +221,3 @@ class AppIntroductionSlider extends StatelessWidget {
     );
   }
 }
-
-// @override
-// void dispose() {
-//   // Reset the orientation when the widget is disposed
-//   SystemChrome.setPreferredOrientations([
-//     DeviceOrientation.portraitUp,
-//     DeviceOrientation.portraitDown,
-//     DeviceOrientation.landscapeLeft,
-//     DeviceOrientation.landscapeRight,
-//   ]);
-//   super.dispose();
-// }

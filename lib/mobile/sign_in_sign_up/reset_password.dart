@@ -18,6 +18,8 @@ class ResetPassword extends StatelessWidget {
     final GlobalKey<FormState> resetPasswordFormkey = GlobalKey<FormState>();
     final ResetPasswordController resetPasswordController = Get.put(ResetPasswordController());
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
       children: [
@@ -37,30 +39,30 @@ class ResetPassword extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Reset Password',
                         style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 26.2.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF1D192B)
+                          color: const Color(0xFF1D192B)
                         ),
                       ),
                       Flexible(
                         flex: 38,
                         child: Container()
                       ),
-                      const Row(
+                      Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 5),
+                            padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
                               'Code from Email',
                               style: TextStyle(
-                                fontSize: 15.2,
+                                fontSize: 13.27466666666666666.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF27272A)
+                                color: const Color(0xFF27272A)
                               ),
                             ),
                           ),
@@ -89,7 +91,7 @@ class ResetPassword extends StatelessWidget {
                                           !resetPasswordController.isCodeValid.value
                                       ? (fieldIndex == 0 ? null : null)
                                       : null, // Empty string to show error only once
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                  contentPadding: EdgeInsets.symmetric(vertical: screenWidth * 0.02430, horizontal: screenHeight * 0.0115131578947),
                                   enabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
                                     borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -156,17 +158,17 @@ class ResetPassword extends StatelessWidget {
                         flex: 10,
                         child: Container()
                       ),
-                      const Row(
+                      Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 5),
+                            padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
                               'New Password',
                               style: TextStyle(
-                                fontSize: 15.2,
+                                fontSize: 13.27466666666666666.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF27272A)
+                                color: const Color(0xFF27272A)
                               ),
                             ),
                           ),
@@ -178,15 +180,15 @@ class ResetPassword extends StatelessWidget {
                           onChanged: resetPasswordController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your new password here',
-                          hintStyle: const TextStyle(color: Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Color(0xFF191414),
+                          hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            fontSize: 13.1.sp,
+                            color: const Color(0xFF191414),
                             fontFamily: 'Gilroy',
                             fontWeight: FontWeight.w500
                           ),
-                          errorStyle: const TextStyle(
-                            fontSize: 11, 
+                          errorStyle: TextStyle(
+                            fontSize: 9.606666666666.sp,
                             fontFamily: 'Gilroy',
                             height: 0.5, 
                           ),
@@ -197,25 +199,25 @@ class ResetPassword extends StatelessWidget {
                           isDense: true,
                           filled: true,
                           fillColor: const Color(0xFFF4FCF7),
-                          contentPaddingVertical: 10,
-                          contentPaddingHorizontal: 10,
+                          contentPaddingVertical: screenWidth * 0.02430,
+                          contentPaddingHorizontal: screenHeight * 0.0115131578947,
                           obsecure: !resetPasswordController.isPasswordVisible.value,
                           suffix: Padding(
                             padding: const EdgeInsets.only(right: 3),
                             child: SizedBox(
-                              height: 33,
-                              width: 33,
+                              height: screenWidth * 0.0802083,
+                              width: screenWidth * 0.0802083,
                               child: IconButton(
                                 icon: Icon(resetPasswordController.isPasswordVisible.value
                                     ? Icons.visibility_off
-                                    : Icons.visibility, size: 17),
+                                    : Icons.visibility, size: screenWidth * 0.04131944444444444),
                                 onPressed: () {
                                   resetPasswordController.passwordVisibility();
                                 },
                               ),
                             ),
                           ),
-                          suffixIconConstraints: const BoxConstraints(maxHeight: 35, maxWidth: 40),
+                          suffixIconConstraints: BoxConstraints(maxHeight: screenWidth * 0.085069, maxWidth: screenWidth * 0.0972222),
                           validator: (value) {
                             if (value.trim().isEmpty) {
                               return 'Password cannot be empty';
@@ -234,13 +236,13 @@ class ResetPassword extends StatelessWidget {
                       ),
                       SizedBox(
                         width: double.maxFinite,
-                        height: 43.8,
+                        height: screenWidth * 0.106458333333333,
                         child: CommonButton(
                           borderRadius: 8,
                           backgroundColor: const Color(0xFF008037),
-                          child: const Text('Reset Password',
+                          child: Text('Reset Password',
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 14.846666666666666.sp,
                               fontFamily: 'Gilroy',
                               fontWeight: FontWeight.w600
                             ),
