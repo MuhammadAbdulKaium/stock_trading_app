@@ -11,11 +11,12 @@ import 'package:stock_trading_app/mobile/landing_page/bottom_navigation_bar.dart
 import 'package:stock_trading_app/mobile/landing_page/custom_drawer.dart';
 import 'package:stock_trading_app/mobile/marketplace/marketplace_page.dart';
 import 'package:stock_trading_app/mobile/my_investments/my_investments_page.dart';
+import 'package:stock_trading_app/mobile/profile/profile_page.dart';
 
 final LandingPageController landingPageController = Get.put(LandingPageController(), permanent: true);
-final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage()];
-final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'Profile']; //, 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'
-final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,];
+final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage(), const ProfilePage()];
+final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'My Account']; //, 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'
+final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white]; //, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,
 
 class LandingMobile extends StatelessWidget {
   const LandingMobile({super.key});

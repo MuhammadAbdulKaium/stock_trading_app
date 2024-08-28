@@ -11,6 +11,7 @@ class InitialPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final InitialPageMobileController initialPageMobileController = Get.put(InitialPageMobileController());
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Obx(() {
           // if (initialPageMobileController.isFirstTime.value == null) {
