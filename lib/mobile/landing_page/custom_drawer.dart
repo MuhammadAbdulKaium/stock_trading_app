@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/about_us_controller.dart';
+import 'package:stock_trading_app/controller/how_munafa_works_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-// final LandingPageController landingPageController = Get.find<LandingPageController>();
-// final List<String> drawerItemTitles = ['Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Bangla'];
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -15,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final LandingPageController landingPageController = Get.find<LandingPageController>();
     final AboutUsController aboutUsController = Get.put(AboutUsController());
-    // final List<String> drawerItemTitles = ['Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Bangla'];
+    final HowMunafaWorksController howMunafaWorksController = Get.put(HowMunafaWorksController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -76,58 +75,79 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 80,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color.fromARGB(255, 244, 245, 247), width: 0.6),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: screenHeight * 0.0149671052, bottom: screenHeight * 0.0149671052, left: 0, right: screenWidth * 0.0243055555),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Container()
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Ink(
+                      // decoration: BoxDecoration(
+                      //   color: const Color(0xFFF4FCF7),
+                      //   borderRadius: BorderRadius.circular(8),
+                      //   border: Border.all(
+                      //     color: const Color(0xFFE8E8EA), // Border color
+                      //     width: 1, // Border width
+                      //   ),
+                      // ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {
+                          landingPageController.changePage(4);
+                          // landingPageController.selectedDrawerPageIndex.value = 3;
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color.fromARGB(255, 244, 245, 247), width: 0.6),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          CircleAvatar(
-                            radius: screenWidth * 0.0510416666,
-                            backgroundColor: Colors.white,
-                            backgroundImage: const AssetImage('images/blank_profile_picture.jpg'),
-                          ),
-                          // const SizedBox(width: 17,),
-                          Expanded(
-                            flex: 4,
-                            child: Container()
-                          ),
-                          Expanded(
-                            flex: 55,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: screenHeight * 0.0149671052, bottom: screenHeight * 0.0149671052, left: 0, right: screenWidth * 0.0243055555),
+                            child: Row(
                               children: [
-                                Text(
-                                  landingPageController.userName.value,
-                                  style: TextStyle(
-                                    fontSize: 13.75.sp,
-                                    fontFamily: 'Gilroy',
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF344054),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Container()
                                 ),
-                                Text(
-                                  landingPageController.email.value,
-                                  style: TextStyle(
-                                    fontSize: 12.83333.sp,
-                                    fontFamily: 'Gilroy',
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFF344054),
-                                    overflow: TextOverflow.ellipsis,
+                                CircleAvatar(
+                                  radius: screenWidth * 0.0510416666,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: const AssetImage('images/blank_profile_picture.jpg'),
+                                ),
+                                // const SizedBox(width: 17,),
+                                Expanded(
+                                  flex: 4,
+                                  child: Container()
+                                ),
+                                Expanded(
+                                  flex: 55,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        landingPageController.userName.value,
+                                        style: TextStyle(
+                                          fontSize: 13.75.sp,
+                                          fontFamily: 'Gilroy',
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xFF344054),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Text(
+                                        landingPageController.email.value,
+                                        style: TextStyle(
+                                          fontSize: 12.83333.sp,
+                                          fontFamily: 'Gilroy',
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xFF344054),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -152,22 +172,25 @@ class CustomDrawer extends StatelessWidget {
                     color: landingPageController.selectedDrawerPageIndex.value == 1 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListTile(
-                    dense: true,                            // Makes the ListTile more compact
-                    contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
-                    title: Text('Market Trends',
-                      style: TextStyle(
-                        color: landingPageController.selectedDrawerPageIndex.value == 1 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 13.75.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
+                  child: Center(
+                    child: ListTile(
+                      dense: true,                            // Makes the ListTile more compact
+                      contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
+                      minVerticalPadding: 0,                  // Reduces the minimum vertical padding
+                      title: Text('Market Trends',
+                        style: TextStyle(
+                          color: landingPageController.selectedDrawerPageIndex.value == 1 ? Colors.white : const Color(0xFF344054),
+                          fontSize: 13.75.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      onTap: () {
+                        // landingPageController.changePage(5);
+                        landingPageController.selectedDrawerPageIndex.value = 1;
+                        Navigator.pop(context);
+                      },
                     ),
-                    onTap: () {
-                      // landingPageController.changePage(5);
-                      landingPageController.selectedDrawerPageIndex.value = 1;
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
                 Container(
@@ -177,26 +200,28 @@ class CustomDrawer extends StatelessWidget {
                     color: landingPageController.selectedDrawerPageIndex.value == 2 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListTile(
-                    dense: true,                            // Makes the ListTile more compact
-                    contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
-                    title: Text('About Us',
-                      style: TextStyle(
-                        color: landingPageController.selectedDrawerPageIndex.value == 2 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 13.75.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
+                  child: Center(
+                    child: ListTile(
+                      dense: true,                            // Makes the ListTile more compact
+                      contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
+                      minVerticalPadding: 0,                  // Reduces the minimum vertical padding
+                      title: Text('About Us',
+                        style: TextStyle(
+                          color: landingPageController.selectedDrawerPageIndex.value == 2 ? Colors.white : const Color(0xFF344054),
+                          fontSize: 13.75.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        landingPageController.selectedDrawerPageIndex.value = 2;
+                        aboutUsController.loadAboutUsPage();
+                        Future.delayed(const Duration(milliseconds: 350), () {
+                          landingPageController.selectedDrawerPageIndex.value = 0;
+                        });
+                      },
                     ),
-                    onTap: () {
-                      // landingPageController.changePage(6);
-                      Navigator.pop(context);
-                      landingPageController.selectedDrawerPageIndex.value = 2;
-                      aboutUsController.loadAboutUsPage();
-                      Future.delayed(const Duration(milliseconds: 350), () {
-                        landingPageController.selectedDrawerPageIndex.value = 0;
-                      });
-                    },
                   ),
                 ),
                 Container(
@@ -206,22 +231,26 @@ class CustomDrawer extends StatelessWidget {
                     color: landingPageController.selectedDrawerPageIndex.value == 3 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListTile(
-                    dense: true,                            // Makes the ListTile more compact
-                    contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
-                    title: Text('News & Blogs',
-                      style: TextStyle(
-                        color: landingPageController.selectedDrawerPageIndex.value == 3 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 13.75.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
+                  child: Center(
+                    child: ListTile(
+                      dense: true,                            // Makes the ListTile more compact
+                      contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
+                      minVerticalPadding: 0,                  // Reduces the minimum vertical padding
+                      // visualDensity: const VisualDensity(vertical: -4), // Reduces the vertical density
+                      title: Text('News & Blogs',
+                        style: TextStyle(
+                          color: landingPageController.selectedDrawerPageIndex.value == 3 ? Colors.white : const Color(0xFF344054),
+                          fontSize: 13.75.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      onTap: () {
+                        // landingPageController.changePage(7);
+                        landingPageController.selectedDrawerPageIndex.value = 3;
+                        Navigator.pop(context);
+                      },
                     ),
-                    onTap: () {
-                      // landingPageController.changePage(7);
-                      landingPageController.selectedDrawerPageIndex.value = 3;
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
                 Row(
@@ -253,22 +282,29 @@ class CustomDrawer extends StatelessWidget {
                     color: landingPageController.selectedDrawerPageIndex.value == 4 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListTile(
-                    dense: true,                            // Makes the ListTile more compact
-                    contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
-                    title: Text('How Munafa Works',
-                      style: TextStyle(
-                        color: landingPageController.selectedDrawerPageIndex.value == 4 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 13.75.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
+                  child: Center(
+                    child: ListTile(
+                      dense: true,                            // Makes the ListTile more compact
+                      contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
+                      minVerticalPadding: 0,                  // Reduces the minimum vertical padding
+                      // visualDensity: const VisualDensity(vertical: -4), // Reduces the vertical density
+                      title: Text('How Munafa Works',
+                        style: TextStyle(
+                          color: landingPageController.selectedDrawerPageIndex.value == 4 ? Colors.white : const Color(0xFF344054),
+                          fontSize: 13.75.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        landingPageController.selectedDrawerPageIndex.value = 4;
+                        howMunafaWorksController.loadHowMunafaWorksPage();
+                        Future.delayed(const Duration(milliseconds: 350), () {
+                          landingPageController.selectedDrawerPageIndex.value = 0;
+                        });
+                      },
                     ),
-                    onTap: () {
-                      // landingPageController.changePage(8);
-                      landingPageController.selectedDrawerPageIndex.value = 4;
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
                 Container(
@@ -278,22 +314,26 @@ class CustomDrawer extends StatelessWidget {
                     color: landingPageController.selectedDrawerPageIndex.value == 5 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListTile(
-                    dense: true,                            // Makes the ListTile more compact
-                    contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
-                    title: Text('Contact us',
-                      style: TextStyle(
-                        color: landingPageController.selectedDrawerPageIndex.value == 5 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 13.75.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
+                  child: Center(
+                    child: ListTile(
+                      dense: true,                            // Makes the ListTile more compact
+                      contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
+                      minVerticalPadding: 0,                  // Reduces the minimum vertical padding
+                      visualDensity: const VisualDensity(vertical: -0), // Reduces the vertical density
+                      title: Text('Contact us',
+                        style: TextStyle(
+                          color: landingPageController.selectedDrawerPageIndex.value == 5 ? Colors.white : const Color(0xFF344054),
+                          fontSize: 13.75.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      onTap: () {
+                        // landingPageController.changePage(9);
+                        landingPageController.selectedDrawerPageIndex.value = 5;
+                        Navigator.pop(context);
+                      },
                     ),
-                    onTap: () {
-                      // landingPageController.changePage(9);
-                      landingPageController.selectedDrawerPageIndex.value = 5;
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
                 Container(
@@ -303,22 +343,25 @@ class CustomDrawer extends StatelessWidget {
                     color: landingPageController.selectedDrawerPageIndex.value == 6 ? const Color(0xFF008037) : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: ListTile(
-                    dense: true,                            // Makes the ListTile more compact
-                    contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
-                    title: Text('Notification',
-                      style: TextStyle(
-                        color: landingPageController.selectedDrawerPageIndex.value == 6 ? Colors.white : const Color(0xFF344054),
-                        fontSize: 13.75.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w500,
+                  child: Center(
+                    child: ListTile(
+                      dense: true,                            // Makes the ListTile more compact
+                      contentPadding: EdgeInsets.zero,        // Removes default ListTile padding
+                      minVerticalPadding: 0,                  // Reduces the minimum vertical padding
+                      title: Text('Notification',
+                        style: TextStyle(
+                          color: landingPageController.selectedDrawerPageIndex.value == 6 ? Colors.white : const Color(0xFF344054),
+                          fontSize: 13.75.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      onTap: () {
+                        // landingPageController.changePage(10);
+                        landingPageController.selectedDrawerPageIndex.value = 6;
+                        Navigator.pop(context);
+                      },
                     ),
-                    onTap: () {
-                      // landingPageController.changePage(10);
-                      landingPageController.selectedDrawerPageIndex.value = 6;
-                      Navigator.pop(context);
-                    },
                   ),
                 ),
                 Row(

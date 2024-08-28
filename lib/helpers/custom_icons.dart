@@ -55,4 +55,11 @@ class CustomIcons {
   static const IconData copyOutline2 = IconData(0xe002, fontFamily: 'booking-page-icons');
 
   static const IconData uploadCloud = IconData(0xe000, fontFamily: 'payment-proof');
+
+  static const IconData arrowUp2 = IconData(0xe000, fontFamily: 'how-munafa-works-page-icons');
+  static const IconData arrowUp3 = IconData(0xe001, fontFamily: 'how-munafa-works-page-icons');
+
+  static const IconData calendarEdit = IconData(0xe000, fontFamily: 'account-page-icon');
+  static const IconData male = IconData(0xe001, fontFamily: 'account-page-icon');
+  static const IconData female = IconData(0xe002, fontFamily: 'account-page-icon');
 }

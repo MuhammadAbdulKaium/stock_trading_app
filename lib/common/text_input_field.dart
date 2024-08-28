@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
 
 class TextInputField extends StatelessWidget {
   // final TextEditingController controller;
@@ -9,7 +10,8 @@ class TextInputField extends StatelessWidget {
   // final VoidCallback onEditingCompleted;
   final TextInputType keyboardType;
   final dynamic onChanged;
-  final bool isMulti;
+  final int? minLines;
+  final int? maxLines;
   final bool autofocus;
   final bool enabled;
   final String hintText;
@@ -41,7 +43,8 @@ class TextInputField extends StatelessWidget {
       this.keyboardType = TextInputType.text,
       this.obsecure = false,
       // this.onTap,
-      this.isMulti = false,
+      this.minLines,
+      this.maxLines,
       this.readOnly = false,
       this.autofocus = false,
       // this.errorText,
@@ -75,55 +78,56 @@ class TextInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        onChanged: onChanged,
-        controller: controller,
-        focusNode: focusNode,
-        // onEditingComplete: onEditingCompleted,
-        autofocus: autofocus,
-        minLines: isMulti ? 4 : 1,
-        maxLines: isMulti ? null : 1,
-        maxLength: maxLength,
-        textAlign: textAlign ?? TextAlign.start,
-        onFieldSubmitted: onFieldSubmitted,
-        onTap: onTap,
-        enabled: enabled,
-        readOnly: readOnly,
-        obscureText: obsecure,
-        keyboardType: keyboardType,
-        style: style ?? const TextStyle(),
-        // controller: controller,
-        // style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black,),
-        decoration: InputDecoration(
-          prefixText: prefixText ?? '',
-          isDense: isDense,
-          filled: filled ?? false,
-          fillColor: fillColor ?? Colors.white,
-          // errorText: errorText,
-          errorStyle: errorStyle ?? const TextStyle(fontSize: 11, fontFamily: 'Gilroy',),
-          // prefixIcon: prefix,
-          suffixIcon: suffix,
-          suffixIconConstraints: suffixIconConstraints ?? const BoxConstraints(),
-          // labelStyle: TextStyle(fontSize: lableFontSize()),
-          // labelText: 'Email Address',
-          hintStyle: hintStyle ?? const TextStyle(color: Color.fromARGB(255, 105, 105, 105), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
-          hintText: hintText,
-          contentPadding: EdgeInsets.symmetric(vertical: contentPaddingVertical ?? 10, horizontal: contentPaddingHorizontal ?? 10),
-          enabledBorder: enabledBorder ?? const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(61, 70, 70, 70), width: 0.8),
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-          ),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
-            borderRadius: BorderRadius.all(Radius.circular(8),),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
-            borderRadius: BorderRadius.all(Radius.circular(8),),
-          ),
-          // errorBorder: errorrTextFieldBorder(),
-          // focusedErrorBorder: errorrTextFieldBorder(),
+      onChanged: onChanged,
+      controller: controller,
+      focusNode: focusNode,
+      // onEditingComplete: onEditingCompleted,
+      autofocus: autofocus,
+      minLines: minLines ?? 1,
+      maxLines: maxLines ?? 1,
+      maxLength: maxLength,
+      textAlign: textAlign ?? TextAlign.start,
+      onFieldSubmitted: onFieldSubmitted,
+      onTap: onTap,
+      enabled: enabled,
+      readOnly: readOnly,
+      obscureText: obsecure,
+      keyboardType: keyboardType,
+      style: style ?? const TextStyle(),
+      // controller: controller,
+      // style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black,),
+      decoration: InputDecoration(
+        prefixText: prefixText ?? '',
+        isDense: isDense,
+        filled: filled ?? false,
+        fillColor: fillColor ?? Colors.white,
+        // errorText: errorText,
+        errorStyle: errorStyle ?? const TextStyle(fontSize: 11, fontFamily: 'Gilroy',),
+        // prefixIcon: prefix,
+        suffixIcon: suffix,
+        suffixIconConstraints: suffixIconConstraints ?? const BoxConstraints(),
+        // labelStyle: TextStyle(fontSize: lableFontSize()),
+        // labelText: 'Email Address',
+        hintStyle: hintStyle ?? const TextStyle(color: Color.fromARGB(255, 105, 105, 105), fontFamily: 'Gilroy', fontSize: 15, fontWeight: FontWeight.w500),
+        hintText: hintText,
+        contentPadding: EdgeInsets.symmetric(vertical: contentPaddingVertical ?? 10, horizontal: contentPaddingHorizontal ?? 10),
+        enabledBorder: enabledBorder ?? const OutlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(61, 70, 70, 70), width: 0.8),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        validator: validator);
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
+          borderRadius: BorderRadius.all(Radius.circular(8),),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
+          borderRadius: BorderRadius.all(Radius.circular(8),),
+        ),
+        // errorBorder: errorrTextFieldBorder(),
+        // focusedErrorBorder: errorrTextFieldBorder(),
+      ),
+      validator: validator
+    );
   }
 }
 
