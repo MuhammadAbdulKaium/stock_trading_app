@@ -9,7 +9,7 @@ import 'package:stock_trading_app/controller/personal_controller.dart';
 
 class ProfileController extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  final RxDouble tabHeight = 1.5.obs; // Default height for the first tab
+  final RxDouble tabHeight = 1050.0.obs; // Default height for the first tab
   final tabColor = const Color.fromARGB(255, 255, 255, 255).obs; //const Color(0xFFF0B8AF).obs;
 
   @override
@@ -37,7 +37,7 @@ class ProfileController extends GetxController with GetSingleTickerProviderState
     tabController.addListener(() {
       switch (tabController.index) {
         case 0:
-          tabHeight.value = 1.5; // Personal Tab height multiplier
+          tabHeight.value = 1050; // Personal Tab height multiplier
           tabColor.value = const Color.fromARGB(255, 255, 255, 255); //const Color(0xFFF0B8AF);
           break;
         case 1:
