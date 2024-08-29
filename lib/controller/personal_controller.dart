@@ -237,7 +237,8 @@ class PersonalController extends GetxController {
 
         // If validations pass, set the file
         nidFilePath.value = pickedFile.path;
-        selectedNidFile.value = File(pickedFile.path);
+        selectedNidFile.value = file;
+        nidFileName.value = pickedFile.name;
         nidFileSize.value = fileSizeInMB;
 
         if (!isAnyFieldChanged.value) {

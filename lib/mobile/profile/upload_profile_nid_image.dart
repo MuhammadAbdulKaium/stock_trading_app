@@ -50,9 +50,6 @@ class UploadProfileNidImage extends StatelessWidget {
       children: [
         Obx(() {
           if (personalController.selectedNidFile.value == null) {
-            // String filePath = personalController.selectedFile.value!.path;
-            // String fileExtension = filePath.split('.').last.toLowerCase();
-            
             return Material(
               color: Colors.transparent,
               child: Ink(
@@ -130,6 +127,155 @@ class UploadProfileNidImage extends StatelessWidget {
                   ),
                 ),
               ),
+            );
+          } else {
+            return Container();
+          }
+        }),
+
+        Obx(() {
+          if (personalController.selectedNidFile.value != null) {
+            String filePath = personalController.selectedNidFile.value!.path;
+            String fileExtension = filePath.split('.').last.toLowerCase();
+
+            return Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color(0xFFF4FCF7),
+                  ),
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: const Radius.circular(8),
+                    dashPattern: const [5, 4.0],
+                    borderPadding: const EdgeInsets.all(0),
+                    color: const Color(0xFF008037),
+                    strokeWidth: 1.0,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (fileExtension == 'jpg' || fileExtension == 'jpeg' || fileExtension == 'png') ...[
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.033, vertical: screenWidth * 0.03),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.file(
+                                personalController.selectedNidFile.value!,
+                                height: screenWidth * 0.31,
+                              ),
+                            ),
+                          ),
+                          // SizedBox(width: 8.0),
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: screenWidth * 0.04, right: screenWidth * 0.1),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    personalController.nidFileName.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: 13.15.sp,
+                                      fontFamily: 'Gilroy',
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xFF1D192B),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${personalController.nidFileSize.value.toStringAsFixed(2)} MB',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 12.15.sp,
+                                      fontFamily: 'Gilroy',
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xFFA1A1AA),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ] else if (fileExtension == 'pdf') ...[
+                          SizedBox(
+                            height: screenWidth * 0.3645833,
+                            width: screenWidth * 0.3,
+                            child: Image.asset(
+                              'images/pdf-logo.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          // SizedBox(width: 8.0),
+                          Flexible(
+                            child: Padding(
+                              padding: EdgeInsets.only(top: screenWidth * 0.04, right: screenWidth * 0.1),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    personalController.nidFileName.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: 13.15.sp,
+                                      fontFamily: 'Gilroy',
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xFF1D192B),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${personalController.nidFileSize.value.toStringAsFixed(2)} MB',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 12.15.sp,
+                                      fontFamily: 'Gilroy',
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xFFA1A1AA),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ] else ...[
+                          Text(
+                            'Unsupported file format',
+                            style: TextStyle(
+                              fontSize: 13.15.sp,
+                              fontFamily: 'Gilroy',
+                              fontWeight: FontWeight.w500,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ],
+                    )
+                  ),
+                ),
+                  Positioned(
+                  top: screenWidth * 0.03,
+                  right: screenWidth * 0.03,
+                  child: GestureDetector(
+                    onTap: () {
+                      personalController.selectedNidFile.value = null;
+                    },
+                    child: CircleAvatar(
+                      radius: screenWidth * 0.029166666,
+                      backgroundColor: Colors.red,
+                      child: Icon(
+                        Icons.close,
+                        size: screenWidth * 0.03888888,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             );
           } else {
             return Container();
