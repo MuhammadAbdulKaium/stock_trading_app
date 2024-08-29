@@ -44,7 +44,7 @@ class GenderSelectionWidget extends StatelessWidget {
                   personalController.selectGender(selected ? 'Male' : null);
                 },
                 selectedColor: const Color(0xFF008037),
-                backgroundColor: Colors.white,
+                backgroundColor: const Color(0xFFF4FCF7),
                 labelStyle: TextStyle(
                   color: personalController.selectedGender.value == 'Male' 
                   ? Colors.white : const Color(0xFF008037),
@@ -80,7 +80,7 @@ class GenderSelectionWidget extends StatelessWidget {
                   personalController.selectGender(selected ? 'Female' : null);
                 },
                 selectedColor: const Color(0xFF008037),
-                backgroundColor: Colors.white,
+                backgroundColor: const Color(0xFFF4FCF7),
                 labelStyle: TextStyle(
                   color: personalController.selectedGender.value == 'Female' 
                   ? Colors.white : const Color(0xFF008037),

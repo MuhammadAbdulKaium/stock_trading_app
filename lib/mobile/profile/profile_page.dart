@@ -78,7 +78,7 @@ class ProfilePage extends StatelessWidget {
             return AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               color: profileController.tabColor.value,
-              height: screenHeight * profileController.tabHeight.value,
+              height: profileController.tabHeight.value.sp,
               child: TabBarView(
                 controller: profileController.tabController,
                 children: const <Widget>[

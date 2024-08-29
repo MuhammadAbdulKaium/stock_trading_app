@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,12 +29,11 @@ class PersonalController extends GetxController {
   // final dateOfBirthController = TextEditingController();
   final phoneNumberController = TextEditingController();
 
-  var isLoading = false.obs;
-  var selectedFile = Rx<File?>(null);
-  var fileName = ''.obs;
-  var fileSize = 0.0.obs;
-  var fileExtension = ''.obs;
-  var filePath = ''.obs;
+  var selectedNidFile = Rx<File?>(null);
+  var nidFileName = ''.obs;
+  var nidFileSize = 0.0.obs;
+  var nidFileExtension = ''.obs;
+  var nidFilePath = ''.obs;
   var isPickerActive = false.obs;  // Flag to check if picker is active
 
   bool validateName(String value) {
@@ -148,13 +146,20 @@ class PersonalController extends GetxController {
   }
 
   Future<void> pickImage({required ImageSource source}) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
-    if (pickedFile != null) {
-      profilePicturePath.value = pickedFile.path;
-      selectedImage.value = File(pickedFile.path);
-      if (!isAnyFieldChanged.value) {
-        isAnyFieldChanged.value = true;
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+          source: source,
+          preferredCameraDevice: CameraDevice.front,
+        );
+      if (pickedFile != null) {
+        profilePicturePath.value = pickedFile.path;
+        selectedImage.value = File(pickedFile.path);
+        if (!isAnyFieldChanged.value) {
+          isAnyFieldChanged.value = true;
+        }
       }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
     }
   }
 
@@ -202,81 +207,86 @@ class PersonalController extends GetxController {
     }
   }
 
-  void pickFile() async {
-    if (isPickerActive.value) return;  // Prevent reopening if picker is active
-
-    isPickerActive.value = true;  // Set the picker as active
-
-    try{
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg', 'png', 'pdf', 'jpeg'],
+  static const int maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+  final List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+  Future<void> pickNidImageFromCamera({required ImageSource source}) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: source,
+        preferredCameraDevice: CameraDevice.rear,
       );
+      if (pickedFile != null) {
+        File file = File(pickedFile.path);
+        String fileExtension = pickedFile.path.split('.').last.toLowerCase();
 
-      if (result != null) {
-        File file = File(result.files.single.path!);
+        // Get the file size
+        int fileSizeInBytes = await file.length();
+        double fileSizeInMB = fileSizeInBytes / (1024 * 1024); // Convert to MB
 
-        if (file.lengthSync() <= 5 * 1024 * 1024) {
-          selectedFile.value = file;
-          fileName.value = result.files.single.name;
-          fileSize.value = file.lengthSync() / (1024 * 1024);
-          fileExtension.value = fileName.split('.').last;
-          filePath.value = file.path;
+        // Validate file extension
+        if (!allowedExtensions.contains(fileExtension)) {
+          Get.snackbar('Invalid File', 'Please upload a valid file (JPG, PNG, JPEG, PDF).');
+          return;
+        }
 
-          // print('Name: ${fileName.value}');
-          // print('Name: ${fileSize.value / (1024 * 1024)}');
-          // print('Name: ${fileExtension.value}');
-          // print('Name: ${filePath.value}');
-        } else {
-          Get.snackbar('Error', 'File size exceeds 5MB');
+        // Validate file size
+        if (fileSizeInMB <= 5) {
+          Get.snackbar('File too large', 'Please upload a file smaller than 5MB.');
+          return;
+        }
+
+        // If validations pass, set the file
+        nidFilePath.value = pickedFile.path;
+        selectedNidFile.value = File(pickedFile.path);
+        nidFileSize.value = fileSizeInMB;
+
+        if (!isAnyFieldChanged.value) {
+          isAnyFieldChanged.value = true;
         }
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
-    } finally {
-      isPickerActive.value = false;  // Reset the picker as inactive
     }
   }
 
-  void uploadFile() async {
-    if (selectedFile.value != null) {
-      isLoading.value = true;
-      try {
-        // Replace with your file upload logic
-        dio.Dio dioInstance = dio.Dio();
-        dio.FormData formData = dio.FormData.fromMap({
-          'file': await dio.MultipartFile.fromFile(selectedFile.value!.path),
-        });
+  Future<void> pickNidFileFromDevice() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf'],
+      );
 
-        // Example API call
-        var response = await dioInstance.post('https://your-api-endpoint.com/upload', data: formData);
-        
-        if (response.statusCode == 200) {
-          Get.snackbar('Success', 'File uploaded successfully');
-          // Get.dialog(const PaymentConfirmationDialog());
+      if (result != null) {
+        // Convert the picked file to a File object
+        final File file = File(result.files.single.path!);
+
+        // Get the file size
+        int fileSizeInBytes = await file.length();
+        double fileSizeInMB = fileSizeInBytes / (1024 * 1024); // Convert to MB
+
+        // Check if the file size is within the limit (5MB)
+        if (fileSizeInMB <= 5) {
+          // Update file-related observables
+          nidFilePath.value = result.files.single.path!;
+          selectedNidFile.value = file;
+          nidFileName.value = result.files.single.name;
+          nidFileSize.value = fileSizeInMB;
+
+          if (!isAnyFieldChanged.value) {
+            isAnyFieldChanged.value = true;
+          }
         } else {
-          Get.snackbar('Error', 'File upload failed');
+          Get.snackbar('File too large', 'Please select a file smaller than 5MB.');
         }
-      } catch (e) {
-        Get.snackbar('Error', 'An error occurred: $e');
-      } finally {
-        isLoading.value = false;
       }
-    } else {
-      Get.snackbar('Error', 'No file selected');
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
     }
   }
 
-  void resetVariables() {
-    selectedFile.value = null;
-  }
 
   @override
   void onClose() {
-    // fullNameController.dispose();
-    // emailController.dispose();
-    // nidNumberController.dispose();
-    // dateOfBirthController.dispose();
     phoneNumberController.dispose();
     super.onClose();
   }
