@@ -401,7 +401,7 @@ class Personal extends StatelessWidget {
               filled: true,
               fillColor: const Color(0xFFF4FCF7),
               contentPaddingVertical: screenHeight * 0.011,
-              contentPaddingHorizontal: screenWidth * 0.0243055,
+              contentPaddingHorizontal: screenWidth * 0.024305,
               suffix: Padding(
                 padding: const EdgeInsets.only(right: 3),
                 child: SizedBox(
