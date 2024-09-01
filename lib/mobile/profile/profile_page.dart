@@ -15,12 +15,12 @@ class ProfilePage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.046296296),
-      child: Column(
-        children: [
-          SizedBox(height: screenHeight * 0.03,),
-          Container(
+    return Column(
+      children: [
+        SizedBox(height: screenHeight * 0.03,),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Container(
             padding: EdgeInsets.all(screenWidth * 0.0121528),
             decoration: BoxDecoration(
               color: const Color(0xFFF4FCF7),
@@ -32,12 +32,12 @@ class ProfilePage extends StatelessWidget {
                   blurRadius: 8.5,
                   offset: const Offset(0, 5),
                 ),
-                // BoxShadow(
-                //   color: Colors.grey.withOpacity(0.5),
-                //   spreadRadius: 0,
-                //   blurRadius: 2,
-                //   offset: const Offset(0, 1),
-                // ),
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 0,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
+                ),
               ],
             ),
             child: SizedBox(
@@ -74,28 +74,65 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          Obx(() {
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              color: profileController.tabColor.value,
-              height: profileController.tabHeight.value.sp,
-              child: TabBarView(
-                controller: profileController.tabController,
-                children: const <Widget>[
-                  // Personal Tab Content
-                  Personal(),
-              
-                  // Banking Tab Content
-                  Banking(),
-              
-                  // Nominee Tab Content
-                  Nominee(),
-                ],
-              ),
-            );
-          })
-        ],
-      ),
+        ),
+        Obx(() {
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            color: profileController.tabColor.value,
+            height: _getContainerHeight(profileController.selectedTab.value, screenHeight, screenWidth),
+            child: TabBarView(
+              controller: profileController.tabController,
+              children: const <Widget>[
+                // Personal Tab Content
+                Personal(),
+            
+                // Banking Tab Content
+                Banking(),
+            
+                // Nominee Tab Content
+                Nominee(),
+              ],
+            ),
+          );
+        })
+      ],
     );
+  }
+}
+
+double _getContainerHeight(String selectedTab, double screenHeight, double screenWidth) {
+  switch (selectedTab) {
+    case 'personal':
+      if (screenHeight <= 700) {
+        return ((screenHeight * 1.235) + (screenWidth * 0.40122));  // Small screen height
+      } else if (screenHeight <= 800) {
+        return ((screenHeight * 1.227) + (screenWidth * 0.40122)); // Medium screen height
+      } else if (screenHeight <= 1000) {
+        return ((screenHeight * 1.133018152) + (screenWidth * 0.40122)); // Large screen height
+      } else {
+        return ((screenHeight * 1.1) + (screenWidth * 0.40122)); // Extra-large screen height
+      }
+    case 'banking':
+      if (screenHeight <= 700) {
+        return (screenHeight * 0.795);  // Small screen height
+      } else if (screenHeight <= 800) {
+        return (screenHeight * 0.795); // Medium screen height
+      } else if (screenHeight <= 1000) {
+        return (screenHeight * 0.74); // Large screen height
+      } else {
+        return (screenHeight * 0.69); // Extra-large screen height
+      }
+    case 'nominee':
+      if (screenHeight <= 700) {
+        return (screenHeight * 1.4085);  // Small screen height
+      } else if (screenHeight <= 800) {
+        return (screenHeight * 1.4085); // Medium screen height
+      } else if (screenHeight <= 1000) {
+        return (screenHeight * 1.29); // Large screen height
+      } else {
+        return (screenHeight * 1.29); // Extra-large screen height
+      }
+    default:
+      return 100; // Default height if no match is found
   }
 }

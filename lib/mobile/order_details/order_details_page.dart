@@ -120,7 +120,7 @@ class OrderDetailsPage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                       child: Column(
                         children: [
-                          SizedBox(height: screenHeight * 0.02810,),
+                          SizedBox(height: screenHeight * 0.02816,),
                           const OrderBasicInfo(),
                         ],
                       ),

@@ -1,16 +1,15 @@
-// import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/banking_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/controller/nominee_controller.dart';
 import 'package:stock_trading_app/controller/personal_controller.dart';
-// import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;
   final RxDouble tabHeight = 1050.0.obs; // Default height for the first tab
   final tabColor = const Color.fromARGB(255, 255, 255, 255).obs; //const Color(0xFFF0B8AF).obs;
+  final selectedTab = 'personal'.obs;
 
   @override
   void onInit() {
@@ -37,16 +36,13 @@ class ProfileController extends GetxController with GetSingleTickerProviderState
     tabController.addListener(() {
       switch (tabController.index) {
         case 0:
-          tabHeight.value = 1050; // Personal Tab height multiplier
-          tabColor.value = const Color.fromARGB(255, 255, 255, 255); //const Color(0xFFF0B8AF);
+          selectedTab.value = 'personal';
           break;
         case 1:
-          tabHeight.value = 1.3; // Banking Tab height multiplier
-          tabColor.value = const Color.fromARGB(255, 175, 240, 178);
+          selectedTab.value = 'banking';
           break;
         case 2:
-          tabHeight.value = 1.0; // Nominee Tab height multiplier
-          tabColor.value = const Color.fromARGB(255, 179, 175, 240);
+          selectedTab.value = 'nominee';
           break;
       }
     });
