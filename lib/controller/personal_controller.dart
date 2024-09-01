@@ -62,7 +62,7 @@ class PersonalController extends GetxController {
     isValidEmail ? email.value = input.trim() : email.value = '';
   }
 
-  bool validateAccountNumber(String value) {
+  bool validateNidNumber(String value) {
     value = value.trim();      // Trim the input to remove any leading or trailing whitespace
     final validAccountNumberRegex = RegExp(r'^\d{10,17}$');   // Define a regular expression for numbers with up to 17 digits
 
@@ -73,8 +73,8 @@ class PersonalController extends GetxController {
     }
     return true;
   }
-  void updateAccountNumber(String input) {
-    if (validateAccountNumber(input)) {
+  void updateNidNumber(String input) {
+    if (validateNidNumber(input)) {
       nidNumber.value = input.trim();
     }
     if (!isAnyFieldChanged.value) {
@@ -172,7 +172,7 @@ class PersonalController extends GetxController {
     return true;
   }
   void updateAddress(String input) {
-    if (validateAccountNumber(input)) {
+    if (validateAddress(input)) {
       address.value = input.trim();
     }
     if (!isAnyFieldChanged.value) {
@@ -207,7 +207,6 @@ class PersonalController extends GetxController {
     }
   }
 
-  static const int maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
   final List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
   Future<void> pickNidImageFromCamera({required ImageSource source}) async {
     try {
@@ -230,7 +229,7 @@ class PersonalController extends GetxController {
         }
 
         // Validate file size
-        if (fileSizeInMB <= 5) {
+        if (fileSizeInMB > 5) {
           Get.snackbar('File too large', 'Please upload a file smaller than 5MB.');
           return;
         }

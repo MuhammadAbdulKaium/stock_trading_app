@@ -58,7 +58,7 @@ class ForgetPassword extends StatelessWidget {
                             child: Text(
                               'Email',
                               style: TextStyle(
-                                fontSize: 13.2746666666666666.sp,
+                                fontSize: 13.27466666666666.sp,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xFF27272A)

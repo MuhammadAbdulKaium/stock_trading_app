@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:stock_trading_app/controller/personal_controller.dart';
+import 'package:stock_trading_app/controller/nominee_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final PersonalController personalController = Get.put(PersonalController());
+final NomineeController nomineeController = Get.put(NomineeController());
 
-class UploadProfileNidImage extends StatelessWidget {
-  const UploadProfileNidImage({super.key});
+class UploadNomineeNidImage extends StatelessWidget {
+  const UploadNomineeNidImage({super.key});
 
   void _showImagePickerOptions(BuildContext context) {
     showModalBottomSheet(
@@ -22,14 +22,14 @@ class UploadProfileNidImage extends StatelessWidget {
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Gallery'),
                   onTap: () {
-                    personalController.pickNidFileFromDevice();
+                    nomineeController.pickNidFileFromDevice();
                     Navigator.of(context).pop();
                   }),
               ListTile(
                 leading: const Icon(Icons.photo_camera),
                 title: const Text('Camera'),
                 onTap: () {
-                  personalController.pickNidImageFromCamera(source: ImageSource.camera);
+                  nomineeController.pickNidImageFromCamera(source: ImageSource.camera);
                   Navigator.of(context).pop();
                 },
               ),
@@ -44,11 +44,11 @@ class UploadProfileNidImage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    
+
     return Column(
       children: [
         Obx(() {
-          if (personalController.selectedNidFile.value == null) {
+          if (nomineeController.selectedNidFile.value == null) {
             return Material(
               color: Colors.transparent,
               child: Ink(
@@ -99,7 +99,7 @@ class UploadProfileNidImage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Upload your NID Image',
+                                  "Upload Nominee's NID Image",
                                   style: TextStyle(
                                     fontSize: 13.5.sp,
                                     fontFamily: 'Inter',
@@ -133,8 +133,8 @@ class UploadProfileNidImage extends StatelessWidget {
         }),
 
         Obx(() {
-          if (personalController.selectedNidFile.value != null) {
-            String filePath = personalController.selectedNidFile.value!.path;
+          if (nomineeController.selectedNidFile.value != null) {
+            String filePath = nomineeController.selectedNidFile.value!.path;
             String fileExtension = filePath.split('.').last.toLowerCase();
 
             return Stack(
@@ -168,7 +168,7 @@ class UploadProfileNidImage extends StatelessWidget {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
                                 child: Image.file(
-                                  personalController.selectedNidFile.value!,
+                                  nomineeController.selectedNidFile.value!,
                                   height: screenWidth * 0.07 * 2,
                                 ),
                               ),
@@ -181,7 +181,7 @@ class UploadProfileNidImage extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(top: screenWidth * 0.005, right: screenWidth * 0.04),
                                       child: Text(
-                                        personalController.nidFileName.toString(),
+                                        nomineeController.nidFileName.toString(),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
@@ -193,7 +193,7 @@ class UploadProfileNidImage extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      '${personalController.nidFileSize.value.toStringAsFixed(3)} MB',
+                                      '${nomineeController.nidFileSize.value.toStringAsFixed(3)} MB',
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 12.15.sp,
@@ -221,7 +221,7 @@ class UploadProfileNidImage extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(top: screenWidth * 0.005, right: screenWidth * 0.04),
                                       child: Text(
-                                        personalController.nidFileName.toString(),
+                                        nomineeController.nidFileName.toString(),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
@@ -233,7 +233,7 @@ class UploadProfileNidImage extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      '${personalController.nidFileSize.value.toStringAsFixed(3)} MB',
+                                      '${nomineeController.nidFileSize.value.toStringAsFixed(3)} MB',
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 12.15.sp,
@@ -267,7 +267,7 @@ class UploadProfileNidImage extends StatelessWidget {
                   right: screenWidth * 0.02,
                   child: GestureDetector(
                     onTap: () {
-                      personalController.selectedNidFile.value = null;
+                      nomineeController.selectedNidFile.value = null;
                     },
                     child: CircleAvatar(
                       radius: screenWidth * 0.023,
