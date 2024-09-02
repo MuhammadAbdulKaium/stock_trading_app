@@ -133,7 +133,7 @@ class LoginForm extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          // controller: TextEditingController(text: loginController.password.value),
+                          controller: TextEditingController(text: loginController.password.value),
                           onChanged: loginController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your password here',
