@@ -13,6 +13,7 @@ import 'package:stock_trading_app/mobile/how_munafa_works/how_munafa_works_page.
 import 'package:stock_trading_app/mobile/initial_page_mobile.dart';
 import 'package:stock_trading_app/mobile/investment_opportunity_details/investment_opportunity_details_page.dart';
 import 'package:stock_trading_app/mobile/landing_page/landing_mobile.dart';
+import 'package:stock_trading_app/mobile/notification/notification_page.dart';
 import 'package:stock_trading_app/mobile/order_details/order_details_page.dart';
 import 'package:stock_trading_app/mobile/payment_proof/payment_proof_page.dart';
 import 'package:stock_trading_app/mobile/progress/progress_page.dart';
@@ -91,17 +92,8 @@ class MyApp extends StatelessWidget {
 
                   GetPage(name: '/about_us_page', page: () => const AboutUsPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
                   GetPage(name: '/how_munafa_works_page', page: () => const HowMunafaWorksPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
+                  GetPage(name: '/notification_page', page: () => const NotificationPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
 
-                  GetPage(name: '/forget_password', page: () => const ForgetPassword(), transition: Transition.fadeIn, transitionDuration: const Duration(milliseconds: 1000), ),
-                  GetPage(name: '/cash_out', page: () => const CashOutPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/summary', page: () => const SummaryPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/active_investment', page: () => const ActiveInvestmentPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/order_details_page', page: () => const OrderDetailsPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/progress_page', page: () => const ProgressPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/sell_page', page: () => const SellPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/investment_opportunity_details_page', page: () => const InvestmentOpportunityDetailsPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/booking_page', page: () => const BookingPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
-                  GetPage(name: '/confirmation_page', page: () => const ConfirmationPage(), transition: Transition.fade, transitionDuration: const Duration(milliseconds: 300), ),
                   GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),
                   GetPage(name: '/landing_web', page: () => const LandingWeb()),
                 ],

@@ -167,16 +167,25 @@ class NomineeController extends GetxController {
     try {
       nomineeDetails.value = NomineeDetailsModel(
         id: '1',
-        // bankName: 'Dutch Bangla Bank',
-        // branchName: 'Rangpur Branch',
-        // accountName: 'Stock House LTD',
-        // accountNumber: '03597561512145152152',
-        // routingNumber: '23546878984',
+        fullName: 'abc',
+        relationship: 'xyz',
+        nidNumber: '123421231233423',
+        gender: 'Male',
+        email: 'abc33@gmail.com',
+        dateOfBirth: DateTime.now(),
+        phoneNumber: '1648915605',
+        address: 'Dhaka, Bangladesh',
       );
 
-      // remainingLot.value = maximumLot.value = investmentOpportunityDetails.value.lotSize!.toInt();
-      // currentBuyingPrice.value = investmentOpportunityDetails.value.pricePerUnit!.toDouble();
-
+      fullName.value = nomineeDetails.value.fullName ?? '';
+      relationship.value = nomineeDetails.value.relationship ?? '';
+      nidNumber.value = nomineeDetails.value.nidNumber ?? '';
+      selectedGender.value = nomineeDetails.value.gender ?? '';
+      email.value = nomineeDetails.value.email ?? '';
+      dateOfBirth.value = nomineeDetails.value.dateOfBirth;
+      phoneNumber.value = nomineeDetails.value.phoneNumber ?? '';
+      phoneNumberController.text = nomineeDetails.value.phoneNumber ?? '';
+      address.value = nomineeDetails.value.address ?? '';
     } catch (e) {
       // throw Exception('Error: $e');
       Get.snackbar('Error', 'An error occurred: $e');

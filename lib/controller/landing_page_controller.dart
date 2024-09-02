@@ -72,8 +72,8 @@ class LandingPageController extends GetxController {
 
   Future<void> _loadUserInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    userName.value = prefs.getString('username')!;
-    email.value = prefs.getString('email')!;
+    userName.value = prefs.getString('username') ?? '';
+    email.value = prefs.getString('email') ?? '';
   }
 
   void toggleBanglaActivationState() {

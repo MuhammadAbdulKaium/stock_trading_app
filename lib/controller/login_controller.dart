@@ -66,17 +66,20 @@ class LoginController extends GetxController {
       // On successful login, if rememberMe is true, save credentials
       if (checkedRememberMe.value) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('email', email);
-        await prefs.setString('password', password);
+        await prefs.setString('emailForRememberMe', email);
+        await prefs.setString('passwordForRememberMe', password);
       } else {
         // Clear saved credentials if rememberMe is false
+        print(checkedRememberMe);
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.remove('email');
-        await prefs.remove('password');
+        await prefs.remove('emailForRememberMe');
+        await prefs.remove('passwordForRememberMe');
       }
 
-      _sharedPreferences.saveString('email', 'makaium33@gmail.com');
-      _sharedPreferences.saveString('username', 'Abdul Kaium');
+      _sharedPreferences.saveString('email', email);
+      _sharedPreferences.saveString('password', password);
+      // _sharedPreferences.saveString('username', 'Abdul Kaium');
+
       // Navigate to the home screen or next page
       Get.offAllNamed('/landing_mobile');
     } catch (e) {
@@ -119,8 +122,8 @@ class LoginController extends GetxController {
   // Function to load saved credentials
   Future<void> loadCredentials() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    email.value = prefs.getString('email') ?? '';
-    password.value = prefs.getString('password') ?? '';
+    email.value = prefs.getString('emailForRememberMe') ?? '';
+    password.value = prefs.getString('passwordForRememberMe') ?? '';
     checkedRememberMe.value = email.isNotEmpty && password.isNotEmpty;
   }
 }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/about_us_controller.dart';
 import 'package:stock_trading_app/controller/how_munafa_works_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
+import 'package:stock_trading_app/controller/notification_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
 
@@ -15,6 +16,7 @@ class CustomDrawer extends StatelessWidget {
     final LandingPageController landingPageController = Get.find<LandingPageController>();
     final AboutUsController aboutUsController = Get.put(AboutUsController());
     final HowMunafaWorksController howMunafaWorksController = Get.put(HowMunafaWorksController());
+    final NotificationController notificationController = Get.put(NotificationController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -357,9 +359,12 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        // landingPageController.changePage(10);
-                        landingPageController.selectedDrawerPageIndex.value = 6;
                         Navigator.pop(context);
+                        landingPageController.selectedDrawerPageIndex.value = 6;
+                        notificationController.loadNotificationPage();
+                        Future.delayed(const Duration(milliseconds: 350), () {
+                          landingPageController.selectedDrawerPageIndex.value = 0;
+                        });
                       },
                     ),
                   ),
