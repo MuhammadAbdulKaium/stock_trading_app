@@ -166,7 +166,7 @@ class SignupVerification extends StatelessWidget {
                           onPressed: () {
                             signupVerificationController.validationAttempt();
                             if(signupVerificationController.isCodeValid.value) {
-                              signupVerificationController.resetPassword(signupVerificationController.confirmationCodeByUser, resetPasswordController.newPassword.value);
+                              signupVerificationController.signupVerification(signupVerificationController.verificationCodeByUser);
                             }
                           },
                         ),

@@ -57,7 +57,6 @@ class SigninSignupNavigationController extends GetxController {
   Widget getCurrentPage() {
     switch (currentIndex.value) {
       case 1:
-        // print('Forget Password...............');
         canGoBack.value = false;
         return const ForgetPassword();
       case 2:
@@ -70,7 +69,6 @@ class SigninSignupNavigationController extends GetxController {
         canGoBack.value = false;
         return const SignupVerification();
       default:
-        // canGoBack.value = true;
         return const LoginForm();
     }
   }
