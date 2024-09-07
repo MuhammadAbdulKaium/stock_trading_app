@@ -4,7 +4,7 @@ import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 
 class SignupVerificationController extends GetxController {
-  final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
+  final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
   final List<TextEditingController> codeControllers = List.generate(5, (_) => TextEditingController());
   final List<FocusNode> focusNodes = List.generate(5, (_) => FocusNode());
 
@@ -14,11 +14,11 @@ class SignupVerificationController extends GetxController {
 
   // Mock confirmation code for demo purposes
   final String confirmationCode = "12345";
-  String confirmationCodeByUser = "";
+  String verificationCodeByUser = "";
 
   void validateCode() {
-    confirmationCodeByUser = codeControllers.map((c) => c.text).join();
-    isCodeValid.value = confirmationCodeByUser == confirmationCode;
+    verificationCodeByUser = codeControllers.map((c) => c.text).join();
+    isCodeValid.value = verificationCodeByUser == confirmationCode;
   }
 
   void handlePaste(String value) {
@@ -35,12 +35,11 @@ class SignupVerificationController extends GetxController {
     isValidationAttempted.value = true;
   }
 
-  Future<void> resetPassword(String code, String newPassword) async {
+  Future<void> signupVerification(String code) async {
     isLoading(true);
     try {
-      if(isCodeValid.value) {
-        _signinSignupNavigationController.navigateTo(0);
-      }
+      signinSignupNavigationController.navigateTo(0);
+
     } catch (e) {
       // Handle errors (show snackbar, etc.)
       Get.dialog(
