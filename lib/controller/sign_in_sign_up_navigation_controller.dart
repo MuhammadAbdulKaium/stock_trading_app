@@ -4,6 +4,7 @@ import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/login_form.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/reset_password.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/signup_form.dart';
+import 'package:stock_trading_app/mobile/sign_in_sign_up/signup_verification.dart';
 
 class SigninSignupNavigationController extends GetxController {
   final currentIndex = 0.obs;
@@ -65,6 +66,9 @@ class SigninSignupNavigationController extends GetxController {
       case 3:
         canGoBack.value = false;
         return const SignupForm();
+      case 4:
+        canGoBack.value = false;
+        return const SignupVerification();
       default:
         // canGoBack.value = true;
         return const LoginForm();
