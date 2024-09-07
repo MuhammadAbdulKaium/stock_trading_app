@@ -73,7 +73,7 @@ class SignupForm extends StatelessWidget {
                         ],
                       ),
                       TextInputField(
-                        controller: TextEditingController(text: signupController.fullName.value),
+                        controller: signupController.fullNameController,
                         onChanged: signupController.signUpValidateName,
                         keyboardType: TextInputType.text,
                         hintText: 'John Doe',
@@ -99,10 +99,12 @@ class SignupForm extends StatelessWidget {
                         contentPaddingVertical: screenWidth * 0.02430,
                         contentPaddingHorizontal: screenHeight * 0.0115131578947,
                         validator: (value) {
+                          final validNameRegex = RegExp(r"^[a-zA-Zà-žÀ-Ž\s\.\,\-'\’]+$");
                           signupController.signUpValidateName;
-                          if (value.trim().isEmpty) {
+
+                          if (value.isEmpty) {
                             return 'Full Name is required';
-                          } else if (value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                          } else if (!validNameRegex.hasMatch(value)) {
                             return 'Enter a valid Name';
                           }
                           return null;
@@ -339,7 +341,8 @@ class SignupForm extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (resetPasswordFormkey.currentState!.validate()) {
-                              signinSignupNavigationController.navigateTo(0);
+                              signupController.signUp(signupController.fullName.value.trim(), signupController.email.value, signupController.password.value);
+                              // signinSignupNavigationController.navigateTo(0);
                             }
                           },
                         ),

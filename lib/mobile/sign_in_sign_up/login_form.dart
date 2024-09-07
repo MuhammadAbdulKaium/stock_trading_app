@@ -133,7 +133,7 @@ class LoginForm extends StatelessWidget {
                       ),
                       Obx(() => 
                         TextInputField(
-                          controller: TextEditingController(text: loginController.password.value),
+                          controller: loginController.passwordController,
                           onChanged: loginController.updatePasswordVariable,
                           keyboardType: TextInputType.visiblePassword,
                           hintText: 'Enter your password here',
@@ -184,6 +184,13 @@ class LoginForm extends StatelessWidget {
                               return 'Must contain a special [!@....] character.';
                             } 
                             return null;
+
+                            // if (value.trim().isEmpty) {
+                            //   return 'Password cannot be empty';
+                            // } else if (value.trim().length < 7) {
+                            //   return 'Password must be at least 7 characters long';
+                            // }
+                            // return null;
                           },
                         ),
                       ),
