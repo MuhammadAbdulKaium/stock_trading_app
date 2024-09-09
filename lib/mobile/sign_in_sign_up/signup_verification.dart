@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
-import 'package:stock_trading_app/controller/reset_password_controller.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:stock_trading_app/controller/signup_verification_controller.dart';
 
@@ -13,7 +12,6 @@ class SignupVerification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> resetPasswordFormkey = GlobalKey<FormState>();
-    final ResetPasswordController resetPasswordController = Get.put(ResetPasswordController());
     final SignupVerificationController signupVerificationController = Get.put(SignupVerificationController());
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     double screenWidth = MediaQuery.of(context).size.width;
