@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/banking_controller.dart';
+import 'package:stock_trading_app/models/bank_details_model.dart';
 
 class Banking extends StatelessWidget {
   const Banking({super.key});
@@ -40,12 +41,7 @@ class Banking extends StatelessWidget {
             SizedBox(height: screenHeight * 0.00454,),
             Obx(() { 
               return TextInputField(
-                controller: TextEditingController.fromValue(
-                  TextEditingValue(
-                    text: bankingController.bankName.value,
-                    selection: TextSelection.collapsed(offset: bankingController.bankName.value.length),
-                  ),
-                ),
+                controller: bankingController.bankNameController.value,
                 onChanged: bankingController.updateBankName,
                 keyboardType: TextInputType.name,
                 hintText: 'Enter Bank Name',
@@ -111,12 +107,7 @@ class Banking extends StatelessWidget {
             SizedBox(height: screenHeight * 0.00454,),
             Obx(() { 
               return TextInputField(
-                controller: TextEditingController.fromValue(
-                  TextEditingValue(
-                    text: bankingController.branchName.value,
-                    selection: TextSelection.collapsed(offset: bankingController.branchName.value.length),
-                  ),
-                ),
+                controller: bankingController.branchNameController.value,
                 onChanged: bankingController.updateBranchName,
                 keyboardType: TextInputType.name,
                 hintText: 'Enter Branch Name',
@@ -182,12 +173,7 @@ class Banking extends StatelessWidget {
             SizedBox(height: screenHeight * 0.00454,),
             Obx(() { 
               return TextInputField(
-                controller: TextEditingController.fromValue(
-                  TextEditingValue(
-                    text: bankingController.accountHolderName.value,
-                    selection: TextSelection.collapsed(offset: bankingController.accountHolderName.value.length),
-                  ),
-                ),
+                controller: bankingController.accountHolderNameController.value,
                 onChanged: bankingController.updateAccountHolderName,
                 keyboardType: TextInputType.name,
                 hintText: 'Enter Account Holder Name',
@@ -253,12 +239,7 @@ class Banking extends StatelessWidget {
             SizedBox(height: screenHeight * 0.00454,),
             Obx(() { 
               return TextInputField(
-                controller: TextEditingController.fromValue(
-                  TextEditingValue(
-                    text: bankingController.accountNumber.value,
-                    selection: TextSelection.collapsed(offset: bankingController.accountNumber.value.length),
-                  ),
-                ),
+                controller: bankingController.accountNumberController.value,
                 onChanged: bankingController.updateAccountNumber,
                 keyboardType: TextInputType.number,
                 hintText: 'Enter Account Number',
@@ -324,12 +305,7 @@ class Banking extends StatelessWidget {
             SizedBox(height: screenHeight * 0.00454,),
             Obx(() { 
               return TextInputField(
-                controller: TextEditingController.fromValue(
-                  TextEditingValue(
-                    text: bankingController.routingNumber.value,
-                    selection: TextSelection.collapsed(offset: bankingController.routingNumber.value.length),
-                  ),
-                ),
+                controller: bankingController.routingNumberController.value,
                 onChanged: bankingController.updateRoutingNumber,
                 keyboardType: TextInputType.number,
                 hintText: 'Enter Routing Number',
@@ -387,7 +363,15 @@ class Banking extends StatelessWidget {
                   onPressed: bankingController.isAnyFieldChanged.value 
                   ? () {
                     if (bankingDetailsFormkey.currentState!.validate()) {
-                      // paymentProofController.uploadFile();
+                      BankDetailsModel? updatedDetails = BankDetailsModel(
+                        bankName: bankingController.bankNameController.value.text,
+                        branchName: bankingController.branchNameController.value.text,
+                        accountHolderName: bankingController.accountHolderNameController.value.text,
+                        accountNumber: bankingController.accountNumberController.value.text, // Keep other fields unchanged
+                        routingNumber: bankingController.routingNumberController.value.text,
+                      );
+
+                      bankingController.updateBankDetails(updatedDetails);
                     }
                   }
                   : null,

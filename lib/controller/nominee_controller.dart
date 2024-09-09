@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_trading_app/api/nominee_api.dart';
 import 'package:stock_trading_app/models/nominee_details_model.dart';
 
 class NomineeController extends GetxController {
@@ -163,29 +165,28 @@ class NomineeController extends GetxController {
     return true;
   }
 
+  final NomineeApi _nomineeApi = NomineeApi();
   Future<void> loadNomineeDetails() async {
     try {
-      nomineeDetails.value = NomineeDetailsModel(
-        id: '1',
-        fullName: 'abc',
-        relationship: 'xyz',
-        nidNumber: '123421231233423',
-        gender: 'Male',
-        email: 'abc33@gmail.com',
-        dateOfBirth: DateTime.now(),
-        phoneNumber: '1648915605',
-        address: 'Dhaka, Bangladesh',
-      );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('token') ?? '';
+      NomineeDetailsModel? data = await _nomineeApi.getNomineeData(token);
 
-      fullName.value = nomineeDetails.value.fullName ?? '';
-      relationship.value = nomineeDetails.value.relationship ?? '';
-      nidNumber.value = nomineeDetails.value.nidNumber ?? '';
-      selectedGender.value = nomineeDetails.value.gender ?? '';
-      email.value = nomineeDetails.value.email ?? '';
-      dateOfBirth.value = nomineeDetails.value.dateOfBirth;
-      phoneNumber.value = nomineeDetails.value.phoneNumber ?? '';
-      phoneNumberController.text = nomineeDetails.value.phoneNumber ?? '';
-      address.value = nomineeDetails.value.address ?? '';
+      if (data != null) {
+        nomineeDetails.value = data;
+
+        fullName.value = nomineeDetails.value.fullName ?? '';
+        relationship.value = nomineeDetails.value.relation ?? '';
+        nidNumber.value = nomineeDetails.value.nid ?? '';
+        // selectedGender.value = nomineeDetails.value.gender ?? '';
+        email.value = nomineeDetails.value.email ?? '';
+        // dateOfBirth.value = nomineeDetails.value.dob;
+        phoneNumber.value = nomineeDetails.value.phone ?? '';
+        phoneNumberController.text = nomineeDetails.value.phone ?? '';
+        address.value = nomineeDetails.value.address ?? '';
+      } else {
+        Get.snackbar('Error', 'Failed to load Nominee details.');
+      }
     } catch (e) {
       // throw Exception('Error: $e');
       Get.snackbar('Error', 'An error occurred: $e');

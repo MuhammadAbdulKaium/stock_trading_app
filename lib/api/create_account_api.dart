@@ -8,7 +8,7 @@ class CreateAccountAPI {
 
     try {
       final response = await _dio.post(
-        '${AppConstants.baseUrl}${AppConstants.registerEndpoint}', 
+        '${AppConstants.baseUrl}${AppConstants.signUpEndpoint}', 
         data: {'fullname': fullName, 'email': email, 'password': password},
       );
 

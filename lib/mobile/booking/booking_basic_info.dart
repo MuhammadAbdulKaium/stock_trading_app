@@ -118,7 +118,7 @@ class BookingBasicInfo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(bookingPageController.bankDetails.value.accountName!,
+                      Text(bookingPageController.bankDetails.value.accountHolderName!,
                         style: TextStyle(
                           fontSize: 13.7.sp,
                           fontFamily: 'Gilroy',
@@ -134,7 +134,7 @@ class BookingBasicInfo extends StatelessWidget {
                           },
                           onTapUp: (_) {
                             bookingPageController.toggleAccountNameCopyIcon(false);
-                            bookingPageController.copyToClipboard(bookingPageController.bankDetails.value.accountName!, "'Account Name'");
+                            bookingPageController.copyToClipboard(bookingPageController.bankDetails.value.accountHolderName!, "'Account Name'");
                           },
                           onTapCancel: () {
                             bookingPageController.toggleAccountNameCopyIcon(false);
@@ -356,7 +356,7 @@ class BookingBasicInfo extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 55,
-                              child: Text(bookingPageController.bankDetails.value.accountName!,
+                              child: Text(bookingPageController.bankDetails.value.accountHolderName!,
                                 style: TextStyle(
                                   fontSize: 11.95.sp,
                                   fontFamily: 'Gilroy',

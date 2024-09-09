@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_trading_app/api/personal_api.dart';
 import 'package:stock_trading_app/models/personal_details_model.dart';
+import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class PersonalController extends GetxController {
   var selectedImage = Rxn<File>();
@@ -16,6 +19,7 @@ class PersonalController extends GetxController {
   var isGenderInvalid = false.obs;
   var genderError = ''.obs;
 
+  final id = ''.obs;
   final fullName = ''.obs;
   final email = ''.obs;
   final nidNumber = ''.obs;
@@ -180,27 +184,32 @@ class PersonalController extends GetxController {
     }
   }
 
+  final PersonalApi _personalApi = PersonalApi();
   Future<void> loadPersonalDetails() async {
     try {
-      personalDetails.value = PersonalDetailsModel(
-        id: '1',
-        fullName: 'Abdul Kaium',
-        email: 'makaium33@gmail.com',
-        nidNumber: '123421231233423',
-        phoneNumber: '1648915605',
-        address: '',
-      );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString('user_id') ?? '';
+      String? token = prefs.getString('token') ?? '';
+      PersonalDetailsModel? data = await _personalApi.getPersonalData(userId, token);
 
-      fullName.value = personalDetails.value.fullName ?? '';
-      // fullNameController.text = personalDetails.value.fullName ?? '';
-      email.value = personalDetails.value.email ?? '';
-      // emailController.text = personalDetails.value.email ?? '';
-      nidNumber.value = personalDetails.value.nidNumber ?? '';
-      // nidNumberController.text = personalDetails.value.nidNumber ?? '';
-      phoneNumber.value = personalDetails.value.phoneNumber ?? '';
-      phoneNumberController.text = personalDetails.value.phoneNumber ?? '';
-      // dateOfBirth.value = (personalDetails.value.dateOfBirth ?? '') as DateTime?;
-      address.value = personalDetails.value.address ?? '';
+      if (data != null) {
+        personalDetails.value = data;
+
+        id.value = personalDetails.value.id ?? '';
+        selectedGender.value = personalDetails.value.gender ?? '';
+        fullName.value = personalDetails.value.fullName ?? '';
+        // fullNameController.text = personalDetails.value.fullName ?? '';
+        email.value = personalDetails.value.email ?? '';
+        // emailController.text = personalDetails.value.email ?? '';
+        nidNumber.value = personalDetails.value.nid ?? '';
+        // nidNumberController.text = personalDetails.value.nidNumber ?? '';
+        phoneNumber.value = personalDetails.value.phone ?? '';
+        phoneNumberController.text = personalDetails.value.phone ?? '';
+        // dateOfBirth.value = (personalDetails.value.dateOfBirth ?? '') as DateTime?;
+        address.value = personalDetails.value.address ?? '';
+      } else {
+        Get.snackbar('Error', 'Failed to load personal details.');
+      }
     } catch (e) {
       // throw Exception('Error: $e');
       Get.snackbar('Error', 'An error occurred: $e');

@@ -58,7 +58,7 @@ class BookingPageController extends GetxController {
         id: '1',
         bankName: 'Dutch Bangla Bank',
         branchName: 'Rangpur Branch',
-        accountName: 'Stock House LTD',
+        accountHolderName: 'Stock House LTD',
         accountNumber: '03597561512145152152',
         routingNumber: '23546878984',
       );
