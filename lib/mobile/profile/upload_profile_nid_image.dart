@@ -158,7 +158,7 @@ class UploadProfileNidImage extends StatelessWidget {
                         padding: EdgeInsets.only(
                           top: screenWidth * 0.012,
                           bottom: screenWidth * 0.012,
-                          left: 0,
+                          left: fileExtension == 'pdf' ? 0 : screenWidth * 0.012,
                           right: screenWidth * 0.0155,
                         ),
                         child: Row(
@@ -286,6 +286,26 @@ class UploadProfileNidImage extends StatelessWidget {
             return Container();
           }
         }),
+
+        Obx(() { 
+        return !personalController.isNidFileSelected.value ? Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 0.0, left: 8),
+              child: Text(
+                'NID Required.',
+                style: TextStyle(
+                  fontSize: 10.3.sp,
+                  color: const Color(0xFFB3261E),
+                  fontFamily: 'Gilroy',
+                  fontWeight: FontWeight.w400,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+        ) : Container();
+      }),
       ],
     );
   }

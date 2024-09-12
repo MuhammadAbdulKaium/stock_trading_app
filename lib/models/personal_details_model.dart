@@ -52,4 +52,24 @@ class PersonalDetailsModel {
       isVerified: json['is_verified'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'fullname': fullName,
+      'email': email,
+      'password': password,
+      'nid': nid,
+      'nid_image': nidImage,
+      'gender': gender,
+      'dob': dob,
+      'phone': phone,
+      'address': address,
+      'photo': photo,
+      'registered_at': registeredAt,
+      'role': role,
+      'is_active': isActive,
+      'is_verified': isVerified,
+    };
+  }
 }

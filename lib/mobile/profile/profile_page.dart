@@ -104,23 +104,29 @@ double _getContainerHeight(String selectedTab, double screenHeight, double scree
   switch (selectedTab) {
     case 'personal':
       if (screenHeight <= 700) {
-        return ((screenHeight * 1.235) + (screenWidth * 0.40122));  // Small screen height
+        return ((screenHeight * 0.425) + (screenWidth * 0.40122));  // Small screen height
       } else if (screenHeight <= 800) {
-        return ((screenHeight * 1.227) + (screenWidth * 0.40122)); // Medium screen height
+        return ((screenHeight * 0.45) + (screenWidth * 0.40122)); // Medium screen height
+      } else if (screenHeight <= 900) {
+        return ((screenHeight * 0.515) + (screenWidth * 0.40122)); // Large screen height
       } else if (screenHeight <= 1000) {
-        return ((screenHeight * 1.133018152) + (screenWidth * 0.40122)); // Large screen height
+        return ((screenHeight * 0.555) + (screenWidth * 0.40122)); // Large screen height
       } else {
-        return ((screenHeight * 1.1) + (screenWidth * 0.40122)); // Extra-large screen height
+        return ((screenHeight * 0.6) + (screenWidth * 0.40122)); // Extra-large screen height
       }
     case 'banking':
       if (screenHeight <= 700) {
-        return (screenHeight * 0.795);  // Small screen height
+        print('screenHeight========');
+        print(screenHeight);
+        return (screenHeight * 0.652);  // Small screen height
       } else if (screenHeight <= 800) {
-        return (screenHeight * 0.795); // Medium screen height
+        return (screenHeight * 0.677); // Medium screen height
+      } else if (screenHeight <= 900) {
+        return (screenHeight * 0.71); // Medium screen height
       } else if (screenHeight <= 1000) {
         return (screenHeight * 0.74); // Large screen height
       } else {
-        return (screenHeight * 0.69); // Extra-large screen height
+        return (screenHeight * 0.79); // Extra-large screen height
       }
     case 'nominee':
       if (screenHeight <= 700) {

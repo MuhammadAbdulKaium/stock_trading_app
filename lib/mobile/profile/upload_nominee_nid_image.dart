@@ -158,7 +158,7 @@ class UploadNomineeNidImage extends StatelessWidget {
                         padding: EdgeInsets.only(
                           top: screenWidth * 0.012,
                           bottom: screenWidth * 0.012,
-                          left: 0,
+                          left: fileExtension == 'pdf' ? 0 : screenWidth * 0.012,
                           right: screenWidth * 0.0155,
                         ),
                         child: Row(

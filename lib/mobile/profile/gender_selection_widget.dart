@@ -92,14 +92,16 @@ class GenderSelectionWidget extends StatelessWidget {
               ),
             ],
           ),
-          personalController.isGenderInvalid.isTrue ? const Padding(
-            padding: EdgeInsets.only(top: 0.5, left: 8),
+          personalController.isGenderInvalid.isTrue ? Padding(
+            padding: const EdgeInsets.only(top: 0.5, left: 8),
             child: Text(
               'Select your Gender',
               style: TextStyle(
+                fontSize: 10.3.sp,
+                color: const Color(0xFFB3261E),
                 fontFamily: 'Gilroy',
-                color: Colors.red, 
-                fontSize: 11,
+                fontWeight: FontWeight.w400,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ) : Container(),
