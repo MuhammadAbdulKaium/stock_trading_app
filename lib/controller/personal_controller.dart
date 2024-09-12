@@ -1,15 +1,19 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/api/personal_api.dart';
+import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/models/personal_details_model.dart';
-import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class PersonalController extends GetxController {
+  final LandingPageController landingPageController = Get.find<LandingPageController>();
   var selectedImage = Rxn<File>();
   final RxString profilePicturePath = ''.obs;
   final ImagePicker _picker = ImagePicker();
@@ -20,25 +24,32 @@ class PersonalController extends GetxController {
   var genderError = ''.obs;
 
   final id = ''.obs;
-  final fullName = ''.obs;
-  final email = ''.obs;
-  final nidNumber = ''.obs;
   final dateOfBirth = Rxn<DateTime>();
   final phoneNumber = ''.obs;
-  final address = ''.obs;
+  final isPhoneNumberFieldEmpty = false.obs;
 
-  // final fullNameController = TextEditingController();
-  // final emailController = TextEditingController();
-  // final nidNumberController = TextEditingController();
-  // final dateOfBirthController = TextEditingController();
-  final phoneNumberController = TextEditingController();
+  final fullNameController = TextEditingController().obs;
+  final emailController = TextEditingController().obs;
+  final nidNumberController = TextEditingController().obs;
+  // final dateOfBirthController = TextEditingController().obs;
+  final phoneNumberController = TextEditingController().obs;
+  final addressController = TextEditingController().obs;
+  var initialCountryCode = 'BD'.obs;
 
   var selectedNidFile = Rx<File?>(null);
   var nidFileName = ''.obs;
   var nidFileSize = 0.0.obs;
   var nidFileExtension = ''.obs;
   var nidFilePath = ''.obs;
+  var isNidFileSelected = true.obs;
   var isPickerActive = false.obs;  // Flag to check if picker is active
+  var token = ''.obs;
+  late SharedPreferences prefs;
+
+  Future<void> initializeToken() async {
+    prefs = await SharedPreferences.getInstance();
+    token.value = prefs.getString('token') ?? '';
+  }
 
   bool validateName(String value) {
     value = value.trim();      // Trim the input to remove any leading or trailing whitespace
@@ -53,7 +64,7 @@ class PersonalController extends GetxController {
   }
   void updateFullName(String input) {
     if (validateName(input)) {
-      fullName.value = input.trim();
+      fullNameController.value.text = input.trim();
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -63,7 +74,7 @@ class PersonalController extends GetxController {
   void validateEmail(String input) {
     final isValidEmail = GetUtils.isEmail(input.trim());
 
-    isValidEmail ? email.value = input.trim() : email.value = '';
+    isValidEmail ? emailController.value.text = input.trim() : emailController.value.text = '';
   }
 
   bool validateNidNumber(String value) {
@@ -79,7 +90,7 @@ class PersonalController extends GetxController {
   }
   void updateNidNumber(String input) {
     if (validateNidNumber(input)) {
-      nidNumber.value = input.trim();
+      nidNumberController.value.text = input.trim();
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -121,7 +132,7 @@ class PersonalController extends GetxController {
     selectedGender.value = null; // Clear the selection
   }
   bool validateGender() {
-    if (selectedGender.value == null) {
+    if (selectedGender.value == null || selectedGender.value!.isEmpty) {
       isGenderInvalid.value = true;
       return false;
     }
@@ -134,12 +145,16 @@ class PersonalController extends GetxController {
     final validAccountNumberRegex = RegExp(r'^\d+$');  // Regex for only digits with no length range
 
     if (value.isEmpty) {
+      isPhoneNumberFieldEmpty.value = false;
       return false;
     } else if (!validAccountNumberRegex.hasMatch(value.trim())) {
+      isPhoneNumberFieldEmpty.value = false;
       return false;
     }
+    isPhoneNumberFieldEmpty.value = false;
     return true;
   }
+
   void updatePhoneNumber(PhoneNumber input) {
     if (validatePhoneNumber(input.number)) {
       phoneNumber.value = '${input.countryCode}${input.number.trim()}';
@@ -148,6 +163,80 @@ class PersonalController extends GetxController {
       isAnyFieldChanged.value = true;
     }
   }
+
+  bool isValidPhoneNumber(String value) {
+    value = value.trim();      // Trim the input to remove any leading or trailing whitespace
+    final validAccountNumberRegex = RegExp(r'^\+\d+$');  // Regex for only digits with no length range
+
+    if (value.isEmpty) {
+      isPhoneNumberFieldEmpty.value = true;
+      return false;
+    } else if (!validAccountNumberRegex.hasMatch(value.trim())) {
+      isPhoneNumberFieldEmpty.value = false;
+      return false;
+    }
+    isPhoneNumberFieldEmpty.value = false;
+    return true;
+  }
+
+  // Function to parse the phone number and update IntlPhoneField
+  void setPhoneNumber(String phoneNumber) {
+    final parsedNumber = PhoneNumber.fromCompleteNumber(completeNumber: phoneNumber);
+    initialCountryCode.value = parsedNumber.countryISOCode;
+    phoneNumberController.value.text = parsedNumber.number; // national significant number
+  }
+
+  // Future<String> getCountryCode() async {
+  //   print('getCountryCode()===========');
+  //   try {
+  //     // Check if location services are enabled
+  //     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //     if (!serviceEnabled) {
+  //       // Location services are not enabled
+  //       print('serviceEnabled===========');
+  //       print(serviceEnabled);
+  //       return 'BD'; // Fallback to a default country code
+  //     }
+  //     print('serviceEnabled===========');
+  //     print(serviceEnabled);
+
+  //     // Check location permission
+  //     LocationPermission permission = await Geolocator.checkPermission();
+  //     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+  //       permission = await Geolocator.requestPermission();
+  //       if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+  //         return 'BD'; // Fallback if permission is denied
+  //       }
+  //     }
+  //     print('permission===========');
+  //     print(permission);
+
+  //     // Get current position
+  //     Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high,
+  //     );
+
+  //     // Reverse geocode the position to get country information
+  //     List<Placemark> placemarks = await placemarkFromCoordinates(
+  //       position.latitude,
+  //       position.longitude,
+  //     );
+  //     print('placemarks===========');
+  //     print(placemarks);
+
+  //     if (placemarks.isNotEmpty) {
+  //       Placemark place = placemarks.first;
+  //       String? countryCode = place.isoCountryCode; // Get the country ISO code
+  //       print('1initialCountryCode===========');
+  //       print(countryCode);
+  //       return countryCode ?? 'BD'; // Return the country code or fallback
+  //     }
+  //   } catch (e) {
+  //     print('Error: $e');
+  //   }
+
+  //   return 'BD'; // Fallback to a default country code in case of error
+  // }
 
   Future<void> pickImage({required ImageSource source}) async {
     try {
@@ -177,7 +266,7 @@ class PersonalController extends GetxController {
   }
   void updateAddress(String input) {
     if (validateAddress(input)) {
-      address.value = input.trim();
+      addressController.value.text = input.trim();
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -187,33 +276,99 @@ class PersonalController extends GetxController {
   final PersonalApi _personalApi = PersonalApi();
   Future<void> loadPersonalDetails() async {
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('user_id') ?? '';
-      String? token = prefs.getString('token') ?? '';
-      PersonalDetailsModel? data = await _personalApi.getPersonalData(userId, token);
+      // String? token = prefs.getString('token') ?? '';
+      PersonalDetailsModel? data = await _personalApi.getPersonalData(userId, token.value);
 
       if (data != null) {
         personalDetails.value = data;
 
         id.value = personalDetails.value.id ?? '';
         selectedGender.value = personalDetails.value.gender ?? '';
-        fullName.value = personalDetails.value.fullName ?? '';
-        // fullNameController.text = personalDetails.value.fullName ?? '';
-        email.value = personalDetails.value.email ?? '';
-        // emailController.text = personalDetails.value.email ?? '';
-        nidNumber.value = personalDetails.value.nid ?? '';
-        // nidNumberController.text = personalDetails.value.nidNumber ?? '';
+        fullNameController.value.text = personalDetails.value.fullName ?? '';
+        emailController.value.text = personalDetails.value.email ?? '';
+        nidNumberController.value.text = personalDetails.value.nid ?? '';
         phoneNumber.value = personalDetails.value.phone ?? '';
-        phoneNumberController.text = personalDetails.value.phone ?? '';
-        // dateOfBirth.value = (personalDetails.value.dateOfBirth ?? '') as DateTime?;
-        address.value = personalDetails.value.address ?? '';
+        // phoneNumberController.value.text = personalDetails.value.phone ?? '';
+        setPhoneNumber(personalDetails.value.phone ?? '');
+        dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
+        print('dateOfBirth.value==========');
+        print(personalDetails.value.dob);
+        addressController.value.text = personalDetails.value.address ?? '';
       } else {
         Get.snackbar('Error', 'Failed to load personal details.');
       }
     } catch (e) {
       // throw Exception('Error: $e');
+      print(e);
       Get.snackbar('Error', 'An error occurred: $e');
     }
+  }
+
+  Future<void> updatePersonalDetails(PersonalDetailsModel updatedDetails) async {
+    try {
+      landingPageController.isLoading(true);
+
+      // Find changed fields
+      Map<String, dynamic> changedFields = findChangedFields(personalDetails.value, updatedDetails);
+
+      if (changedFields.isNotEmpty) {
+        PersonalDetailsModel? data = await _personalApi.updatePersonalDetails(changedFields, token.value);
+        if (data != null) {
+          personalDetails.value = data;
+
+          id.value = personalDetails.value.id ?? '';
+          selectedGender.value = personalDetails.value.gender ?? '';
+          fullNameController.value.text = personalDetails.value.fullName ?? '';
+          emailController.value.text = personalDetails.value.email ?? '';
+          nidNumberController.value.text = personalDetails.value.nid ?? '';
+          phoneNumber.value = personalDetails.value.phone ?? '';
+          // phoneNumberController.value.text = personalDetails.value.phone ?? '';
+          setPhoneNumber(personalDetails.value.phone ?? '');
+          dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
+          addressController.value.text = personalDetails.value.address ?? '';
+
+          Get.snackbar('Success', 'Personal details updated successfully');
+        } else {
+          Get.snackbar('Error', 'Failed to update Personal details');
+        }
+      } else {
+        Get.snackbar('Info', 'No changes to update');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      landingPageController.isLoading(false);
+    }
+  }
+
+  Map<String, dynamic> findChangedFields(PersonalDetailsModel oldDetails, PersonalDetailsModel newDetails) {
+    Map<String, dynamic> changedFields = {};
+
+    if (oldDetails.fullName != newDetails.fullName) {
+      changedFields['fullname'] = newDetails.fullName;
+    }
+    if (oldDetails.email != newDetails.email) {
+      changedFields['email'] = newDetails.email;
+    }
+    if (oldDetails.nid != newDetails.nid) {
+      changedFields['nid'] = newDetails.nid;
+    }
+    if (oldDetails.gender != newDetails.gender) {
+      changedFields['gender'] = newDetails.gender;
+    }
+    if (oldDetails.dob != newDetails.dob) {
+      changedFields['dob'] = newDetails.dob;
+    }
+    if (oldDetails.phone != newDetails.phone) {
+      changedFields['phone'] = newDetails.phone;
+    }
+    if (oldDetails.address != newDetails.address) {
+      changedFields['address'] = newDetails.address;
+    }
+
+    return changedFields;
   }
 
   final List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
@@ -292,11 +447,37 @@ class PersonalController extends GetxController {
       Get.snackbar('Error', 'An error occurred: $e');
     }
   }
+  bool isNidSelected() {
+    if (selectedNidFile.value != null) {
+      isNidFileSelected.value = true;
+      return true;
+    }
+    isNidFileSelected.value = false;
+    return false;
+  }
 
+  DateTime? formatDateTime(String createdAt) {
+    if(createdAt.isNotEmpty) {
+      DateTime dateTime = DateTime.parse(createdAt);
+      return dateTime;
+    }
+    return null;
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await initializeToken();
+    // initialCountryCode.value = await getCountryCode();
+  }
 
   @override
   void onClose() {
-    phoneNumberController.dispose();
+    fullNameController.value.dispose();
+    emailController.value.dispose();
+    nidNumberController.value.dispose();
+    phoneNumberController.value.dispose();
+    addressController.value.dispose();
     super.onClose();
   }
 }

@@ -178,7 +178,7 @@ class NomineeController extends GetxController {
         fullName.value = nomineeDetails.value.fullName ?? '';
         relationship.value = nomineeDetails.value.relation ?? '';
         nidNumber.value = nomineeDetails.value.nid ?? '';
-        // selectedGender.value = nomineeDetails.value.gender ?? '';
+        // selectedGender.value = nomineeDetails.value.gender;
         email.value = nomineeDetails.value.email ?? '';
         // dateOfBirth.value = nomineeDetails.value.dob;
         phoneNumber.value = nomineeDetails.value.phone ?? '';

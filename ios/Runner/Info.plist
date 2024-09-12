@@ -51,5 +51,9 @@
     <string>We need access to your photo library to select photos.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>We need access to your microphone for recording.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to show your current country code.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to your location even when running in the background.</string>
 </dict>
 </plist>
