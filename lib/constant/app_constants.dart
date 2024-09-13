@@ -7,4 +7,5 @@ class AppConstants {
   static const String getMyBankInfoEndpoint = '/api/user-bank-info/my';
   static const String updateBankInfoEndpoint = '/api/user-bank-info';
   static const String getNomineeInfoEndpoint = '/api/user-nominee-info/my';
+  static const String updateNomineeInfoEndpoint = '/api/user-nominee-info';
 }

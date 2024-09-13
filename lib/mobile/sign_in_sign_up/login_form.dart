@@ -80,7 +80,12 @@ class LoginForm extends StatelessWidget {
                         onChanged: loginController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'Enter your email here',
-                        hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
+                        hintStyle: TextStyle(
+                          color: const Color(0xFFA1A1AA), 
+                          fontFamily: 'Gilroy', 
+                          fontSize: 13.1.sp, 
+                          fontWeight: FontWeight.w500
+                        ),
                         style: TextStyle(
                           fontSize: 13.1.sp,
                           color: const Color(0xFF191414),
@@ -250,7 +255,7 @@ class LoginForm extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (loginFormkey.currentState!.validate()) {
-                              loginController.login(loginController.email.value, loginController.password.value);
+                              loginController.login(loginController.email.value, loginController.passwordController.text);
                   
                               // Get.offNamed('/landing');
                               // ScaffoldMessenger.of(context).showSnackBar(

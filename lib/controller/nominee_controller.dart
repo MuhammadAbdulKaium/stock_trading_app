@@ -6,14 +6,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/api/nominee_api.dart';
+import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/models/nominee_details_model.dart';
 
 class NomineeController extends GetxController {
+  final LandingPageController landingPageController = Get.find<LandingPageController>();
   final RxBool isAnyFieldChanged = false.obs;
-  final fullName = ''.obs;
-  final relationship = ''.obs;
-  final nidNumber = ''.obs;
-  final email = ''.obs;
   var nomineeDetails = NomineeDetailsModel().obs;
   final ImagePicker _picker = ImagePicker();
   var selectedNidFile = Rx<File?>(null);
@@ -26,9 +24,27 @@ class NomineeController extends GetxController {
   var isGenderInvalid = false.obs;
   var genderError = ''.obs;
   final dateOfBirth = Rxn<DateTime>();
-  final phoneNumberController = TextEditingController();
+  final isPhoneNumberFieldEmpty = false.obs;
+
+  final fullNameController = TextEditingController().obs;
+  final relationshipController = TextEditingController().obs;
+  final nidNumberController = TextEditingController().obs;
+  // final email = ''.obs;
+  final emailController = TextEditingController().obs;
+  final phoneNumberController = TextEditingController().obs;
+  final addressController = TextEditingController().obs;
+
+  final id = ''.obs;
   final phoneNumber = ''.obs;
-  final address = ''.obs;
+  var isNidFileSelected = true.obs;
+  var initialCountryCode = 'BD'.obs;
+  var token = ''.obs;
+  late SharedPreferences prefs;
+
+  Future<void> initializeToken() async {
+    prefs = await SharedPreferences.getInstance();
+    token.value = prefs.getString('token') ?? '';
+  }
 
   bool validateName(String value) {
     value = value.trim();      // Trim the input to remove any leading or trailing whitespace
@@ -43,7 +59,15 @@ class NomineeController extends GetxController {
   }
   void updateFullName(String input) {
     if (validateName(input)) {
-      fullName.value = input.trim();
+      final controller = fullNameController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -52,7 +76,15 @@ class NomineeController extends GetxController {
 
   void updateRelationship(String input) {
     if (validateName(input)) {
-      relationship.value = input.trim();
+      final controller = relationshipController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -72,7 +104,15 @@ class NomineeController extends GetxController {
   }
   void updateNidNumber(String input) {
     if (validateNidNumber(input)) {
-      nidNumber.value = input.trim();
+      final controller = nidNumberController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -95,8 +135,16 @@ class NomineeController extends GetxController {
 
   void validateEmail(String input) {
     final isValidEmail = GetUtils.isEmail(input.trim());
+    final cursorPosition = emailController.value.selection;  // Save cursor position
 
-    isValidEmail ? email.value = input.trim() : email.value = '';
+    if (isValidEmail) {
+      emailController.value.text = input.trim();
+    } else {
+      emailController.value.text = input.trim();  // Keep the text even if invalid for now
+    }
+
+    // Restore cursor position after updating the text
+    emailController.value.selection = cursorPosition;
   }
 
   Future<void> selectDate(BuildContext context) async {
@@ -124,10 +172,13 @@ class NomineeController extends GetxController {
     final validAccountNumberRegex = RegExp(r'^\d+$');  // Regex for only digits with no length range
 
     if (value.isEmpty) {
+      isPhoneNumberFieldEmpty.value = false;
       return false;
     } else if (!validAccountNumberRegex.hasMatch(value.trim())) {
+      isPhoneNumberFieldEmpty.value = false;
       return false;
     }
+    isPhoneNumberFieldEmpty.value = false;
     return true;
   }
   void updatePhoneNumber(PhoneNumber input) {
@@ -136,6 +187,34 @@ class NomineeController extends GetxController {
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
+    }
+  }
+
+  bool isValidPhoneNumber(String value) {
+    value = value.trim();      // Trim the input to remove any leading or trailing whitespace
+    final validAccountNumberRegex = RegExp(r'^\+\d+$');  // Regex for only digits with no length range
+
+    if (value.isEmpty) {
+      isPhoneNumberFieldEmpty.value = true;
+      return false;
+    } else if (!validAccountNumberRegex.hasMatch(value.trim())) {
+      isPhoneNumberFieldEmpty.value = false;
+      return false;
+    }
+    isPhoneNumberFieldEmpty.value = false;
+    return true;
+  }
+
+  // Function to parse the phone number and update IntlPhoneField
+  void setPhoneNumber(String phoneNumber) {
+    if(phoneNumber.isNotEmpty) {
+      final parsedNumber = PhoneNumber.fromCompleteNumber(completeNumber: phoneNumber);
+      initialCountryCode.value = parsedNumber.countryISOCode;
+      phoneNumberController.value.text = parsedNumber.number; // national significant number
+    }
+    else {
+      initialCountryCode.value = 'BD';
+      phoneNumberController.value.text = '';
     }
   }
 
@@ -149,7 +228,15 @@ class NomineeController extends GetxController {
   }
   void updateAddress(String input) {
     if (validateAddress(input)) {
-      address.value = input.trim();
+      final controller = addressController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -168,22 +255,21 @@ class NomineeController extends GetxController {
   final NomineeApi _nomineeApi = NomineeApi();
   Future<void> loadNomineeDetails() async {
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('token') ?? '';
-      NomineeDetailsModel? data = await _nomineeApi.getNomineeData(token);
+      NomineeDetailsModel? data = await _nomineeApi.getNomineeData(token.value);
 
       if (data != null) {
         nomineeDetails.value = data;
 
-        fullName.value = nomineeDetails.value.fullName ?? '';
-        relationship.value = nomineeDetails.value.relation ?? '';
-        nidNumber.value = nomineeDetails.value.nid ?? '';
-        // selectedGender.value = nomineeDetails.value.gender;
-        email.value = nomineeDetails.value.email ?? '';
-        // dateOfBirth.value = nomineeDetails.value.dob;
+        id.value = nomineeDetails.value.id ?? '';
+        fullNameController.value.text = nomineeDetails.value.fullName ?? '';
+        relationshipController.value.text = nomineeDetails.value.relation ?? '';
+        nidNumberController.value.text = nomineeDetails.value.nid ?? '';
+        selectedGender.value = nomineeDetails.value.gender ?? '';
+        emailController.value.text = nomineeDetails.value.email ?? '';
+        dateOfBirth.value = formatDateTime(nomineeDetails.value.dob ?? '');
         phoneNumber.value = nomineeDetails.value.phone ?? '';
-        phoneNumberController.text = nomineeDetails.value.phone ?? '';
-        address.value = nomineeDetails.value.address ?? '';
+        setPhoneNumber(nomineeDetails.value.phone ?? '');
+        addressController.value.text = nomineeDetails.value.address ?? '';
       } else {
         Get.snackbar('Error', 'Failed to load Nominee details.');
       }
@@ -191,6 +277,74 @@ class NomineeController extends GetxController {
       // throw Exception('Error: $e');
       Get.snackbar('Error', 'An error occurred: $e');
     }
+  }
+
+  Future<void> updateNomineeDetails(NomineeDetailsModel updatedDetails) async {
+    try {
+      landingPageController.isLoading(true);
+
+      // Find changed fields
+      Map<String, dynamic> changedFields = findChangedFields(nomineeDetails.value, updatedDetails);
+
+      if (changedFields.isNotEmpty) {
+        NomineeDetailsModel? data = await _nomineeApi.updateNomineeDetails(changedFields, token.value);
+        if (data != null) {
+          nomineeDetails.value = data;
+
+          id.value = nomineeDetails.value.id ?? '';
+          fullNameController.value.text = nomineeDetails.value.fullName ?? '';
+          relationshipController.value.text = nomineeDetails.value.relation ?? '';
+          nidNumberController.value.text = nomineeDetails.value.nid ?? '';
+          selectedGender.value = nomineeDetails.value.gender ?? '';
+          emailController.value.text = nomineeDetails.value.email ?? '';
+          dateOfBirth.value = formatDateTime(nomineeDetails.value.dob ?? '');
+          phoneNumber.value = nomineeDetails.value.phone ?? '';
+          setPhoneNumber(nomineeDetails.value.phone ?? '');
+          addressController.value.text = nomineeDetails.value.address ?? '';
+
+          Get.snackbar('Success', 'Personal details updated successfully');
+        } else {
+          Get.snackbar('Error', 'Failed to update Personal details');
+        }
+      } else {
+        Get.snackbar('Info', 'No changes to update');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      landingPageController.isLoading(false);
+    }
+  }
+
+  Map<String, dynamic> findChangedFields(NomineeDetailsModel oldDetails, NomineeDetailsModel newDetails) {
+    Map<String, dynamic> changedFields = {};
+
+    if (oldDetails.fullName != newDetails.fullName) {
+      changedFields['fullname'] = newDetails.fullName;
+    }
+    if (oldDetails.relation != newDetails.relation) {
+      changedFields['relation'] = newDetails.relation;
+    }
+    if (oldDetails.nid != newDetails.nid) {
+      changedFields['nid'] = newDetails.nid;
+    }
+    if (oldDetails.gender != newDetails.gender) {
+      changedFields['gender'] = newDetails.gender;
+    }
+    if (oldDetails.email != newDetails.email) {
+      changedFields['email'] = newDetails.email;
+    }
+    if (oldDetails.dob != newDetails.dob) {
+      changedFields['dob'] = newDetails.dob;
+    }
+    if (oldDetails.phone != newDetails.phone) {
+      changedFields['phone'] = newDetails.phone;
+    }
+    if (oldDetails.address != newDetails.address) {
+      changedFields['address'] = newDetails.address;
+    }
+
+    return changedFields;
   }
 
   final List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
@@ -269,10 +423,36 @@ class NomineeController extends GetxController {
       Get.snackbar('Error', 'An error occurred: $e');
     }
   }
+  bool isNidSelected() {
+    if (selectedNidFile.value != null) {
+      isNidFileSelected.value = true;
+      return true;
+    }
+    isNidFileSelected.value = false;
+    return false;
+  }
+
+  DateTime? formatDateTime(String createdAt) {
+    if(createdAt.isNotEmpty) {
+      DateTime dateTime = DateTime.parse(createdAt);
+      return dateTime;
+    }
+    return null;
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await initializeToken();
+  }
 
   @override
   void onClose() {
-    phoneNumberController.dispose();
+    fullNameController.value.dispose();
+    emailController.value.dispose();
+    nidNumberController.value.dispose();
+    phoneNumberController.value.dispose();
+    addressController.value.dispose();
     super.onClose();
   }
 }
