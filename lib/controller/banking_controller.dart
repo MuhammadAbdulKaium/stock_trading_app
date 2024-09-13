@@ -34,7 +34,15 @@ class BankingController extends GetxController {
   }
   void updateBankName(String input) {
     if (validateBankName(input)) {
-      bankNameController.value.text = input;
+      final controller = bankNameController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -54,7 +62,15 @@ class BankingController extends GetxController {
   }
   void updateBranchName(String input) {
     if (validateBranchName(input)) {
-      branchNameController.value.text = input;
+      final controller = branchNameController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -74,7 +90,15 @@ class BankingController extends GetxController {
   }
   void updateAccountHolderName(String input) {
     if (validateAccountHolderName(input)) {
-      accountHolderNameController.value.text = input;
+      final controller = accountHolderNameController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -94,7 +118,15 @@ class BankingController extends GetxController {
   }
   void updateAccountNumber(String input) {
     if (validateAccountNumber(input)) {
-      accountNumberController.value.text = input.trim();
+      final controller = accountNumberController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -114,7 +146,15 @@ class BankingController extends GetxController {
   }
   void updateRoutingNumber(String input) {
     if (validateRoutingNumber(input)) {
-      routingNumberController.value.text = input.trim();
+      final controller = routingNumberController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;

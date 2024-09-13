@@ -67,7 +67,11 @@ class Personal extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: screenWidth * 0.11861,
-                      // backgroundColor: Colors.white,
+                      // backgroundImage: personalController.selectedImage.value != null
+                      // ? FileImage(personalController.selectedImage.value!) as ImageProvider<Object>?
+                      // : personalController.profilePicturePathFromApi.value.isNotEmpty
+                      //     ? NetworkImage(personalController.profilePicturePathFromApi.value) as ImageProvider<Object>?
+                      //     : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider<Object>?,
                       backgroundImage: personalController.selectedImage.value != null 
                       ? FileImage(personalController.selectedImage.value!) 
                       : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider,
@@ -181,11 +185,11 @@ class Personal extends StatelessWidget {
                 ],
               ),
               SizedBox(height: screenHeight * 0.00454,),
-              Obx(() { 
+              Obx(() {
                 return TextInputField(
                   controller: personalController.emailController.value,
                   onChanged: personalController.validateEmail,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.emailAddress,
                   hintText: 'Enter Your Email',
                   hintStyle: TextStyle(
                     fontSize: 13.405.sp,
@@ -250,7 +254,7 @@ class Personal extends StatelessWidget {
                 return TextInputField(
                   controller: personalController.nidNumberController.value,
                   onChanged: personalController.updateNidNumber,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.number,
                   hintText: 'Enter Your NID Number',
                   hintStyle: TextStyle(
                     fontSize: 13.405.sp,
@@ -558,7 +562,7 @@ class Personal extends StatelessWidget {
                 return TextInputField(
                   controller: personalController.addressController.value,
                   onChanged: personalController.updateAddress,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.streetAddress,
                   hintText: 'Enter Your Address',
                   minLines: 2,
                   maxLines: 3,
@@ -615,26 +619,16 @@ class Personal extends StatelessWidget {
                       bool validGender = personalController.validateGender();
                       bool validPhoneNumber = personalController.isValidPhoneNumber(personalController.phoneNumber.value);
                       bool isNidFileSelected = personalController.isNidSelected();
-                      print('1phoneNumber========');
-                      print(personalController.phoneNumberController.value.text);
-                      print(personalController.phoneNumber.value);
-                      print(isNidFileSelected);
-                      if (personalDetailsFormkey.currentState!.validate() && validGender && validPhoneNumber && isNidFileSelected) {
-                        // paymentProofController.uploadFile();
-                        print('Phone Number: ${personalController.phoneNumberController.value.text}');
-                        print('2phoneNumber========');
-                        print(personalController.phoneNumberController.value.text);
-                        print('dateOfBirth========');
-                        print(personalController.dateOfBirth.value);
 
+                      if (personalDetailsFormkey.currentState!.validate() && validGender && validPhoneNumber && isNidFileSelected) {
                         PersonalDetailsModel? updatedDetails = PersonalDetailsModel(
-                          fullName: personalController.fullNameController.value.text,
-                          email: personalController.emailController.value.text,
-                          nid: personalController.nidNumberController.value.text,
+                          fullName: personalController.fullNameController.value.text.trim(),
+                          email: personalController.emailController.value.text.trim(),
+                          nid: personalController.nidNumberController.value.text.trim(),
                           gender: personalController.selectedGender.value,
                           dob: personalController.dateOfBirth.value != null ? DateFormat('yyyy-MM-dd HH:mm:ss').format(personalController.dateOfBirth.value!) : null,
                           phone: personalController.phoneNumber.value,
-                          address: personalController.addressController.value.text,
+                          address: personalController.addressController.value.text.trim(),
                         );
       
                         personalController.updatePersonalDetails(updatedDetails);

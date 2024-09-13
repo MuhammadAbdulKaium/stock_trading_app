@@ -4,7 +4,6 @@ import 'package:stock_trading_app/api/create_account_api.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:stock_trading_app/models/user_signup_info_model.dart';
-// import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class SignupController extends GetxController {
   final fullName = ''.obs;
@@ -77,7 +76,6 @@ class SignupController extends GetxController {
 
   final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
   final CreateAccountAPI _createAccountAPI = CreateAccountAPI();
-  // final SharedPreferencesService _sharedPreferences = Get.find<SharedPreferencesService>();
   Rx<UserSignupInfoModel?> userSignupInfo = Rx<UserSignupInfoModel?>(null);
   Future<void> signUp(String fullName, String email, String password) async {
     isLoading(true);
@@ -86,15 +84,10 @@ class SignupController extends GetxController {
 
       userSignupInfo.value = UserSignupInfoModel.fromJson(responseData);
 
-      print('================');
-      print(userSignupInfo.value?.email);
-
       if(!userSignupInfo.value!.isVerified) {
         signinSignupNavigationController.navigateTo(4); // Navigate to Signup Verification
       }
-
     } catch (e) {
-      // Handle errors (show snackbar, etc.)
       Get.dialog(
         CustomAlartDialog(
           begin: 0,

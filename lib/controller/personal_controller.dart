@@ -1,11 +1,8 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-// import 'package:geocoding/geocoding.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/api/personal_api.dart';
@@ -14,6 +11,7 @@ import 'package:stock_trading_app/models/personal_details_model.dart';
 
 class PersonalController extends GetxController {
   final LandingPageController landingPageController = Get.find<LandingPageController>();
+  final RxString profilePicturePathFromApi = ''.obs;
   var selectedImage = Rxn<File>();
   final RxString profilePicturePath = ''.obs;
   final ImagePicker _picker = ImagePicker();
@@ -31,7 +29,6 @@ class PersonalController extends GetxController {
   final fullNameController = TextEditingController().obs;
   final emailController = TextEditingController().obs;
   final nidNumberController = TextEditingController().obs;
-  // final dateOfBirthController = TextEditingController().obs;
   final phoneNumberController = TextEditingController().obs;
   final addressController = TextEditingController().obs;
   var initialCountryCode = 'BD'.obs;
@@ -64,7 +61,16 @@ class PersonalController extends GetxController {
   }
   void updateFullName(String input) {
     if (validateName(input)) {
-      fullNameController.value.text = input.trim();
+      // fullNameController.value.text = input.trim();
+      final controller = fullNameController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -73,8 +79,16 @@ class PersonalController extends GetxController {
 
   void validateEmail(String input) {
     final isValidEmail = GetUtils.isEmail(input.trim());
+    final cursorPosition = emailController.value.selection;  // Save cursor position
 
-    isValidEmail ? emailController.value.text = input.trim() : emailController.value.text = '';
+    if (isValidEmail) {
+      emailController.value.text = input.trim();
+    } else {
+      emailController.value.text = input.trim();  // Keep the text even if invalid for now
+    }
+
+    // Restore cursor position after updating the text
+    emailController.value.selection = cursorPosition;
   }
 
   bool validateNidNumber(String value) {
@@ -90,7 +104,15 @@ class PersonalController extends GetxController {
   }
   void updateNidNumber(String input) {
     if (validateNidNumber(input)) {
-      nidNumberController.value.text = input.trim();
+      final controller = nidNumberController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -181,62 +203,16 @@ class PersonalController extends GetxController {
 
   // Function to parse the phone number and update IntlPhoneField
   void setPhoneNumber(String phoneNumber) {
-    final parsedNumber = PhoneNumber.fromCompleteNumber(completeNumber: phoneNumber);
-    initialCountryCode.value = parsedNumber.countryISOCode;
-    phoneNumberController.value.text = parsedNumber.number; // national significant number
+    if(phoneNumber.isNotEmpty) {
+      final parsedNumber = PhoneNumber.fromCompleteNumber(completeNumber: phoneNumber);
+      initialCountryCode.value = parsedNumber.countryISOCode;
+      phoneNumberController.value.text = parsedNumber.number; // national significant number
+    }
+    else {
+      initialCountryCode.value = 'BD';
+      phoneNumberController.value.text = '';
+    }
   }
-
-  // Future<String> getCountryCode() async {
-  //   print('getCountryCode()===========');
-  //   try {
-  //     // Check if location services are enabled
-  //     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //     if (!serviceEnabled) {
-  //       // Location services are not enabled
-  //       print('serviceEnabled===========');
-  //       print(serviceEnabled);
-  //       return 'BD'; // Fallback to a default country code
-  //     }
-  //     print('serviceEnabled===========');
-  //     print(serviceEnabled);
-
-  //     // Check location permission
-  //     LocationPermission permission = await Geolocator.checkPermission();
-  //     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-  //       permission = await Geolocator.requestPermission();
-  //       if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
-  //         return 'BD'; // Fallback if permission is denied
-  //       }
-  //     }
-  //     print('permission===========');
-  //     print(permission);
-
-  //     // Get current position
-  //     Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high,
-  //     );
-
-  //     // Reverse geocode the position to get country information
-  //     List<Placemark> placemarks = await placemarkFromCoordinates(
-  //       position.latitude,
-  //       position.longitude,
-  //     );
-  //     print('placemarks===========');
-  //     print(placemarks);
-
-  //     if (placemarks.isNotEmpty) {
-  //       Placemark place = placemarks.first;
-  //       String? countryCode = place.isoCountryCode; // Get the country ISO code
-  //       print('1initialCountryCode===========');
-  //       print(countryCode);
-  //       return countryCode ?? 'BD'; // Return the country code or fallback
-  //     }
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-
-  //   return 'BD'; // Fallback to a default country code in case of error
-  // }
 
   Future<void> pickImage({required ImageSource source}) async {
     try {
@@ -266,7 +242,15 @@ class PersonalController extends GetxController {
   }
   void updateAddress(String input) {
     if (validateAddress(input)) {
-      addressController.value.text = input.trim();
+      final controller = addressController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -276,32 +260,26 @@ class PersonalController extends GetxController {
   final PersonalApi _personalApi = PersonalApi();
   Future<void> loadPersonalDetails() async {
     try {
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('user_id') ?? '';
-      // String? token = prefs.getString('token') ?? '';
       PersonalDetailsModel? data = await _personalApi.getPersonalData(userId, token.value);
 
       if (data != null) {
         personalDetails.value = data;
 
         id.value = personalDetails.value.id ?? '';
+        profilePicturePathFromApi.value = personalDetails.value.photo ?? '';
         selectedGender.value = personalDetails.value.gender ?? '';
         fullNameController.value.text = personalDetails.value.fullName ?? '';
         emailController.value.text = personalDetails.value.email ?? '';
         nidNumberController.value.text = personalDetails.value.nid ?? '';
         phoneNumber.value = personalDetails.value.phone ?? '';
-        // phoneNumberController.value.text = personalDetails.value.phone ?? '';
         setPhoneNumber(personalDetails.value.phone ?? '');
         dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
-        print('dateOfBirth.value==========');
-        print(personalDetails.value.dob);
         addressController.value.text = personalDetails.value.address ?? '';
       } else {
         Get.snackbar('Error', 'Failed to load personal details.');
       }
     } catch (e) {
-      // throw Exception('Error: $e');
-      print(e);
       Get.snackbar('Error', 'An error occurred: $e');
     }
   }
@@ -324,7 +302,6 @@ class PersonalController extends GetxController {
           emailController.value.text = personalDetails.value.email ?? '';
           nidNumberController.value.text = personalDetails.value.nid ?? '';
           phoneNumber.value = personalDetails.value.phone ?? '';
-          // phoneNumberController.value.text = personalDetails.value.phone ?? '';
           setPhoneNumber(personalDetails.value.phone ?? '');
           dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
           addressController.value.text = personalDetails.value.address ?? '';
@@ -468,7 +445,6 @@ class PersonalController extends GetxController {
   void onInit() async {
     super.onInit();
     await initializeToken();
-    // initialCountryCode.value = await getCountryCode();
   }
 
   @override

@@ -365,11 +365,11 @@ class Banking extends StatelessWidget {
                     ? () {
                       if (bankingDetailsFormkey.currentState!.validate()) {
                         BankDetailsModel? updatedDetails = BankDetailsModel(
-                          bankName: bankingController.bankNameController.value.text,
-                          branchName: bankingController.branchNameController.value.text,
-                          accountHolderName: bankingController.accountHolderNameController.value.text,
-                          accountNumber: bankingController.accountNumberController.value.text, // Keep other fields unchanged
-                          routingNumber: bankingController.routingNumberController.value.text,
+                          bankName: bankingController.bankNameController.value.text.trim(),
+                          branchName: bankingController.branchNameController.value.text.trim(),
+                          accountHolderName: bankingController.accountHolderNameController.value.text.trim(),
+                          accountNumber: bankingController.accountNumberController.value.text.trim(), // Keep other fields unchanged
+                          routingNumber: bankingController.routingNumberController.value.text.trim(),
                         );
       
                         bankingController.updateBankDetails(updatedDetails);

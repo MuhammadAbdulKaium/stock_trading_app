@@ -5,6 +5,7 @@ class NomineeDetailsModel {
   String? relation;
   String? nid;
   String? nidImage;
+  String? gender;
   String? email;
   String? dob;
   String? phone;
@@ -20,6 +21,7 @@ class NomineeDetailsModel {
     this.relation,
     this.nid,
     this.nidImage,
+    this.gender,
     this.email,
     this.dob,
     this.phone,
@@ -37,6 +39,7 @@ class NomineeDetailsModel {
       relation: json['relation'],
       nid: json['nid'],
       nidImage: json['nid_image'],
+      gender: json['gender'],
       email: json['email'],
       dob: json['dob'],
       phone: json['phone'],
@@ -54,6 +57,7 @@ class NomineeDetailsModel {
       'relation': relation,
       'nid': nid,
       'nid_image': nidImage,
+      'gender': gender,
       'email': email,
       'dob': dob,
       'phone': phone,

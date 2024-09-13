@@ -9,7 +9,6 @@ import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class LoginController extends GetxController {
   final email = ''.obs;
-  final password = ''.obs;
   TextEditingController passwordController = TextEditingController();
   final isValidEmail = false.obs;
   final isPasswordValid = false.obs;
@@ -67,7 +66,15 @@ class LoginController extends GetxController {
 
   void updatePasswordVariable(String input) {
     if (validatePassword(input)) {
-      passwordController.text = password.value = input;
+      final controller = passwordController;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
   }
 
@@ -77,7 +84,7 @@ class LoginController extends GetxController {
   Rx<UserLoginInfoModel?> userLoginInfo = Rx<UserLoginInfoModel?>(null);
   Future<void> login(String email, String password) async {
     isLoading(true);
-    try {
+    try { 
       // Add your API call logic here
       final responseData = await _authAPI.authenticateUser(email, password);
       // final userInfoObject = responseData['data'];
@@ -161,15 +168,15 @@ class LoginController extends GetxController {
   Future<void> loadCredentials() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     email.value = prefs.getString('emailForRememberMe') ?? '';
-    passwordController.text = password.value = prefs.getString('passwordForRememberMe') ?? '';
-    checkedRememberMe.value = email.isNotEmpty && password.isNotEmpty;
+    passwordController.text = prefs.getString('passwordForRememberMe') ?? '';
+    checkedRememberMe.value = email.isNotEmpty && passwordController.text.isNotEmpty;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    passwordController.text = password.value;
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   passwordController.text = password.value;
+  // }
 
   @override
   void onClose() {
