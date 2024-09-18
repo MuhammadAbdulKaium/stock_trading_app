@@ -35,7 +35,7 @@ class SignupVerificationController extends GetxController {
     isValidationAttempted.value = true;
   }
 
-  Future<void> signupVerification(String code) async {
+  Future<void> verifyEmail(String code) async {
     isLoading(true);
     try {
       signinSignupNavigationController.navigateTo(0);

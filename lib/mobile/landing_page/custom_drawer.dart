@@ -111,7 +111,7 @@ class CustomDrawer extends StatelessWidget {
                                 CircleAvatar(
                                   radius: screenWidth * 0.0510416666,
                                   backgroundColor: Colors.white,
-                                  backgroundImage: const AssetImage('images/blank_profile_picture.jpg'),
+                                  backgroundImage: landingPageController.photo.value.isEmpty ? const AssetImage('images/blank_profile_picture.jpg') : NetworkImage(landingPageController.photo.value) as ImageProvider<Object>,
                                 ),
                                 // const SizedBox(width: 17,),
                                 Expanded(

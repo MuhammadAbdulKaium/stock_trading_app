@@ -104,7 +104,7 @@ class SignupController extends GetxController {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Incorrect EMAIL or PASSWORD',
+                  'EMAIL is Incorrect or already Registered',
                   style: TextStyle(
                     fontSize: 12.5,
                     color: Colors.white,
@@ -122,48 +122,6 @@ class SignupController extends GetxController {
       isLoading(false);
     }
   }
-
-  // Future<void> signupVerification() async {
-  //   isLoading(true);
-  //   try {
-  //     signinSignupNavigationController.navigateTo(0);
-
-  //   } catch (e) {
-  //     // Handle errors (show snackbar, etc.)
-  //     Get.dialog(
-  //       CustomAlartDialog(
-  //         begin: 0,
-  //         end: 0,
-  //         alignment: Alignment.bottomCenter,
-  //         duration: 300,
-  //         borderRadius: const BorderRadius.all(Radius.circular(0)),
-  //         horizontalPadding: 0,
-  //         backgroundColor: Colors.red,
-  //         dialogHeader: const SizedBox(
-  //           height: 50,
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: [
-  //               Text(
-  //                 'Invalid Verification Code',
-  //                 style: TextStyle(
-  //                   fontSize: 12.5,
-  //                   color: Colors.white,
-  //                   fontFamily: 'FontCircularStd',
-  //                   fontWeight: FontWeight.w500
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         dialogContent: Container(),
-  //       )
-  //     );
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
 
   @override
   void onInit() {

@@ -59,6 +59,7 @@ dependencies:
   phone_numbers_parser: ^9.0.0
   geolocator: ^13.0.1
   geocoding: ^3.0.0
+  http: ^1.2.2
   
 
 dev_dependencies:

@@ -164,7 +164,7 @@ class SignupVerification extends StatelessWidget {
                           onPressed: () {
                             signupVerificationController.validationAttempt();
                             if(signupVerificationController.isCodeValid.value) {
-                              signupVerificationController.signupVerification(signupVerificationController.verificationCodeByUser);
+                              signupVerificationController.verifyEmail(signupVerificationController.verificationCodeByUser);
                             }
                           },
                         ),

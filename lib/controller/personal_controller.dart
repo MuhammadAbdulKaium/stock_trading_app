@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/api/personal_api.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/models/personal_details_model.dart';
+import 'package:dio/dio.dart' as dio;
 
 class PersonalController extends GetxController {
   final LandingPageController landingPageController = Get.find<LandingPageController>();
@@ -34,6 +35,7 @@ class PersonalController extends GetxController {
   var initialCountryCode = 'BD'.obs;
 
   var selectedNidFile = Rx<File?>(null);
+  final RxString nidPicturePathFromApi = ''.obs;
   var nidFileName = ''.obs;
   var nidFileSize = 0.0.obs;
   var nidFileExtension = ''.obs;
@@ -272,6 +274,7 @@ class PersonalController extends GetxController {
         fullNameController.value.text = personalDetails.value.fullName ?? '';
         emailController.value.text = personalDetails.value.email ?? '';
         nidNumberController.value.text = personalDetails.value.nid ?? '';
+        nidPicturePathFromApi.value = personalDetails.value.nidImage ?? '';
         phoneNumber.value = personalDetails.value.phone ?? '';
         setPhoneNumber(personalDetails.value.phone ?? '');
         dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
@@ -315,6 +318,48 @@ class PersonalController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      landingPageController.isLoading(false);
+    }
+  }
+
+  Future<void> uploadPhoto() async {
+    try {
+      landingPageController.isLoading(true);
+
+      dio.Response response = await _personalApi.updatePhoto(selectedImage.value!, token.value);
+
+      if (response.statusCode == 200) {
+        final data = response.data as Map<String, dynamic>;
+        
+        profilePicturePathFromApi.value = data['photo'];
+        landingPageController.photo.value = data['photo'];
+        // Get.snackbar("Success", "Photo uploaded successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to upload photo. Status: ${response.statusCode}");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Upload failed: $e");
+    } finally {
+      landingPageController.isLoading(false);
+    }
+  }
+
+  Future<void> uploadNidPhoto() async {
+    try {
+      landingPageController.isLoading(true);
+
+      dio.Response response = await _personalApi.updateNidPhoto(selectedNidFile.value!, token.value);
+
+      if (response.statusCode == 200) {
+        // final data = response.data as Map<String, dynamic>;
+
+        // Get.snackbar("Success", "Photo uploaded successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to upload photo. Status: ${response.statusCode}");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Upload failed: $e");
     } finally {
       landingPageController.isLoading(false);
     }
@@ -425,7 +470,7 @@ class PersonalController extends GetxController {
     }
   }
   bool isNidSelected() {
-    if (selectedNidFile.value != null) {
+    if (selectedNidFile.value != null || nidPicturePathFromApi.value.isNotEmpty) {
       isNidFileSelected.value = true;
       return true;
     }
