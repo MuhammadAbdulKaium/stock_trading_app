@@ -3,18 +3,25 @@ import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/api/auth_api.dart';
+import 'package:stock_trading_app/api/user_verification_api.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
+import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:stock_trading_app/models/user_login_info_model.dart';
 import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class LoginController extends GetxController {
+  final SigninSignupNavigationController signinSignupNavigationController = Get.put(SigninSignupNavigationController());
   final email = ''.obs;
   TextEditingController passwordController = TextEditingController();
   final isValidEmail = false.obs;
   final isPasswordValid = false.obs;
   final isPasswordVisible = false.obs;
   final checkedRememberMe = false.obs;
-  var isLoading = false.obs;
+  final AuthAPI _authAPI = AuthAPI();
+  final UserVerificationApi _userVerificationApi = UserVerificationApi();
+  final SharedPreferencesService _sharedPreferences = Get.find<SharedPreferencesService>();
+  Rx<UserLoginInfoModel?> userLoginInfo = Rx<UserLoginInfoModel?>(null);
+  // var isLoading = false.obs;
 
   void validateEmail(String input) {
     isValidEmail.value = GetUtils.isEmail(input.trim());
@@ -79,89 +86,123 @@ class LoginController extends GetxController {
   }
 
   // Function to handle login
-  final AuthAPI _authAPI = AuthAPI();
-  final SharedPreferencesService _sharedPreferences = Get.find<SharedPreferencesService>();
-  Rx<UserLoginInfoModel?> userLoginInfo = Rx<UserLoginInfoModel?>(null);
   Future<void> login(String email, String password) async {
-    isLoading(true);
     try { 
-      // Add your API call logic here
-      final responseData = await _authAPI.authenticateUser(email, password);
-      // final userInfoObject = responseData['data'];
-      Map<String, dynamic> decodedToken = JwtDecoder.decode(responseData['access_token']);
-      userLoginInfo.value = UserLoginInfoModel(
-        userId: decodedToken['user_id'],
-        username: decodedToken['name'],
-        email: decodedToken['email'],
-        roles: decodedToken['roles']?.cast<String?>(),
-        photo: decodedToken['photo'],
-        iat: decodedToken['iat'],
-        exp: decodedToken['exp']
-      );
+      signinSignupNavigationController.isLoading(true);
 
-      _sharedPreferences.saveString('token', responseData['access_token']);
-      _sharedPreferences.saveString('user_id', userLoginInfo.value!.userId ?? '');
-      _sharedPreferences.saveString('username', userLoginInfo.value!.username ?? '');
-      _sharedPreferences.saveString('email', userLoginInfo.value!.email ?? '');
-      _sharedPreferences.saveString('photo', userLoginInfo.value!.photo ?? '');
-      _sharedPreferences.saveInt('iat', userLoginInfo.value!.iat ?? 0);
-      _sharedPreferences.saveInt('exp', userLoginInfo.value!.exp ?? 0);
-      // Save roles list to SharedPreferences, ensuring non-null and non-nullable values
-      if (userLoginInfo.value!.roles != null) {
-        final nonNullRoles = userLoginInfo.value!.roles!.whereType<String>().toList();
-        _sharedPreferences.saveStringList('roles', nonNullRoles);
+      final response = await _authAPI.authenticateUser(email, password);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decodedToken = JwtDecoder.decode(response.data['access_token']);
+        userLoginInfo.value = UserLoginInfoModel(
+          userId: decodedToken['user_id'],
+          username: decodedToken['name'],
+          email: decodedToken['email'],
+          roles: decodedToken['roles']?.cast<String?>(),
+          photo: decodedToken['photo'],
+          isVerified: decodedToken['is_verified'],
+          iat: decodedToken['iat'],
+          exp: decodedToken['exp']
+        );
+
+        _sharedPreferences.saveString('token', response.data['access_token']);
+        _sharedPreferences.saveString('user_id', userLoginInfo.value!.userId ?? '');
+        _sharedPreferences.saveString('username', userLoginInfo.value!.username ?? '');
+        _sharedPreferences.saveString('email', userLoginInfo.value!.email ?? '');
+        _sharedPreferences.saveString('photo', userLoginInfo.value!.photo ?? '');
+        _sharedPreferences.saveInt('iat', userLoginInfo.value!.iat ?? 0);
+        _sharedPreferences.saveInt('exp', userLoginInfo.value!.exp ?? 0);
+        // Save roles list to SharedPreferences, ensuring non-null and non-nullable values
+        if (userLoginInfo.value!.roles != null) {
+          final nonNullRoles = userLoginInfo.value!.roles!.whereType<String>().toList();
+          _sharedPreferences.saveStringList('roles', nonNullRoles);
+        }
+        _sharedPreferences.saveString('password', password);
+
+        // On successful login, if rememberMe is true, save credentials
+        if (checkedRememberMe.value) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('emailForRememberMe', email);
+          await prefs.setString('passwordForRememberMe', password);
+        } else {
+          // Clear saved credentials if rememberMe is false
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.remove('emailForRememberMe');
+          await prefs.remove('passwordForRememberMe');
+        }
+
+        Get.offAllNamed('/landing_mobile');
+      } else if (response.data['statusCode'] == 401) {
+        
+        _sharedPreferences.saveString('email', email);
+        sendVerificationMail(email);
+        signinSignupNavigationController.navigateTo(4); // Navigate to Signup Verification
+      } else if (response.data['statusCode'] == 404) {
+        handleLoginError('User not found, Sign Up first.', '');
       }
-      _sharedPreferences.saveString('password', password);
-
-      // On successful login, if rememberMe is true, save credentials
-      if (checkedRememberMe.value) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('emailForRememberMe', email);
-        await prefs.setString('passwordForRememberMe', password);
-      } else {
-        // Clear saved credentials if rememberMe is false
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.remove('emailForRememberMe');
-        await prefs.remove('passwordForRememberMe');
-      }
-
-      // Navigate to the home screen or next page
-      Get.offAllNamed('/landing_mobile');
     } catch (e) {
       // Handle errors (show snackbar, etc.)
-      Get.dialog(
-        CustomAlartDialog(
-          begin: 0,
-          end: 0,
-          alignment: Alignment.bottomCenter,
-          duration: 300,
-          borderRadius: const BorderRadius.all(Radius.circular(0)),
-          horizontalPadding: 0,
-          backgroundColor: Colors.red,
-          dialogHeader: const SizedBox(
-            height: 50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Incorrect EMAIL or PASSWORD',
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: Colors.white,
-                    fontFamily: 'FontCircularStd',
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-              ],
-            ),
-          ),
-          dialogContent: Container(),
-        )
-      );
+      handleLoginError('Incorrect EMAIL or PASSWORD', '');
     } finally {
-      isLoading(false);
+      signinSignupNavigationController.isLoading(false);
     }
+  }
+
+  Future<void> sendVerificationMail(String email) async {
+    try {
+      signinSignupNavigationController.isLoading(true);
+      
+      final verificationMailResponse = await _userVerificationApi.sendVerificationMail(email);
+
+      if (verificationMailResponse.statusCode == 201) {
+        Get.snackbar('Verification', 'Verification code sent to $email.');
+      }
+    } catch (e) {
+      // Handle errors (show snackbar, etc.)
+      handleLoginError('Incorrect EMAIL or PASSWORD', '');
+    } finally {
+      signinSignupNavigationController.isLoading(false);
+    }
+  }
+
+  void handleLoginError(String errorTitle, String errorMessage) {
+    Get.dialog(
+      CustomAlartDialog(
+        begin: 0,
+        end: 0,
+        alignment: Alignment.bottomCenter,
+        duration: 300,
+        borderRadius: const BorderRadius.all(Radius.circular(0)),
+        horizontalPadding: 0,
+        backgroundColor: Colors.red,
+        dialogHeader: SizedBox(
+          height: 50,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                errorTitle,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.white,
+                  fontFamily: 'FontCircularStd',
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ],
+          ),
+        ),
+        dialogContent: errorMessage.isNotEmpty ? Text(
+          errorMessage,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12.0,
+          ),
+        ) 
+        : Container(),
+      ),
+    );
   }
 
   // Function to load saved credentials

@@ -3,6 +3,9 @@ class AppConstants {
 
   static const String loginEndpoint = '/api/auth/login';
   static const String signUpEndpoint = '/api/users/';
+  static const String verifyUser = '/api/users/verify/';
+  static const String sendVerificationMail = '/api/users/send-verification-mail/';
+  static const String verifyAccount = '/api/users/verify/';
 
   static const String updatePersonalInfoEndpoint = '/api/users/';
   static const String updateUserPhoto = '/api/users/picture';

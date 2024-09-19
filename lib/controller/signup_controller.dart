@@ -6,6 +6,7 @@ import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controll
 import 'package:stock_trading_app/models/user_signup_info_model.dart';
 
 class SignupController extends GetxController {
+  final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
   final fullName = ''.obs;
   late TextEditingController fullNameController = TextEditingController();
   final email = ''.obs;
@@ -15,7 +16,7 @@ class SignupController extends GetxController {
   final isPasswordVisible = false.obs;
   final retypePassword = ''.obs;
   final isRetypePasswordVisible = false.obs;
-  var isLoading = false.obs;
+  // var isLoading = false.obs;
   final RxBool isAnyFieldChanged = false.obs;
 
   bool validateName(String value) {
@@ -74,12 +75,11 @@ class SignupController extends GetxController {
     isRetypePasswordVisible.value = !isRetypePasswordVisible.value;
   }
 
-  final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
   final CreateAccountAPI _createAccountAPI = CreateAccountAPI();
   Rx<UserSignupInfoModel?> userSignupInfo = Rx<UserSignupInfoModel?>(null);
   Future<void> signUp(String fullName, String email, String password) async {
-    isLoading(true);
     try {
+      signinSignupNavigationController.isLoading(true);
       final responseData = await _createAccountAPI.createAccount(fullName: fullName, email: email, password: password);
 
       userSignupInfo.value = UserSignupInfoModel.fromJson(responseData);
@@ -119,7 +119,7 @@ class SignupController extends GetxController {
         )
       );
     } finally {
-      isLoading(false);
+      signinSignupNavigationController.isLoading(false);
     }
   }
 

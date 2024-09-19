@@ -455,6 +455,26 @@ class NomineeController extends GetxController {
   Future<void> fetchFileMimeType(String url) async {
     print('nidFileMimeType1============');
     print(nidFileMimeType.value);
+
+    String getFileExtension(String url) {
+      // Split the URL by '.' and return the last part as the file extension.
+      print(url.split('.').last.toLowerCase());
+      return url.split('.').last.toLowerCase();
+    }
+
+    bool isPdf(String url) {
+      // Check if the file is a PDF
+      return getFileExtension(url) == 'pdf';
+    }
+
+    bool isImage(String url) {
+      // Check if the file is an image (jpg, jpeg, or png)
+      String ext = getFileExtension(url);
+      return ext == 'jpg' || ext == 'jpeg' || ext == 'png';
+    }
+    print(isPdf(url));
+    print(isImage(url));
+
     try {
       // Send a HEAD request to get only headers
       dio.Response response = await dioClient.head(

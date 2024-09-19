@@ -62,7 +62,8 @@ class SignupVerification extends StatelessWidget {
                         ],
                       ),
 
-                      Obx(() => Flex(
+                      // Obx(() => 
+                      Flex(
                         direction: Axis.horizontal,
                         children: List.generate(9, (index) {
                           if(index % 2 == 0) {
@@ -80,10 +81,10 @@ class SignupVerification extends StatelessWidget {
                                   filled: true,
                                   fillColor: const Color(0xFFF4FCF7),
                                   counterText: "",
-                                  errorText: signupVerificationController.isValidationAttempted.value &&
-                                          !signupVerificationController.isCodeValid.value
-                                      ? (fieldIndex == 0 ? null : null)
-                                      : null, // Empty string to show error only once
+                                  // errorText: signupVerificationController.isValidationAttempted.value &&
+                                  //         !signupVerificationController.isCodeValid.value
+                                  //     ? (fieldIndex == 0 ? null : null)
+                                  //     : null, // Empty string to show error only once
                                   contentPadding: EdgeInsets.symmetric(vertical: screenWidth * 0.02430, horizontal: screenHeight * 0.0115131578947),
                                   enabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
@@ -124,29 +125,30 @@ class SignupVerification extends StatelessWidget {
                             return const Spacer(flex: 3);
                           }
                         }),
-                      )),
-
-                      Obx(() => Visibility(
-                          visible: !signupVerificationController.isCodeValid.value && signupVerificationController.isValidationAttempted.value,
-                          child: const Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 8.0, left: 11),
-                                child: Text(
-                                  'Invalid Code',
-                                  style: TextStyle(
-                                    fontSize: 10.85, 
-                                    fontFamily: 'Gilroy',
-                                    // height: 0.5, 
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFFB32921)
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
                       ),
+                      // ),
+
+                      // Obx(() => Visibility(
+                      //     visible: !signupVerificationController.isCodeValid.value && signupVerificationController.isValidationAttempted.value,
+                      //     child: const Row(
+                      //       children: [
+                      //         Padding(
+                      //           padding: EdgeInsets.only(top: 8.0, left: 11),
+                      //           child: Text(
+                      //             'Invalid Code',
+                      //             style: TextStyle(
+                      //               fontSize: 10.85, 
+                      //               fontFamily: 'Gilroy',
+                      //               // height: 0.5, 
+                      //               fontWeight: FontWeight.w500,
+                      //               color: Color(0xFFB32921)
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   )
+                      // ),
                       SizedBox(height: screenHeight * 0.03,),
                       SizedBox(
                         width: double.maxFinite,
@@ -162,13 +164,42 @@ class SignupVerification extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            signupVerificationController.validationAttempt();
-                            if(signupVerificationController.isCodeValid.value) {
-                              signupVerificationController.verifyEmail(signupVerificationController.verificationCodeByUser);
-                            }
+                            signupVerificationController.verifyEmail(signupVerificationController.verificationCodeByUser);
                           },
                         ),
                       ),
+                      SizedBox(height: screenHeight * 0.013,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Didn't receive verification code? ",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: const Color(0xFF71717A),
+                              fontFamily: 'Gilroy',
+                              fontWeight: FontWeight.w500
+                            )
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print('email==============');
+                              print(signupVerificationController.email.value);
+                              signupVerificationController.sendVerificationMail(signupVerificationController.email.value);
+                            },
+                            child: Text(
+                              'Resend',
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                color: const Color(0xFF008037),
+                                fontFamily: 'Gilroy',
+                                fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -200,8 +231,6 @@ class SignupVerification extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // signInAndSignUpController.onClose();
-                      // signInAndSignUpController.toggleSignInSignUp();
                       signinSignupNavigationController.navigateTo(3); // Navigate to SignUp
                     },
                     child: Text(
