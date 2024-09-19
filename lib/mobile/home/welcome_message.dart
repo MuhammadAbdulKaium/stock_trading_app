@@ -56,11 +56,11 @@ class WelcomeMessage extends StatelessWidget {
                   )
                 ],
               ),
-              CircleAvatar(
+              Obx(() => CircleAvatar(
                 radius: screenWidth * 0.0540,
                 backgroundColor: Colors.white,
-                backgroundImage: const AssetImage('images/blank_profile_picture.jpg'),
-              ),
+                backgroundImage: landingPageController.photo.value.isEmpty ? const AssetImage('images/blank_profile_picture.jpg') : NetworkImage(landingPageController.photo.value) as ImageProvider<Object>,
+              )),
             ],
           ),
         ),

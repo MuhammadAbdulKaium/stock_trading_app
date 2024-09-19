@@ -609,12 +609,14 @@ class Nominee extends StatelessWidget {
                           nid: nomineeController.nidNumberController.value.text.trim(),
                           gender: nomineeController.selectedGender.value,
                           email: nomineeController.emailController.value.text.trim(),
-                          // dob: nomineeController.dateOfBirth.value != null ? DateFormat('yyyy-MM-dd HH:mm:ss').format(nomineeController.dateOfBirth.value!) : null,
+                          dob: nomineeController.dateOfBirth.value != null ? DateFormat('yyyy-MM-dd HH:mm:ss').format(nomineeController.dateOfBirth.value!) : null,
                           phone: nomineeController.phoneNumber.value,
                           address: nomineeController.addressController.value.text.trim(),
                         );
 
                         nomineeController.updateNomineeDetails(updatedDetails);
+
+                        if (nomineeController.selectedNidFile.value != null) nomineeController.uploadNidPhoto();
                       }
                     }
                     : null,

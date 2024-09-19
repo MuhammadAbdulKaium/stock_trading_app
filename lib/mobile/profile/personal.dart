@@ -67,14 +67,14 @@ class Personal extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: screenWidth * 0.11861,
-                      // backgroundImage: personalController.selectedImage.value != null
-                      // ? FileImage(personalController.selectedImage.value!) as ImageProvider<Object>?
-                      // : personalController.profilePicturePathFromApi.value.isNotEmpty
-                      //     ? NetworkImage(personalController.profilePicturePathFromApi.value) as ImageProvider<Object>?
-                      //     : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider<Object>?,
-                      backgroundImage: personalController.selectedImage.value != null 
-                      ? FileImage(personalController.selectedImage.value!) 
-                      : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider,
+                      backgroundImage: personalController.selectedImage.value != null
+                      ? FileImage(personalController.selectedImage.value!) as ImageProvider<Object>?
+                      : personalController.profilePicturePathFromApi.value.isNotEmpty
+                          ? NetworkImage(personalController.profilePicturePathFromApi.value) as ImageProvider<Object>?
+                          : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider<Object>?,
+                      // backgroundImage: personalController.selectedImage.value != null 
+                      // ? FileImage(personalController.selectedImage.value!) 
+                      // : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider,
                     ),
                     Positioned(
                       bottom: 0,
@@ -230,6 +230,7 @@ class Personal extends StatelessWidget {
                     }
                     return null;
                   },
+                  readOnly: true,
                 );
               }),
           
@@ -632,6 +633,10 @@ class Personal extends StatelessWidget {
                         );
       
                         personalController.updatePersonalDetails(updatedDetails);
+
+                        if (personalController.selectedImage.value != null) personalController.uploadPhoto();
+
+                        if (personalController.selectedNidFile.value != null) personalController.uploadNidPhoto();
                       }
                     }
                     : null,

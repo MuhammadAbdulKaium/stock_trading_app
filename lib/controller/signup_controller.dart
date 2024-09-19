@@ -6,6 +6,7 @@ import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controll
 import 'package:stock_trading_app/models/user_signup_info_model.dart';
 
 class SignupController extends GetxController {
+  final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
   final fullName = ''.obs;
   late TextEditingController fullNameController = TextEditingController();
   final email = ''.obs;
@@ -15,7 +16,7 @@ class SignupController extends GetxController {
   final isPasswordVisible = false.obs;
   final retypePassword = ''.obs;
   final isRetypePasswordVisible = false.obs;
-  var isLoading = false.obs;
+  // var isLoading = false.obs;
   final RxBool isAnyFieldChanged = false.obs;
 
   bool validateName(String value) {
@@ -74,12 +75,11 @@ class SignupController extends GetxController {
     isRetypePasswordVisible.value = !isRetypePasswordVisible.value;
   }
 
-  final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
   final CreateAccountAPI _createAccountAPI = CreateAccountAPI();
   Rx<UserSignupInfoModel?> userSignupInfo = Rx<UserSignupInfoModel?>(null);
   Future<void> signUp(String fullName, String email, String password) async {
-    isLoading(true);
     try {
+      signinSignupNavigationController.isLoading(true);
       final responseData = await _createAccountAPI.createAccount(fullName: fullName, email: email, password: password);
 
       userSignupInfo.value = UserSignupInfoModel.fromJson(responseData);
@@ -104,7 +104,7 @@ class SignupController extends GetxController {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Incorrect EMAIL or PASSWORD',
+                  'EMAIL is Incorrect or already Registered',
                   style: TextStyle(
                     fontSize: 12.5,
                     color: Colors.white,
@@ -119,51 +119,9 @@ class SignupController extends GetxController {
         )
       );
     } finally {
-      isLoading(false);
+      signinSignupNavigationController.isLoading(false);
     }
   }
-
-  // Future<void> signupVerification() async {
-  //   isLoading(true);
-  //   try {
-  //     signinSignupNavigationController.navigateTo(0);
-
-  //   } catch (e) {
-  //     // Handle errors (show snackbar, etc.)
-  //     Get.dialog(
-  //       CustomAlartDialog(
-  //         begin: 0,
-  //         end: 0,
-  //         alignment: Alignment.bottomCenter,
-  //         duration: 300,
-  //         borderRadius: const BorderRadius.all(Radius.circular(0)),
-  //         horizontalPadding: 0,
-  //         backgroundColor: Colors.red,
-  //         dialogHeader: const SizedBox(
-  //           height: 50,
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: [
-  //               Text(
-  //                 'Invalid Verification Code',
-  //                 style: TextStyle(
-  //                   fontSize: 12.5,
-  //                   color: Colors.white,
-  //                   fontFamily: 'FontCircularStd',
-  //                   fontWeight: FontWeight.w500
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         dialogContent: Container(),
-  //       )
-  //     );
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
 
   @override
   void onInit() {

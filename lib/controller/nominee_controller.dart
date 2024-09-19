@@ -1,4 +1,5 @@
 import 'dart:io';
+// import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_trading_app/api/nominee_api.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/models/nominee_details_model.dart';
+import 'package:dio/dio.dart' as dio;
 
 class NomineeController extends GetxController {
   final LandingPageController landingPageController = Get.find<LandingPageController>();
@@ -15,6 +17,7 @@ class NomineeController extends GetxController {
   var nomineeDetails = NomineeDetailsModel().obs;
   final ImagePicker _picker = ImagePicker();
   var selectedNidFile = Rx<File?>(null);
+  final RxString nidPicturePathFromApi = ''.obs;
   var nidFileName = ''.obs;
   var nidFileSize = 0.0.obs;
   var nidFileExtension = ''.obs;
@@ -40,6 +43,7 @@ class NomineeController extends GetxController {
   var initialCountryCode = 'BD'.obs;
   var token = ''.obs;
   late SharedPreferences prefs;
+  final dio.Dio dioClient = dio.Dio();
 
   Future<void> initializeToken() async {
     prefs = await SharedPreferences.getInstance();
@@ -264,6 +268,7 @@ class NomineeController extends GetxController {
         fullNameController.value.text = nomineeDetails.value.fullName ?? '';
         relationshipController.value.text = nomineeDetails.value.relation ?? '';
         nidNumberController.value.text = nomineeDetails.value.nid ?? '';
+        nidPicturePathFromApi.value = nomineeDetails.value.nidImage ?? '';
         selectedGender.value = nomineeDetails.value.gender ?? '';
         emailController.value.text = nomineeDetails.value.email ?? '';
         dateOfBirth.value = formatDateTime(nomineeDetails.value.dob ?? '');
@@ -311,6 +316,26 @@ class NomineeController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      landingPageController.isLoading(false);
+    }
+  }
+
+  Future<void> uploadNidPhoto() async {
+    try {
+      landingPageController.isLoading(true);
+
+      dio.Response response = await _nomineeApi.updateNidPhoto(selectedNidFile.value!, token.value);
+
+      if (response.statusCode == 200) {
+        // final data = response.data as Map<String, dynamic>;
+
+        // Get.snackbar("Success", "Photo uploaded successfully!");
+      } else {
+        Get.snackbar("Error", "Failed to upload photo. Status: ${response.statusCode}");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Upload failed: $e");
     } finally {
       landingPageController.isLoading(false);
     }
@@ -421,6 +446,59 @@ class NomineeController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
+    }
+  }
+
+  var nidFileMimeType = ''.obs;
+
+  /// Function to fetch the MIME type of the file
+  Future<void> fetchFileMimeType(String url) async {
+    print('nidFileMimeType1============');
+    print(nidFileMimeType.value);
+
+    String getFileExtension(String url) {
+      // Split the URL by '.' and return the last part as the file extension.
+      print(url.split('.').last.toLowerCase());
+      return url.split('.').last.toLowerCase();
+    }
+
+    bool isPdf(String url) {
+      // Check if the file is a PDF
+      return getFileExtension(url) == 'pdf';
+    }
+
+    bool isImage(String url) {
+      // Check if the file is an image (jpg, jpeg, or png)
+      String ext = getFileExtension(url);
+      return ext == 'jpg' || ext == 'jpeg' || ext == 'png';
+    }
+    print(isPdf(url));
+    print(isImage(url));
+
+    try {
+      // Send a HEAD request to get only headers
+      dio.Response response = await dioClient.head(
+        url,
+        options: dio.Options(
+          headers: {
+            'Authorization': token,  // Add your token here
+          },
+        ),
+      );
+      
+      // Get the content type from headers
+      String? contentType = response.headers.value('content-type');
+
+      if (contentType != null) {
+        nidFileMimeType.value = contentType;
+        print('nidFileMimeType2============');
+        print(nidFileMimeType.value);
+      } else {
+        Get.snackbar('Error', 'Could not determine file type.');
+      }
+    } catch (e) {
+      print(e);
+      Get.snackbar('Error', 'Failed to fetch file type: $e');
     }
   }
   bool isNidSelected() {

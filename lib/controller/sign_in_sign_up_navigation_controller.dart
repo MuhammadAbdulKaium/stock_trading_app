@@ -7,6 +7,7 @@ import 'package:stock_trading_app/mobile/sign_in_sign_up/signup_form.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/signup_verification.dart';
 
 class SigninSignupNavigationController extends GetxController {
+  var isLoading = false.obs;
   final currentIndex = 0.obs;
   final List<int> _navigationStack = [0];
   final canGoBack = true.obs;

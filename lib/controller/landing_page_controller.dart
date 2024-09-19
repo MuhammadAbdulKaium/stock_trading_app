@@ -20,6 +20,7 @@ class LandingPageController extends GetxController {
   // final SharedPreferencesService _sharedPreferences = Get.find<SharedPreferencesService>();
   final userName = 'Loading...'.obs;
   final email = 'Loading...'.obs;
+  final photo = ''.obs;
 
   void changePage(int index, {String? pairId}) {
     if(selectedPageIndex.value != index) {
@@ -74,6 +75,7 @@ class LandingPageController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userName.value = prefs.getString('username') ?? '';
     email.value = prefs.getString('email') ?? '';
+    photo.value = prefs.getString('photo') ?? '';
   }
 
   void toggleBanglaActivationState() {

@@ -4,6 +4,7 @@ class UserLoginInfoModel{
   final String? email;
   final List<String?>? roles;
   final String? photo;
+  final bool isVerified;
   final int? iat;
   final int? exp;
   UserLoginInfoModel({
@@ -12,6 +13,7 @@ class UserLoginInfoModel{
     this.email,
     this.roles,
     this.photo,
+    required this.isVerified,
     this.iat,
     this.exp
   });
