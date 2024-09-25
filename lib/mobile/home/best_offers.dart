@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/home_page_controller.dart';
+import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
 // final HomePageController homePageController = Get.put(HomePageController());
@@ -13,6 +14,7 @@ class BestOffers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomePageController homePageController = Get.put(HomePageController());
+    final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Column(
@@ -51,7 +53,19 @@ class BestOffers extends StatelessWidget {
             ),
             Expanded(
               flex: 100,
-              child: Obx(() => Column(
+              child: Obx(() => homePageController.bestOffers.isEmpty
+                ? Center(
+                    child: Text(
+                      'No item to show',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF1D192B),
+                      ),
+                    ),
+                  )
+                : Column(
                 children: homePageController.bestOffers.map((bestOffer) => 
                 Container(
                   margin: EdgeInsets.only(bottom: screenHeight * 0.0337,),
@@ -96,7 +110,17 @@ class BestOffers extends StatelessWidget {
                                         child: Center(
                                           child: SizedBox(
                                             height: screenHeight * 0.0382,
-                                            child: decideImageToShow(bestOffer.productCategory!),
+                                            // child: decideImageToShow(bestOffer.productCategory!),
+                                            child: bestOffer.imageUrl!.isNotEmpty && bestOffer.imageUrl != null
+                                            ? Image.network(
+                                              bestOffer.imageUrl!,
+                                              height: screenWidth * 0.07 * 2,  // Adjust based on your layout
+                                              fit: BoxFit.cover,
+                                            )
+                                            : Image.asset(
+                                              'images/rice.png',
+                                              fit: BoxFit.contain,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -105,7 +129,7 @@ class BestOffers extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            bestOffer.productName!,
+                                            bestOffer.name!,
                                             style: TextStyle(
                                               fontSize: 16.5.sp,
                                               fontFamily: 'Gilroy',
@@ -120,7 +144,8 @@ class BestOffers extends StatelessWidget {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                '${bestOffer.conversionPercentage!}%',
+                                                // '${bestOffer.conversionPercentage!}%',
+                                                '+5%',
                                                 style: TextStyle(
                                                   fontSize: 11.015625.sp,
                                                   fontFamily: 'Gilroy',
@@ -151,7 +176,8 @@ class BestOffers extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(27),
                                   ),
                                   child: Text(
-                                    bestOffer.productStatus!,
+                                    // bestOffer.productStatus!,
+                                    (bestOffer.status ?? false) ? 'Active' : 'Inactive',
                                     style: TextStyle(
                                       fontSize: 11.5.sp,
                                       fontFamily: 'Gilroy',
@@ -185,7 +211,11 @@ class BestOffers extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Purchase price (Per MT) :',
+                                      'Purchase price (Per ${
+                                        bestOffer.lotUnit != null && bestOffer.lotUnit!.isNotEmpty 
+                                        ? bestOffer.lotUnit
+                                        : 'Unit'
+                                      }) :',
                                       style: TextStyle(
                                         fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
@@ -202,7 +232,8 @@ class BestOffers extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          bestOffer.purchasePrice?.toString() ?? '',
+                                          // bestOffer.purchasePrice?.toString() ?? '',
+                                          bestOffer.pricePerUnit?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -239,7 +270,12 @@ class BestOffers extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Selling price (Per MT) :',
+                                      // 'Selling price (Per MT) :',
+                                      'Transport Cost (Per ${
+                                        bestOffer.lotUnit != null && bestOffer.lotUnit!.isNotEmpty 
+                                        ? bestOffer.lotUnit
+                                        : 'Unit'
+                                      }) :',
                                       style: TextStyle(
                                         fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
@@ -256,7 +292,8 @@ class BestOffers extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          bestOffer.sellingPrice?.toString() ?? '',
+                                          // bestOffer.sellingPrice?.toString() ?? '',
+                                          bestOffer.transportCost?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -293,7 +330,12 @@ class BestOffers extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Monthly storage cost (Per MT) :',
+                                      // 'Monthly storage cost (Per MT) :',
+                                      'Handling Cost (Per ${
+                                        bestOffer.lotUnit != null && bestOffer.lotUnit!.isNotEmpty 
+                                        ? bestOffer.lotUnit
+                                        : 'Unit'
+                                      }) :',
                                       style: TextStyle(
                                         fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
@@ -310,7 +352,8 @@ class BestOffers extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          bestOffer.monthlyStorageCost?.toString() ?? '',
+                                          // bestOffer.monthlyStorageCost?.toString() ?? '',
+                                          bestOffer.handlingCost?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -357,7 +400,9 @@ class BestOffers extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage(bestOffer);
+                                    },
                                   ),
                                 ),
                               ],

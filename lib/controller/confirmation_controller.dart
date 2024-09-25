@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
+import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
 import 'package:stock_trading_app/models/order_details_model.dart';
+import 'package:stock_trading_app/models/product_model.dart';
 
 class ConfirmationController extends GetxController {
+  final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.find<InvestmentOpportunityDetailsController>();
+  var investmentDetails = ProductModel().obs;
   var isLoading = false.obs;
   var confirmingOrderDetails = OrderDetailsModel().obs;
 
@@ -22,7 +26,7 @@ class ConfirmationController extends GetxController {
       enteredLotNumerToBuyPlaceHolder.value = enteredLotNumerToBuy.value.toString();
       enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
       remainingLot.value -= 1;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * confirmingOrderDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentDetails.value.pricePerUnit!.toDouble();
     }
   }
 
@@ -32,7 +36,7 @@ class ConfirmationController extends GetxController {
       enteredLotNumerToBuyPlaceHolder.value = enteredLotNumerToBuy.value.toString();
       enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
       remainingLot.value += 1;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * confirmingOrderDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentDetails.value.pricePerUnit!.toDouble();
     }
   }
 
@@ -60,13 +64,14 @@ class ConfirmationController extends GetxController {
       enteredLotNumerToBuy.value = parsedValue ?? 0;
       enteredLotNumerToBuyPlaceHolder.value = value.toString();
       remainingLot.value -= parsedValue ?? 0;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * confirmingOrderDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentDetails.value.pricePerUnit!.toDouble();
     }
   }
 
   Future<void> loadConfirmationPage() async {
     isLoading(true);
     try {
+      investmentDetails = investmentOpportunityDetailsController.investmentOpportunityDetails;
       confirmingOrderDetails.value = OrderDetailsModel(
         id: '1',
         name: 'Aman Rice',
@@ -85,8 +90,8 @@ class ConfirmationController extends GetxController {
         quantityAvailable: 19,
       );
 
-      remainingLot.value = maximumLot.value = confirmingOrderDetails.value.lotSize!.toInt();
-      currentBuyingPrice.value = confirmingOrderDetails.value.pricePerUnit!.toDouble();
+      remainingLot.value = maximumLot.value = investmentDetails.value.lotSize?.toInt() ?? 0;
+      currentBuyingPrice.value = investmentDetails.value.pricePerUnit!.toDouble();
 
       Get.toNamed("/confirmation_page");
     } catch (e) {

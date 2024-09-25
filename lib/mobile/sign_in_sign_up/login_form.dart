@@ -18,7 +18,8 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
-    final LoginController loginController = Get.find<LoginController>();
+    // final LoginController loginController = Get.find<LoginController>();
+    final LoginController loginController = Get.put(LoginController());
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;

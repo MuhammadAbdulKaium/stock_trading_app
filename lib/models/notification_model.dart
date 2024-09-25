@@ -3,11 +3,13 @@ class NotificationModel {
   String? title;
   String? message;
   DateTime? time;
+  String? imageUrl;
 
   NotificationModel({
     this.id,
     this.title,
     this.message,
-    this.time
+    this.time,
+    this.imageUrl
   });
 }

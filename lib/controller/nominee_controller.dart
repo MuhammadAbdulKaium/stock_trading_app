@@ -275,8 +275,6 @@ class NomineeController extends GetxController {
         phoneNumber.value = nomineeDetails.value.phone ?? '';
         setPhoneNumber(nomineeDetails.value.phone ?? '');
         addressController.value.text = nomineeDetails.value.address ?? '';
-      } else {
-        Get.snackbar('Error', 'Failed to load Nominee details.');
       }
     } catch (e) {
       // throw Exception('Error: $e');

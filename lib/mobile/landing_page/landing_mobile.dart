@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
+import 'package:stock_trading_app/controller/notification_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-// import 'package:stock_trading_app/helpers/status_bar_helper.dart';
 import 'package:stock_trading_app/mobile/dashboard/dashboard_page.dart';
 import 'package:stock_trading_app/mobile/home/home_page.dart';
 import 'package:stock_trading_app/mobile/landing_page/bottom_navigation_bar.dart';
@@ -23,10 +23,10 @@ class LandingMobile extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final NotificationController notificationController = Get.put(NotificationController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Obx(() { 
-      // setStatusBarColor(statusBarColors[landingPageController.selectedPageIndex.value]);
       return Scaffold(
         backgroundColor: statusBarColors[landingPageController.selectedPageIndex.value],
         body: Stack(
@@ -122,16 +122,62 @@ class LandingMobile extends StatelessWidget {
                                   flex: 3,
                                   child: Row(
                                     children: [
-                                      CircleAvatar(
-                                        radius: screenWidth * 0.0520,
-                                        backgroundColor: statusBarColors[landingPageController.selectedPageIndex.value] == Colors.white ? const Color(0xFFF4FCF7) : Colors.white,
-                                        // backgroundImage: AssetImage('images/blank_profile_picture.jpg'),
-                                        child: Center(
-                                          child: Icon(
-                                            CustomIcons.notificationIcon,
-                                            size: screenWidth * 0.065,
-                                            color: const Color(0xFF008037),
-                                          ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.toNamed("/notification_page");
+                                        },
+                                        child: Stack(
+                                          clipBehavior: Clip.none, // Allows the badge to overflow outside the CircleAvatar
+                                          children: [
+                                            CircleAvatar(
+                                              radius: screenWidth * 0.0520,
+                                              backgroundColor: statusBarColors[landingPageController.selectedPageIndex.value] == Colors.white ? const Color(0xFFF4FCF7) : Colors.white,
+                                              child: Center(
+                                                child: Icon(
+                                                  CustomIcons.notificationIcon,
+                                                  size: screenWidth * 0.065,
+                                                  color: const Color(0xFF008037),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 2,  // Adjust the position of the badge
+                                              right: 5,  // Adjust the position of the badge
+                                              child: Obx(() {
+                                                int notificationCount = notificationController.notifications.length;
+                                                if (notificationCount > 0) {
+                                                  return Container(
+                                                    padding: const EdgeInsets.all(2),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.red,
+                                                      borderRadius: BorderRadius.circular(15),
+                                                    ),
+                                                    constraints: const BoxConstraints(
+                                                      // minWidth: 16,
+                                                      // minHeight: 16,
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          notificationCount > 9 ? '9+' : '$notificationCount',
+                                                          style: TextStyle(
+                                                            fontSize: 9.02.sp,
+                                                            // fontFamily: 'Gilroy',
+                                                            fontWeight: FontWeight.w500,
+                                                            color: Colors.white,
+                                                            height: 1.05,
+                                                            // overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                return const SizedBox(); // No badge if count is 0
+                                              }),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],

@@ -88,7 +88,7 @@ class LandingPageController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     scrollController = ScrollController();
     _loadUserInfo();

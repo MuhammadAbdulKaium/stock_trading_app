@@ -176,8 +176,6 @@ class BankingController extends GetxController {
         accountHolderNameController.value.text = bankDetails.value.accountHolderName ?? '';
         accountNumberController.value.text = bankDetails.value.accountNumber ?? '';
         routingNumberController.value.text = bankDetails.value.routingNumber ?? '';
-      } else {
-        Get.snackbar('Error', 'Failed to load Bank details.');
       }
     } catch (e) {
       // throw Exception('Error: $e');

@@ -143,6 +143,6 @@ class PaymentProofController extends GetxController {
   }
 
   void resetVariables() {
-    selectedFile.value = null;
+    // selectedFile.value = null;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppIntroductionSliderController extends GetxController {
   var currentIndex = 0.obs;
@@ -45,10 +46,16 @@ class AppIntroductionSliderController extends GetxController {
         // duration: Duration(milliseconds: 500), // Adjust the duration as needed
       );
     }
-
-    // isFading.value = true;
-    // await Future.delayed(const Duration(milliseconds: 200));
-    // currentIndex.value = (currentIndex.value + 1) % images.length;
-    // isFading.value = false;
   }
+
+  // void unsetFistTime() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool('isFirstTime', false);
+  // }
+
+  // @override
+  // void onInit() async {
+  //   super.onInit();
+  //   unsetFistTime();
+  // }
 }

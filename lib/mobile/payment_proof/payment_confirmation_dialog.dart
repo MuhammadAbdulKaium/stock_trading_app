@@ -29,7 +29,7 @@ class PaymentConfirmationDialog extends StatelessWidget {
         ),
       ),
       onClose: () {
-        investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage();
+        // investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage();
         Future.delayed(const Duration(milliseconds: 300), () {
           paymentProofController.resetVariables();
         });
@@ -104,7 +104,10 @@ class PaymentConfirmationDialog extends StatelessWidget {
                     ),
                     onPressed: () {
                       Get.back();
-                      investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage();
+                      Get.offNamedUntil(
+                        "/investment_opportunity_details_page",
+                        ModalRoute.withName('/landing_mobile'),
+                      );
                       Future.delayed(const Duration(milliseconds: 300), () {
                         paymentProofController.resetVariables();
                       });

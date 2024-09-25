@@ -506,117 +506,28 @@ class BookingBasicInfo extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: screenHeight * 0.0435,),
-                        SizedBox(
-                          width: double.maxFinite,
-                          height: screenHeight * 0.05035,
-                          child: CommonButton(
-                            borderRadius: 8,
-                            backgroundColor: const Color(0xFF008037),
-                            child: Text('Book Now',
-                              style: TextStyle(
-                                fontSize: 14.75.sp,
-                                fontFamily: 'Gilroy',
-                                fontWeight: FontWeight.w600,
-                                overflow: TextOverflow.ellipsis,
+                        Obx(
+                          () => SizedBox(
+                            width: double.maxFinite,
+                            height: screenHeight * 0.05035,
+                            child: CommonButton(
+                              borderRadius: 8,
+                              backgroundColor: bookingPageController.checkedAgreementWithTermsAndCondition.value ? const Color(0xFF008037) : const Color.fromARGB(255, 116, 146, 129),
+                              onPressed: bookingPageController.checkedAgreementWithTermsAndCondition.value 
+                              ? () {
+                                confirmationController.loadConfirmationPage();
+                                // _showBookingConfirmationDialog(context, screenWidth, screenHeight);
+                              } 
+                              : null,
+                              child: Text('Book Now',
+                                style: TextStyle(
+                                  fontSize: 14.75.sp,
+                                  fontFamily: 'Gilroy',
+                                  fontWeight: FontWeight.w600,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
-                            onPressed: () {
-                              // confirmationController.loadConfirmationPage();
-                              Get.dialog(
-                                CustomAlartDialog(
-                                  end: -0.03,
-                                  horizontalPadding: screenWidth * 0.041666,
-                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  closeIcon: Padding(
-                                    padding: EdgeInsets.only(right: screenWidth * 0.03, top: screenWidth * 0.0215),
-                                    child: Icon(
-                                      Icons.close,
-                                      color: const Color(0xFF71717A),
-                                      size: screenWidth * 0.06,
-                                    ),
-                                  ),
-                                  onClose: () {
-                                    Future.delayed(const Duration(milliseconds: 300), 
-                                      () {
-                                        // signInAndSignUpController.toggleSignInSignUp();
-                                        // signInAndSignUpController.onClose();
-                                      }
-                                    );
-                                  },
-                                  dialogHeader: Padding(
-                                    padding: EdgeInsets.only(top: screenHeight * 0.0204,),
-                                    child: Text(
-                                      'Congratulations!',
-                                      textAlign: TextAlign.justify,
-                                      style: TextStyle(
-                                        fontSize: 14.3.sp,
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xFF1D192B),
-                                        // overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                  dialogContent: Padding(
-                                    padding: const EdgeInsets.only(left: 18, right: 18),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: screenHeight * 0.0104,),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Your Booking is confirmed',
-                                              textAlign: TextAlign.justify,
-                                              style: TextStyle(
-                                                fontSize: 12.65.sp,
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xFF52525B),
-                                                // overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: screenHeight * 0.02,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                              width: screenWidth * 0.135,
-                                              height: screenHeight * 0.038,
-                                              child: CommonButton(
-                                                borderRadius: 8,
-                                                backgroundColor: const Color(0xFF008037),
-                                                child: Text('OK',
-                                                  style: TextStyle(
-                                                    fontSize: 11.5.sp,
-                                                    fontFamily: 'Gilroy',
-                                                    fontWeight: FontWeight.w500,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  Get.back();
-                                                  confirmationController.loadConfirmationPage();
-                                                },
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: screenHeight * 0.0192,),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                // barrierDismissible: false,
-                              );
-                              // if(buyInfoFormkey.currentState!.validate()) {
-                              //   bookingPageController.loadBookingPage();
-                              //   Future.delayed(const Duration(milliseconds: 300), () {
-                              //     investmentOpportunityDetailsController.resetVariables();
-                              //   });
-                              // }
-                            }
                           ),
                         ),
                       ],

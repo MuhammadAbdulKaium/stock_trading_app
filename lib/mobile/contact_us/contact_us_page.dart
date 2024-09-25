@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:stock_trading_app/common/common_dropdown_for_icon.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
-import 'package:stock_trading_app/controller/notification_controller.dart';
+import 'package:stock_trading_app/controller/contact_us_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/notification/notifications.dart';
 
-class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
+class ContactUsPage extends StatelessWidget {
+  const ContactUsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final NotificationController notificationController = Get.put(NotificationController());
+    final ContactUsController contactUsController = Get.put(ContactUsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -94,7 +92,7 @@ class NotificationPage extends StatelessWidget {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Notification',
+                                    'Contact Us',
                                     style: TextStyle(
                                       fontSize: 23.sp,
                                       fontFamily: 'Gilroy',
@@ -107,50 +105,7 @@ class NotificationPage extends StatelessWidget {
                               ),
                               Expanded(
                                 flex: 3,
-                                child: CommonDropdownForIcon(
-                                  allDropdownValue: notificationController.notificationCategoryList,
-                                  dropdownBackgroundColor: const Color.fromARGB(255, 230, 231, 247),
-                                  borderRadius: 7,
-                                  dropdownWidth: screenWidth * 0.35,
-                                  offset: Offset(-((screenWidth * 0.35)/2)-18, -3),
-                                  customButton: CircleAvatar(
-                                    radius: screenWidth * 0.0520,
-                                    backgroundColor: const Color(0xFFF4FCF7),
-                                    child: Center(
-                                      child: Icon(
-                                        CustomIcons.filterSquare,
-                                        color: const Color(0xFF292D32),
-                                        size: screenWidth * 0.06,
-                                      ),
-                                    ),
-                                  ),
-                                  onChanged:  (value) {
-                                    print(value);
-                                    notificationController.updateNotificationCategory(value!);
-                                  },
-                                  items: notificationController.notificationCategoryList.map(
-                                    (item) => DropdownMenuItem(
-                                      value: item,
-                                      child: SizedBox(
-                                        width: 115,
-                                        child: Row(
-                                          children: [
-                                            Flexible(
-                                              child: Text(item,
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: 'Inter',
-                                                  fontWeight: FontWeight.w500
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                                ) 
+                                child: Container()
                               )
                             ],
                           ),
@@ -165,8 +120,8 @@ class NotificationPage extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: screenHeight * 0.009,),
-                        const Notifications(),
-                        SizedBox(height: screenHeight * 0.03,),
+                        // const Notifications(),
+                        // SizedBox(height: screenHeight * 0.03,),
                       ],
                     ),
                   ),
@@ -176,7 +131,7 @@ class NotificationPage extends StatelessWidget {
           ),
 
           Obx(() {
-            return notificationController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
+            return contactUsController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
         ],
       ),

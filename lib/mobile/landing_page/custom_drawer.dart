@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:stock_trading_app/controller/about_us_controller.dart';
 import 'package:stock_trading_app/controller/how_munafa_works_controller.dart';
 import 'package:stock_trading_app/controller/landing_page_controller.dart';
-import 'package:stock_trading_app/controller/notification_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
 
@@ -16,7 +15,6 @@ class CustomDrawer extends StatelessWidget {
     final LandingPageController landingPageController = Get.find<LandingPageController>();
     final AboutUsController aboutUsController = Get.put(AboutUsController());
     final HowMunafaWorksController howMunafaWorksController = Get.put(HowMunafaWorksController());
-    final NotificationController notificationController = Get.put(NotificationController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -188,9 +186,12 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        // landingPageController.changePage(5);
-                        landingPageController.selectedDrawerPageIndex.value = 1;
                         Navigator.pop(context);
+                        landingPageController.selectedDrawerPageIndex.value = 1;
+                        Get.toNamed("/market_trends_page");
+                        Future.delayed(const Duration(milliseconds: 350), () {
+                          landingPageController.selectedDrawerPageIndex.value = 0;
+                        });
                       },
                     ),
                   ),
@@ -248,9 +249,12 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        // landingPageController.changePage(7);
-                        landingPageController.selectedDrawerPageIndex.value = 3;
                         Navigator.pop(context);
+                        landingPageController.selectedDrawerPageIndex.value = 3;
+                        Get.toNamed("/news_and_blogs_page");
+                        Future.delayed(const Duration(milliseconds: 350), () {
+                          landingPageController.selectedDrawerPageIndex.value = 0;
+                        });
                       },
                     ),
                   ),
@@ -331,9 +335,12 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        // landingPageController.changePage(9);
-                        landingPageController.selectedDrawerPageIndex.value = 5;
                         Navigator.pop(context);
+                        landingPageController.selectedDrawerPageIndex.value = 5;
+                        Get.toNamed("/contact_us_page");
+                        Future.delayed(const Duration(milliseconds: 350), () {
+                          landingPageController.selectedDrawerPageIndex.value = 0;
+                        });
                       },
                     ),
                   ),
@@ -361,7 +368,7 @@ class CustomDrawer extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                         landingPageController.selectedDrawerPageIndex.value = 6;
-                        notificationController.loadNotificationPage();
+                        Get.toNamed("/notification_page");
                         Future.delayed(const Duration(milliseconds: 350), () {
                           landingPageController.selectedDrawerPageIndex.value = 0;
                         });
