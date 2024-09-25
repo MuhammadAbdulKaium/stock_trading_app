@@ -17,4 +17,6 @@ class AppConstants {
   static const String getNomineeInfoEndpoint = '/api/user-nominee-info/my';
   static const String updateNomineeInfoEndpoint = '/api/user-nominee-info';
   static const String updateNomineeNid = '/api/user-nominee-info/nid';
+
+  static const String getAllProductToInvest = '/api/products';
 }

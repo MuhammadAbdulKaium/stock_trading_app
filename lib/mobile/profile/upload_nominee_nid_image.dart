@@ -372,7 +372,7 @@ class UploadNomineeNidImage extends StatelessWidget {
                           );
                         } else {
                           // If file type is unknown or unsupported
-                          return Text(
+                          return const Text(
                             'Unsupported file format',
                             style: TextStyle(
                               color: Colors.red,

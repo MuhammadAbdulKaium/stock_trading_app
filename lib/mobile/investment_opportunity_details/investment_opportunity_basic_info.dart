@@ -6,7 +6,6 @@ import 'package:stock_trading_app/controller/booking_page_controller.dart';
 import 'package:stock_trading_app/controller/investment_opportunity_details_controller.dart';
 import 'package:stock_trading_app/helpers/app_text_styles.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/helpers/decide_image_to_show.dart';
 import 'package:stock_trading_app/mobile/investment_opportunity_details/total_payable_amount.dart';
 
 class InvestmentOpportunityBasicInfo extends StatelessWidget {
@@ -73,7 +72,17 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                                     child: Center(
                                       child: SizedBox(
                                         height: screenHeight * 0.0386,
-                                        child: decideImageToShow(investmentOpportunityDetailsController.investmentOpportunityDetails.value.category!),
+                                        // child: decideImageToShow(investmentOpportunityDetailsController.investmentOpportunityDetails.value.category!),
+                                        child: investmentOpportunityDetailsController.investmentOpportunityDetails.value.imageUrl!.isNotEmpty && investmentOpportunityDetailsController.investmentOpportunityDetails.value.imageUrl != null
+                                        ? Image.network(
+                                          investmentOpportunityDetailsController.investmentOpportunityDetails.value.imageUrl!,
+                                          height: screenWidth * 0.07 * 2,  // Adjust based on your layout
+                                          fit: BoxFit.cover,
+                                        )
+                                        : Image.asset(
+                                          'images/rice.png',
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -100,19 +109,16 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                                       ),
                                       margin: EdgeInsets.only(top: screenHeight * 0.00061),
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFFDFFFEB),
+                                        color: (investmentOpportunityDetailsController.investmentOpportunityDetails.value.status ?? false) ? const Color(0xFFDFFFEB) : const Color.fromARGB(255, 255, 223, 227),
                                         borderRadius: BorderRadius.circular(27),
                                       ),
                                       child: Text(
-                                        investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.toUpperCase()[0] +
-                                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.substring(1).toLowerCase(),
+                                        (investmentOpportunityDetailsController.investmentOpportunityDetails.value.status ?? false) ? 'Active' : 'Inactive',
                                         style: TextStyle(
                                           fontSize: 11.5.sp,
                                           fontFamily: 'Gilroy',
                                           fontWeight: FontWeight.w600,
-                                          color: investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.toLowerCase() == 'active' ? const Color(0xFF008037)
-                                              : investmentOpportunityDetailsController.investmentOpportunityDetails.value.status!.toLowerCase() == 'inactive' ? Colors.red
-                                              : Colors.white,
+                                          color: (investmentOpportunityDetailsController.investmentOpportunityDetails.value.status ?? false) ? const Color(0xFF008037) : const Color.fromARGB(255, 128, 0, 38),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
@@ -134,7 +140,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.warehouse!,
+                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.warehouse?.location ?? '',
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -148,7 +154,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.type!,
+                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.warehouse?.type ?? '',
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -176,7 +182,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize.toString()} Metric Ton',
+                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize.toString()} ${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotUnit ?? 'Unit'}',
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -190,7 +196,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.pricePerUnit.toString()} BDT/MT',
+                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.pricePerUnit.toString()} BDT/${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotUnit ?? 'Unit'}',
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -204,7 +210,8 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                             style: AppTextStyles.cardPropertyBold,
                           ),
                           Text(
-                            investmentOpportunityDetailsController.investmentOpportunityDetails.value.storageConditions!,
+                            '',
+                            // investmentOpportunityDetailsController.investmentOpportunityDetails.value.storageConditions!,
                             style: AppTextStyles.cardPropertyNormal,
                           )
                         ],
@@ -222,18 +229,19 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: screenWidth * 0.02,),
+                          // Text(
+                          //   'Optimal storage temperature: ',
+                          //   style: TextStyle(
+                          //     fontSize: 11.95.sp,
+                          //     fontFamily: 'Gilroy',
+                          //     fontWeight: FontWeight.w600,
+                          //     color: const Color(0xFF008037),
+                          //     overflow: TextOverflow.ellipsis,
+                          //   ),
+                          // ),
                           Text(
-                            'Optimal storage temperature: ',
-                            style: TextStyle(
-                              fontSize: 11.95.sp,
-                              fontFamily: 'Gilroy',
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFF008037),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Text(
-                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.optimalStorageTemperature!}°C',
+                            // '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.optimalStorageTemperature!}°C',
+                            '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.precaution}',
                             style: TextStyle(
                               fontSize: 11.95.sp,
                               fontFamily: 'Gilroy',
@@ -301,7 +309,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                                   style: AppTextStyles.cardPropertyBold,
                                 ),
                                 Text(
-                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.monthlyStoreCost!.toString()} BDT /Metric Ton',
+                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.warehouse?.monthlyStorageCost.toString()} BDT/${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotUnit ?? 'Unit'}',
                                   style: AppTextStyles.cardPropertyNormal,
                                 )
                               ],
@@ -315,7 +323,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                                   style: AppTextStyles.cardPropertyBold,
                                 ),
                                 Text(
-                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.transportCost!.toString()} BDT /Shipment',
+                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.transportCost!.toString()} BDT/${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotUnit ?? 'Unit'}',
                                   style: AppTextStyles.cardPropertyNormal,
                                 )
                               ],
@@ -329,7 +337,7 @@ class InvestmentOpportunityBasicInfo extends StatelessWidget {
                                   style: AppTextStyles.cardPropertyBold,
                                 ),
                                 Text(
-                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.handlingFees!.toString()} BDT /Metric Ton',
+                                  '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.handlingCost!.toString()} BDT/${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotUnit ?? 'Unit'}',
                                   style: AppTextStyles.cardPropertyNormal,
                                 )
                               ],

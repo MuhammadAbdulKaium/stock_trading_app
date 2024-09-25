@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
-import 'package:stock_trading_app/models/order_details_model.dart';
+import 'package:stock_trading_app/models/product_model.dart';
 
 class InvestmentOpportunityDetailsController extends GetxController with GetSingleTickerProviderStateMixin {
   var isLoading = false.obs;
-  var investmentOpportunityDetails = OrderDetailsModel().obs;
-
+  var investmentOpportunityDetails = ProductModel().obs;
   late TabController tabController;
 
   Rx<num> maximumLot = 0.obs;
@@ -69,26 +68,10 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
     }
   }
 
-  Future<void> loadInvestmentOpportunityDetailsPage() async {
+  Future<void> loadInvestmentOpportunityDetailsPage(ProductModel investmentOpportunity) async {
     isLoading(true);
     try {
-      investmentOpportunityDetails.value = OrderDetailsModel(
-        id: '1',
-        name: 'Aman Rice',
-        category: 'rice',
-        status: 'active',
-        warehouse: 'Kaunia, Rangpur',
-        type: 'Premium',
-        regionOfOrigin: 'Rajshahi',
-        lotSize: 10,
-        pricePerUnit: 1000,
-        storageConditions: 'Cool, dry place',
-        optimalStorageTemperature: '15-20',
-        monthlyStoreCost: 100,
-        transportCost: 100,
-        handlingFees: 20,
-        quantityAvailable: 19,
-      );
+      investmentOpportunityDetails.value = investmentOpportunity;
 
       remainingLot.value = maximumLot.value = investmentOpportunityDetails.value.lotSize!.toInt();
       currentBuyingPrice.value = investmentOpportunityDetails.value.pricePerUnit!.toDouble();

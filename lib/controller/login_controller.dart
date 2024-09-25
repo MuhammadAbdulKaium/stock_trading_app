@@ -213,11 +213,11 @@ class LoginController extends GetxController {
     checkedRememberMe.value = email.isNotEmpty && passwordController.text.isNotEmpty;
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   passwordController.text = password.value;
-  // }
+  @override
+  void onInit() async {
+    super.onInit();
+    await loadCredentials();
+  }
 
   @override
   void onClose() {

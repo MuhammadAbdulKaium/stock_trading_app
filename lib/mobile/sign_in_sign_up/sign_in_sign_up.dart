@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:get/get.dart';
-// import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
-// import 'package:stock_trading_app/controller/login_controller.dart';
-// import 'package:stock_trading_app/mobile/sign_in_sign_up/login_form.dart';
-// import 'package:stock_trading_app/mobile/sign_in_sign_up/reset_password.dart';
-// import 'package:stock_trading_app/mobile/sign_in_sign_up/signup_form.dart';
-
 
 class SignInSignUpMobile extends StatelessWidget {
   const SignInSignUpMobile({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
     final SigninSignupNavigationController signinSignupNavigationController = Get.put(SigninSignupNavigationController());
+    // final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 

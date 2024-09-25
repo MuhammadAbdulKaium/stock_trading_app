@@ -63,7 +63,19 @@ class InvestmentOpportunities extends StatelessWidget {
             ),
             Expanded(
               flex: 100,
-              child: Obx(() => Column(
+              child: Obx(() => marketplaceController.investmentOpportunities.isEmpty
+                ? Center(
+                    child: Text(
+                      'No item to show',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF1D192B),
+                      ),
+                    ),
+                  )
+                : Column(
                 children: marketplaceController.investmentOpportunities.map((investmentOpportunity) => 
                 Container(
                   margin: EdgeInsets.only(bottom: screenHeight * 0.0337,),
@@ -108,7 +120,17 @@ class InvestmentOpportunities extends StatelessWidget {
                                         child: Center(
                                           child: SizedBox(
                                             height: screenHeight * 0.0382,
-                                            child: decideImageToShow(investmentOpportunity.productCategory!),
+                                            // child: decideImageToShow(investmentOpportunity.productCategory!),
+                                            child: investmentOpportunity.imageUrl!.isNotEmpty && investmentOpportunity.imageUrl != null
+                                            ? Image.network(
+                                              investmentOpportunity.imageUrl!,
+                                              height: screenWidth * 0.07 * 2,  // Adjust based on your layout
+                                              fit: BoxFit.cover,
+                                            )
+                                            : Image.asset(
+                                              'images/rice.png',
+                                              fit: BoxFit.contain,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -117,7 +139,7 @@ class InvestmentOpportunities extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            investmentOpportunity.productName!,
+                                            investmentOpportunity.name!,
                                             style: TextStyle(
                                               fontSize: 16.5.sp,
                                               fontFamily: 'Gilroy',
@@ -132,7 +154,8 @@ class InvestmentOpportunities extends StatelessWidget {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                '${investmentOpportunity.conversionPercentage!}%',
+                                                // '${investmentOpportunity.conversionPercentage!}%',
+                                                '+5%',
                                                 style: TextStyle(
                                                   fontSize: 11.015625.sp,
                                                   fontFamily: 'Gilroy',
@@ -159,16 +182,16 @@ class InvestmentOpportunities extends StatelessWidget {
                                   margin: EdgeInsets.only(top: screenHeight * 0.0034285),
                                   // color: const Color(0xFFDFFFEB),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFDFFFEB),
+                                    color: (investmentOpportunity.status ?? false) ? const Color(0xFFDFFFEB) : const Color.fromARGB(255, 255, 223, 227),
                                     borderRadius: BorderRadius.circular(27),
                                   ),
                                   child: Text(
-                                    investmentOpportunity.productStatus!,
+                                    (investmentOpportunity.status ?? false) ? 'Active' : 'Inactive',
                                     style: TextStyle(
                                       fontSize: 11.5.sp,
                                       fontFamily: 'Gilroy',
                                       fontWeight: FontWeight.w600,
-                                      color: const Color(0xFF008037),
+                                      color: (investmentOpportunity.status ?? false) ? const Color(0xFF008037) : const Color.fromARGB(255, 128, 0, 38),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -197,7 +220,12 @@ class InvestmentOpportunities extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Purchase price (Per MT) :',
+                                      // 'Purchase price (Per MT) :',
+                                      'Purchase price (Per MT ${
+                                        investmentOpportunity.lotUnit!.isNotEmpty && investmentOpportunity.lotUnit != null 
+                                        ? investmentOpportunity.lotUnit
+                                        : 'Unit'
+                                      }) :',
                                       style: TextStyle(
                                         fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
@@ -214,7 +242,7 @@ class InvestmentOpportunities extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          investmentOpportunity.purchasePrice?.toString() ?? '',
+                                          investmentOpportunity.pricePerUnit?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -251,7 +279,11 @@ class InvestmentOpportunities extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Selling price (Per MT) :',
+                                      'Transport Cost (Per ${
+                                        investmentOpportunity.lotUnit!.isNotEmpty && investmentOpportunity.lotUnit != null 
+                                        ? investmentOpportunity.lotUnit
+                                        : 'Unit'
+                                      }) :',
                                       style: TextStyle(
                                         fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
@@ -268,7 +300,8 @@ class InvestmentOpportunities extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          investmentOpportunity.sellingPrice?.toString() ?? '',
+                                          // investmentOpportunity.sellingPrice?.toString() ?? '',
+                                          investmentOpportunity.transportCost?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -305,7 +338,12 @@ class InvestmentOpportunities extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Monthly storage cost (Per MT) :',
+                                      // 'Monthly storage cost (Per MT) :',
+                                      'Handling Cost (Per  ${
+                                        investmentOpportunity.lotUnit!.isNotEmpty && investmentOpportunity.lotUnit != null 
+                                        ? investmentOpportunity.lotUnit
+                                        : 'Unit'
+                                      }) :',
                                       style: TextStyle(
                                         fontSize: 12.5.sp,
                                         fontFamily: 'Gilroy',
@@ -322,7 +360,8 @@ class InvestmentOpportunities extends StatelessWidget {
                                           size: screenHeight * 0.0155,
                                         ),
                                         Text(
-                                          investmentOpportunity.monthlyStorageCost?.toString() ?? '',
+                                          // investmentOpportunity.monthlyStorageCost?.toString() ?? '',
+                                          investmentOpportunity.handlingCost?.toString() ?? '',
                                           style: TextStyle(
                                             fontSize: 12.5.sp,
                                             fontFamily: 'Gilroy',
@@ -369,7 +408,7 @@ class InvestmentOpportunities extends StatelessWidget {
                                       ),
                                     ),
                                     onPressed: () {
-                                      investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage();
+                                      investmentOpportunityDetailsController.loadInvestmentOpportunityDetailsPage(investmentOpportunity);
                                     },
                                   ),
                                 ),

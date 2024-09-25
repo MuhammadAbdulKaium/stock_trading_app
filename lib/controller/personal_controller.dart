@@ -262,6 +262,8 @@ class PersonalController extends GetxController {
   final PersonalApi _personalApi = PersonalApi();
   Future<void> loadPersonalDetails() async {
     try {
+      landingPageController.isLoading(true);
+
       String? userId = prefs.getString('user_id') ?? '';
       PersonalDetailsModel? data = await _personalApi.getPersonalData(userId, token.value);
 
@@ -279,11 +281,11 @@ class PersonalController extends GetxController {
         setPhoneNumber(personalDetails.value.phone ?? '');
         dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
         addressController.value.text = personalDetails.value.address ?? '';
-      } else {
-        Get.snackbar('Error', 'Failed to load personal details.');
       }
     } catch (e) {
       Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      landingPageController.isLoading(false);
     }
   }
 
@@ -308,6 +310,8 @@ class PersonalController extends GetxController {
           setPhoneNumber(personalDetails.value.phone ?? '');
           dateOfBirth.value = formatDateTime(personalDetails.value.dob ?? '');
           addressController.value.text = personalDetails.value.address ?? '';
+
+          landingPageController.userName.value = personalDetails.value.fullName ?? '';
 
           Get.snackbar('Success', 'Personal details updated successfully');
         } else {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
+import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/controller/confirmation_controller.dart';
 import 'package:stock_trading_app/controller/payment_proof_controller.dart';
 import 'package:stock_trading_app/mobile/confirmation/confirmation_total_payable_amount.dart';
@@ -13,7 +14,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final ConfirmationController confirmationController = Get.put(ConfirmationController());
     final PaymentProofController paymentProofController = Get.put(PaymentProofController());
-    // double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final GlobalKey<FormState> confirmationInfoFormkey = GlobalKey<FormState>();
     
@@ -32,7 +33,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(confirmationController.confirmingOrderDetails.value.name!,
+                      Text(confirmationController.investmentDetails.value.name!,
                         style: TextStyle(
                           fontSize: 21.6.sp,
                           fontFamily: 'Gilroy',
@@ -60,7 +61,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 60,
-                        child: Text('${confirmationController.confirmingOrderDetails.value.lotSize!.toString()} Metric Ton',
+                        child: Text('${confirmationController.investmentDetails.value.lotSize.toString()} ${confirmationController.investmentDetails.value.lotUnit ?? 'Unit'}',
                           style: TextStyle(
                             fontSize: 11.95.sp,
                             fontFamily: 'Gilroy',
@@ -89,7 +90,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 60,
-                        child: Text('${confirmationController.confirmingOrderDetails.value.pricePerUnit!.toString()} BDT/MT',
+                        child: Text('${confirmationController.investmentDetails.value.pricePerUnit.toString()} BDT/${confirmationController.investmentDetails.value.lotUnit ?? 'Unit'}',
                           style: TextStyle(
                             fontSize: 11.95.sp,
                             fontFamily: 'Gilroy',
@@ -132,7 +133,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 60,
-                        child: Text('${confirmationController.confirmingOrderDetails.value.monthlyStoreCost!.toString()} BDT/Metric Ton',
+                        child: Text('${confirmationController.investmentDetails.value.warehouse?.monthlyStorageCost.toString()} BDT/${confirmationController.investmentDetails.value.lotUnit ?? 'Unit'}',
                           style: TextStyle(
                             fontSize: 11.95.sp,
                             fontFamily: 'Gilroy',
@@ -161,7 +162,8 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 60,
-                        child: Text('${confirmationController.confirmingOrderDetails.value.transportCost!.toString()} per shipment',
+                        // child: Text('${confirmationController.investmentDetails.value.transportCost!.toString()} per shipment',
+                        child: Text('${confirmationController.investmentDetails.value.transportCost!.toString()} BDT/${confirmationController.investmentDetails.value.lotUnit ?? 'Unit'}',
                           style: TextStyle(
                             fontSize: 11.95.sp,
                             fontFamily: 'Gilroy',
@@ -190,7 +192,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 60,
-                        child: Text('${confirmationController.confirmingOrderDetails.value.handlingFees!.toString()} BDT/Metric Ton',
+                        child: Text('${confirmationController.investmentDetails.value.handlingCost!.toString()} BDT/${confirmationController.investmentDetails.value.lotUnit ?? 'Unit'}',
                           style: TextStyle(
                             fontSize: 11.95.sp,
                             fontFamily: 'Gilroy',
@@ -292,10 +294,7 @@ class ConfirmationBasicInfo extends StatelessWidget {
                       ),
                       onPressed: () {
                         if(confirmationInfoFormkey.currentState!.validate()) {
-                          paymentProofController.loadPaymentProofPage();
-                          Future.delayed(const Duration(milliseconds: 300), () {
-                            confirmationController.resetVariables();
-                          });
+                          _showBookingConfirmationDialog(context, screenWidth, screenHeight);
                         }
                       }
                     ),
@@ -313,4 +312,94 @@ class ConfirmationBasicInfo extends StatelessWidget {
       ],
     );
   }
+}
+
+void _showBookingConfirmationDialog(BuildContext context, double screenWidth, double screenHeight) {
+  final ConfirmationController confirmationController = Get.put(ConfirmationController());
+  final PaymentProofController paymentProofController = Get.put(PaymentProofController());
+  Get.dialog(
+    CustomAlartDialog(
+      end: -0.03,
+      horizontalPadding: screenWidth * 0.041666,
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+      closeIcon: Padding(
+        padding: EdgeInsets.only(right: screenWidth * 0.03, top: screenWidth * 0.0215),
+        child: Icon(
+          Icons.close,
+          color: const Color(0xFF71717A),
+          size: screenWidth * 0.06,
+        ),
+      ),
+      onClose: () {
+        Future.delayed(const Duration(milliseconds: 300), () {
+          // Handle any close action here if needed
+        });
+      },
+      dialogHeader: Padding(
+        padding: EdgeInsets.only(top: screenHeight * 0.0204),
+        child: Text(
+          'Congratulations!',
+          textAlign: TextAlign.justify,
+          style: TextStyle(
+            fontSize: 14.3.sp,
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w600,
+            color: const Color(0xFF1D192B),
+          ),
+        ),
+      ),
+      dialogContent: Padding(
+        padding: const EdgeInsets.only(left: 18, right: 18),
+        child: Column(
+          children: [
+            SizedBox(height: screenHeight * 0.0104),
+            Row(
+              children: [
+                Text(
+                  'Your Booking is confirmed',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    fontSize: 12.65.sp,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF52525B),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  width: screenWidth * 0.135,
+                  height: screenHeight * 0.038,
+                  child: CommonButton(
+                    borderRadius: 8,
+                    backgroundColor: const Color(0xFF008037),
+                    child: Text('OK',
+                      style: TextStyle(
+                        fontSize: 11.5.sp,
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.w500,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.back(); // Close the dialog
+                      paymentProofController.loadPaymentProofPage();
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        confirmationController.resetVariables();
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: screenHeight * 0.0192),
+          ],
+        ),
+      ),
+    ),
+  );
 }

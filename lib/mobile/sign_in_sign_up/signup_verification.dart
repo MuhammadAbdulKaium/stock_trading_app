@@ -184,8 +184,6 @@ class SignupVerification extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print('email==============');
-                              print(signupVerificationController.email.value);
                               signupVerificationController.sendVerificationMail(signupVerificationController.email.value);
                             },
                             child: Text(

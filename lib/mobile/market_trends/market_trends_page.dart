@@ -3,16 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_dropdown_for_icon.dart';
 import 'package:stock_trading_app/common/custom_loader.dart';
-import 'package:stock_trading_app/controller/notification_controller.dart';
+import 'package:stock_trading_app/controller/market_trends_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
-import 'package:stock_trading_app/mobile/notification/notifications.dart';
 
-class NotificationPage extends StatelessWidget {
-  const NotificationPage({super.key});
+class MarketTrendsPage extends StatelessWidget {
+  const MarketTrendsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final NotificationController notificationController = Get.put(NotificationController());
+    final MarketTrendsController marketTrendsController = Get.put(MarketTrendsController());
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -94,7 +93,7 @@ class NotificationPage extends StatelessWidget {
                                   width: double.infinity,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Notification',
+                                    'Market Trends',
                                     style: TextStyle(
                                       fontSize: 23.sp,
                                       fontFamily: 'Gilroy',
@@ -108,7 +107,7 @@ class NotificationPage extends StatelessWidget {
                               Expanded(
                                 flex: 3,
                                 child: CommonDropdownForIcon(
-                                  allDropdownValue: notificationController.notificationCategoryList,
+                                  allDropdownValue: marketTrendsController.marketTrendsFilteringList,
                                   dropdownBackgroundColor: const Color.fromARGB(255, 230, 231, 247),
                                   borderRadius: 7,
                                   dropdownWidth: screenWidth * 0.35,
@@ -126,9 +125,9 @@ class NotificationPage extends StatelessWidget {
                                   ),
                                   onChanged:  (value) {
                                     print(value);
-                                    notificationController.updateNotificationCategory(value!);
+                                    marketTrendsController.updateFilterMarketTrends(value!);
                                   },
-                                  items: notificationController.notificationCategoryList.map(
+                                  items: marketTrendsController.marketTrendsFilteringList.map(
                                     (item) => DropdownMenuItem(
                                       value: item,
                                       child: SizedBox(
@@ -165,8 +164,8 @@ class NotificationPage extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: screenHeight * 0.009,),
-                        const Notifications(),
-                        SizedBox(height: screenHeight * 0.03,),
+                        // const Notifications(),
+                        // SizedBox(height: screenHeight * 0.03,),
                       ],
                     ),
                   ),
@@ -176,7 +175,7 @@ class NotificationPage extends StatelessWidget {
           ),
 
           Obx(() {
-            return notificationController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
+            return marketTrendsController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
         ],
       ),
