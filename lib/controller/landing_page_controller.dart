@@ -87,6 +87,32 @@ class LandingPageController extends GetxController {
     previousPageIndex.value = 0;
   }
 
+  Future<void> logout() async {
+    isLoading(true);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? email = prefs.getString('emailForRememberMe');
+    String? password = prefs.getString('passwordForRememberMe');
+    bool? isFirstTime = prefs.getBool('isFirstTime');
+
+    // Clear all preferences
+    await prefs.clear();
+
+    // Restore the remembered email and password
+    if (email != null) {
+      await prefs.setString('emailForRememberMe', email);
+    }
+    if (password != null) {
+      await prefs.setString('passwordForRememberMe', password);
+    }
+    if (isFirstTime != null) {
+      await prefs.setBool('isFirstTime', isFirstTime);
+    }
+
+    Get.offAllNamed('/sign_in_sign_up_mobile');
+    isLoading(false);
+  }
+
   @override
   void onInit() async {
     super.onInit();

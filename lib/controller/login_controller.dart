@@ -12,6 +12,7 @@ import 'package:stock_trading_app/service/shared_preferences_service.dart';
 class LoginController extends GetxController {
   final SigninSignupNavigationController signinSignupNavigationController = Get.put(SigninSignupNavigationController());
   final email = ''.obs;
+  final emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final isValidEmail = false.obs;
   final isPasswordValid = false.obs;
@@ -26,7 +27,13 @@ class LoginController extends GetxController {
   void validateEmail(String input) {
     isValidEmail.value = GetUtils.isEmail(input.trim());
 
-    isValidEmail.value ? email.value = input.trim() : email.value = '';
+    // isValidEmail.value ? email.value = input.trim() : email.value = '';
+    if (isValidEmail.value) {
+      email.value = input.trim();
+      emailController.text = email.value;
+    } else {
+      email.value = '';
+    }
   }
 
   void passwordVisibility() {
@@ -209,18 +216,21 @@ class LoginController extends GetxController {
   Future<void> loadCredentials() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     email.value = prefs.getString('emailForRememberMe') ?? '';
+    emailController.text = email.value;
     passwordController.text = prefs.getString('passwordForRememberMe') ?? '';
     checkedRememberMe.value = email.isNotEmpty && passwordController.text.isNotEmpty;
   }
 
   @override
   void onInit() async {
-    super.onInit();
+    // super.onInit();
     await loadCredentials();
+    super.onInit();
   }
 
   @override
   void onClose() {
+    emailController.dispose();
     passwordController.dispose();
     super.onClose();
   }

@@ -415,13 +415,13 @@ class CustomDrawer extends StatelessWidget {
                       Obx(() => Transform.scale(
                           scale: 0.6,
                           child: Switch(
-                              value: landingPageController.isBanglaActive.value,
-                              // activeColor: const Color(0xFF5D5FEF),
-                              activeTrackColor: const Color(0xFF008037),
-                              onChanged: (value) {
-                                landingPageController.toggleBanglaActivationState();
-                              },
-                            ),
+                            value: landingPageController.isBanglaActive.value,
+                            // activeColor: const Color(0xFF5D5FEF),
+                            activeTrackColor: const Color(0xFF008037),
+                            onChanged: (value) {
+                              landingPageController.toggleBanglaActivationState();
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -477,7 +477,9 @@ class CustomDrawer extends StatelessWidget {
                           CustomIcons.logOut,
                         ),
                       onPressed: () {
-                        Scaffold.of(context).closeDrawer();
+                        Navigator.pop(context);
+                        // Scaffold.of(context).closeDrawer();
+                        landingPageController.logout();
                       },
                     ),
                   ),
