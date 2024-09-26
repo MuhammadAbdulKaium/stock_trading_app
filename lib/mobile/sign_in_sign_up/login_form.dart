@@ -77,7 +77,7 @@ class LoginForm extends StatelessWidget {
                         ],
                       ),
                       TextInputField(
-                        controller: TextEditingController(text: loginController.email.value),
+                        controller: loginController.emailController,
                         onChanged: loginController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                         hintText: 'Enter your email here',
