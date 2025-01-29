@@ -63,7 +63,6 @@ class PersonalController extends GetxController {
   }
   void updateFullName(String input) {
     if (validateName(input)) {
-      // fullNameController.value.text = input.trim();
       final controller = fullNameController.value;
       final previousText = controller.text;
       final previousSelection = controller.selection;
@@ -490,9 +489,21 @@ class PersonalController extends GetxController {
     return null;
   }
 
+  void resetVariables() {
+    isAnyFieldChanged.value = false;
+    selectedNidFile = Rx<File?>(null);
+  }
+
   @override
   void onInit() async {
     super.onInit();
+
+    fullNameController.value = TextEditingController();
+    emailController.value = TextEditingController();
+    nidNumberController.value = TextEditingController();
+    phoneNumberController.value = TextEditingController();
+    addressController.value = TextEditingController();
+
     await initializeToken();
   }
 
@@ -503,6 +514,7 @@ class PersonalController extends GetxController {
     nidNumberController.value.dispose();
     phoneNumberController.value.dispose();
     addressController.value.dispose();
+    resetVariables();
     super.onClose();
   }
 }

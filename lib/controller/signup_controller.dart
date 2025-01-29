@@ -7,8 +7,7 @@ import 'package:stock_trading_app/models/user_signup_info_model.dart';
 
 class SignupController extends GetxController {
   final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
-  final fullName = ''.obs;
-  late TextEditingController fullNameController = TextEditingController();
+  final fullNameController = TextEditingController().obs;
   final email = ''.obs;
   final isValidFullName = false.obs;
   final isValidEmail = false.obs;
@@ -29,9 +28,17 @@ class SignupController extends GetxController {
     }
     return true;
   }
-  void signUpValidateName(String input) {
+  void updateFullName(String input) {
     if (validateName(input)) {
-      fullNameController.text = fullName.value = input;
+      final controller = fullNameController.value;
+      final previousText = controller.text;
+      final previousSelection = controller.selection;
+      
+      controller.text = input;
+
+      // Maintain cursor position
+      final newSelectionOffset = previousSelection.baseOffset + (input.length - previousText.length);
+      controller.selection = TextSelection.collapsed(offset: newSelectionOffset);
     }
     if (!isAnyFieldChanged.value) {
       isAnyFieldChanged.value = true;
@@ -126,12 +133,12 @@ class SignupController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fullNameController.text = fullName.value;
+    fullNameController.value = TextEditingController();
   }
 
   @override
   void onClose() {
-    fullNameController.dispose();
+    fullNameController.value.dispose();
     super.onClose();
   }
 }

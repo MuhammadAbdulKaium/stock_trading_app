@@ -13,10 +13,13 @@ import 'package:stock_trading_app/mobile/marketplace/marketplace_page.dart';
 import 'package:stock_trading_app/mobile/my_investments/my_investments_page.dart';
 import 'package:stock_trading_app/mobile/profile/profile_page.dart';
 
-final LandingPageController landingPageController = Get.put(LandingPageController(), permanent: true);
-final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage(), const ProfilePage()];
-final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'My Account']; //, 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'
-final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white]; //, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,
+// final LandingPageController landingPageController = Get.put(LandingPageController());
+// final LandingPageController landingPageController = Get.put(LandingPageController(), permanent: true);
+
+// final LandingPageController landingPageController = Get.find<LandingPageController>();
+// final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage(), const ProfilePage()];
+// final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'My Account']; //, 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'
+// final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white]; //, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,
 
 class LandingMobile extends StatelessWidget {
   const LandingMobile({super.key});
@@ -24,6 +27,10 @@ class LandingMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotificationController notificationController = Get.put(NotificationController());
+    final LandingPageController landingPageController = Get.put(LandingPageController());
+    final List<Widget> page = [const HomePage(), const MyInvestmentsPage(), const MarketplacePage(), const DashboardPage(), const ProfilePage()];
+    final List pageTitle = ['Home', 'My Investments', 'Marketplace', 'Dashboard', 'My Account']; //, 'Market Trends', 'About Us', 'News & Blogs', 'How Munafa Works', 'Contact us', 'Notification', 'Cash Out'
+    final List<Color> statusBarColors = [Colors.white, Colors.white, Colors.white, const Color(0xFFF4FCF7), Colors.white]; //, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white, Colors.white,
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Obx(() { 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:stock_trading_app/controller/landing_page_controller.dart';
 import 'package:stock_trading_app/controller/profile_controller.dart';
 import 'package:stock_trading_app/mobile/profile/banking.dart';
 import 'package:stock_trading_app/mobile/profile/nominee.dart';
@@ -12,6 +13,10 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
+    final LandingPageController landingPageController = Get.find<LandingPageController>();
+    // print(landingPageController.profilePageTabController.value);
+    profileController.changeTab(landingPageController.profilePageTabController.value);
+    // final ProfileController profileController = Get.find<ProfileController>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 

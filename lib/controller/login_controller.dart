@@ -12,9 +12,8 @@ import 'package:stock_trading_app/service/shared_preferences_service.dart';
 class LoginController extends GetxController {
   final SigninSignupNavigationController signinSignupNavigationController = Get.put(SigninSignupNavigationController());
   final email = ''.obs;
-  final emailController = TextEditingController();
+  final emailController = TextEditingController().obs;
   TextEditingController passwordController = TextEditingController();
-  final isValidEmail = false.obs;
   final isPasswordValid = false.obs;
   final isPasswordVisible = false.obs;
   final checkedRememberMe = false.obs;
@@ -25,15 +24,17 @@ class LoginController extends GetxController {
   // var isLoading = false.obs;
 
   void validateEmail(String input) {
-    isValidEmail.value = GetUtils.isEmail(input.trim());
+    final isValidEmail = GetUtils.isEmail(input.trim());
+    final cursorPosition = emailController.value.selection;
 
-    // isValidEmail.value ? email.value = input.trim() : email.value = '';
-    if (isValidEmail.value) {
+    if (isValidEmail) {
       email.value = input.trim();
-      emailController.text = email.value;
+      emailController.value.text = email.value;
     } else {
       email.value = '';
     }
+
+    emailController.value.selection = cursorPosition;
   }
 
   void passwordVisibility() {
@@ -139,11 +140,13 @@ class LoginController extends GetxController {
         }
 
         Get.offAllNamed('/landing_mobile');
-      } else if (response.data['statusCode'] == 401) {
-        
+
+      } else if (response.data['statusCode'] == 401 && response.data['message'] == 'Please verify your email') {
         _sharedPreferences.saveString('email', email);
         sendVerificationMail(email);
         signinSignupNavigationController.navigateTo(4); // Navigate to Signup Verification
+      } else if (response.data['statusCode'] == 401 && response.data['message'] == 'Incorrect Credentials') {
+        handleLoginError('Incorrect EMAIL or PASSWORD', '');
       } else if (response.data['statusCode'] == 404) {
         handleLoginError('User not found, Sign Up first.', '');
       }
@@ -216,7 +219,7 @@ class LoginController extends GetxController {
   Future<void> loadCredentials() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     email.value = prefs.getString('emailForRememberMe') ?? '';
-    emailController.text = email.value;
+    emailController.value.text = email.value;
     passwordController.text = prefs.getString('passwordForRememberMe') ?? '';
     checkedRememberMe.value = email.isNotEmpty && passwordController.text.isNotEmpty;
   }
@@ -230,7 +233,7 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    emailController.dispose();
+    emailController.value.dispose();
     passwordController.dispose();
     super.onClose();
   }

@@ -2,16 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_trading_app/api/admin_bank_info_api.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
-import 'package:stock_trading_app/models/bank_details_model.dart';
+import 'package:stock_trading_app/models/admin_bank_info_model.dart';
 
 class BookingPageController extends GetxController {
   var isLoading = false.obs;
-  var bankDetails = BankDetailsModel().obs;
+  var adminBankInfo = AdminBankInfoModel().obs;
   final checkedAgreementWithTermsAndCondition = false.obs;
   final RxBool isAccountNameCopied = false.obs;
   final RxBool isAccountNumberCopied = false.obs;
   final RxBool isRoutingNumberCopied = false.obs;
+  var token = ''.obs;
+
+  Future<void> initializeToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token.value = prefs.getString('token') ?? '';
+  }
 
   void toggleAccountNameCopyIcon(bool isFilled) {
     isAccountNameCopied.value = isFilled;
@@ -51,20 +59,16 @@ class BookingPageController extends GetxController {
     );
   }
 
+  final AdminBankInfoApi _adminBankInfoApi = AdminBankInfoApi();
   Future<void> loadBookingPage() async {
-    isLoading(true);
     try {
-      bankDetails.value = BankDetailsModel(
-        id: '1',
-        bankName: 'Dutch Bangla Bank',
-        branchName: 'Rangpur Branch',
-        accountHolderName: 'Stock House LTD',
-        accountNumber: '03597561512145152152',
-        routingNumber: '23546878984',
-      );
+      isLoading(true);
 
-      // remainingLot.value = maximumLot.value = investmentOpportunityDetails.value.lotSize!.toInt();
-      // currentBuyingPrice.value = investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      AdminBankInfoModel? data = await _adminBankInfoApi.getAdminBankInfo(token.value);
+
+      if (data != null) {
+        adminBankInfo.value = data;
+      }
 
       Get.toNamed("/booking_page");
     } catch (e) {
@@ -102,5 +106,11 @@ class BookingPageController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await initializeToken();
   }
 }

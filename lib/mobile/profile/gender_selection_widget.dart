@@ -9,7 +9,8 @@ class GenderSelectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PersonalController personalController = Get.put(PersonalController());
+    // final PersonalController personalController = Get.put(PersonalController());
+    final PersonalController personalController = Get.find<PersonalController>();
     double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
     

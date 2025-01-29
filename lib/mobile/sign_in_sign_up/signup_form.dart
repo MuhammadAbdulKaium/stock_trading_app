@@ -72,45 +72,46 @@ class SignupForm extends StatelessWidget {
                           ),
                         ],
                       ),
-                      TextInputField(
-                        controller: signupController.fullNameController,
-                        onChanged: signupController.signUpValidateName,
-                        keyboardType: TextInputType.text,
-                        hintText: 'John Doe',
-                        hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
-                        style: TextStyle(
-                          fontSize: 13.1.sp,
-                          color: const Color(0xFF191414),
-                          fontFamily: 'Gilroy',
-                          fontWeight: FontWeight.w500
-                        ),
-                        errorStyle: TextStyle(
-                          fontSize: 9.606666666666.sp,
-                          fontFamily: 'Gilroy',
-                          height: 0.5, 
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: const Color(0xFFF4FCF7),
-                        contentPaddingVertical: screenWidth * 0.02430,
-                        contentPaddingHorizontal: screenHeight * 0.0115131578947,
-                        validator: (value) {
-                          final validNameRegex = RegExp(r"^[a-zA-Zà-žÀ-Ž\s\.\,\-'\’]+$");
-                          signupController.signUpValidateName;
+                      Obx(() { 
+                        return TextInputField(
+                          controller: signupController.fullNameController.value,
+                          onChanged: signupController.updateFullName,
+                          keyboardType: TextInputType.text,
+                          hintText: 'John Doe',
+                          hintStyle: TextStyle(color: const Color(0xFFA1A1AA), fontFamily: 'Gilroy', fontSize: 13.1.sp, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            fontSize: 13.1.sp,
+                            color: const Color(0xFF191414),
+                            fontFamily: 'Gilroy',
+                            fontWeight: FontWeight.w500
+                          ),
+                          errorStyle: TextStyle(
+                            fontSize: 9.606666666666.sp,
+                            fontFamily: 'Gilroy',
+                            height: 0.5, 
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                          isDense: true,
+                          filled: true,
+                          fillColor: const Color(0xFFF4FCF7),
+                          contentPaddingVertical: screenWidth * 0.02430,
+                          contentPaddingHorizontal: screenHeight * 0.0115131578947,
+                          validator: (value) {
+                            final validNameRegex = RegExp(r"^[a-zA-Zà-žÀ-Ž\s\.\,\-'\’]+$");
+                            signupController.updateFullName;
 
-                          if (value.isEmpty) {
-                            return 'Full Name is required';
-                          } else if (!validNameRegex.hasMatch(value)) {
-                            return 'Enter a valid Name';
-                          }
-                          return null;
-                        },
-                      ),
-                      // SizedBox(height: screenHeight * 0.03175,),
+                            if (value.isEmpty) {
+                              return 'Full Name is required';
+                            } else if (!validNameRegex.hasMatch(value)) {
+                              return 'Enter a valid Name';
+                            }
+                            return null;
+                          },
+                        );
+                      }),
                       Flexible(
                         flex: 60,
                         child: Container()
@@ -341,7 +342,7 @@ class SignupForm extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (resetPasswordFormkey.currentState!.validate()) {
-                              signupController.signUp(signupController.fullName.value.trim(), signupController.email.value, signupController.password.value);
+                              signupController.signUp(signupController.fullNameController.value.text.trim(), signupController.email.value, signupController.password.value);
                               // signinSignupNavigationController.navigateTo(0);
                             }
                           },

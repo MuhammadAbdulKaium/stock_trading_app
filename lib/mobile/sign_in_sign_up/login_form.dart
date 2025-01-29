@@ -9,16 +9,12 @@ import 'package:stock_trading_app/controller/login_controller.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/authentication_with_social_media.dart';
 
-// final LoginController loginController = Get.find<LoginController>();
-// final SigninSignupNavigationController _signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
-
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
-    // final LoginController loginController = Get.find<LoginController>();
     final LoginController loginController = Get.put(LoginController());
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     double screenWidth = MediaQuery.of(context).size.width;
@@ -76,47 +72,49 @@ class LoginForm extends StatelessWidget {
                           ),
                         ],
                       ),
-                      TextInputField(
-                        controller: loginController.emailController,
-                        onChanged: loginController.validateEmail,
-                        keyboardType: TextInputType.emailAddress,
-                        hintText: 'Enter your email here',
-                        hintStyle: TextStyle(
-                          color: const Color(0xFFA1A1AA), 
-                          fontFamily: 'Gilroy', 
-                          fontSize: 13.1.sp, 
-                          fontWeight: FontWeight.w500
-                        ),
-                        style: TextStyle(
-                          fontSize: 13.1.sp,
-                          color: const Color(0xFF191414),
-                          fontFamily: 'Gilroy',
-                          fontWeight: FontWeight.w500
-                        ),
-                        errorStyle: TextStyle(
-                          fontSize: 9.606666666666.sp, 
-                          fontFamily: 'Gilroy',
-                          height: 0.5, 
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        isDense: true,
-                        filled: true,
-                        fillColor: const Color(0xFFF4FCF7),
-                        contentPaddingVertical: screenWidth * 0.026736,
-                        contentPaddingHorizontal: screenWidth * 0.02430,
-                        validator: (value) {
-                          loginController.validateEmail;
-                          if (value.trim().isEmpty) {
-                            return 'Email cannot be empty';
-                          } else if (!GetUtils.isEmail(value.trim())) {
-                            return 'Enter a valid email';
-                          }
-                          return null;
-                        },
-                      ),
+                      Obx(() {
+                        return TextInputField(
+                          controller: loginController.emailController.value,
+                          onChanged: loginController.validateEmail,
+                          keyboardType: TextInputType.emailAddress,
+                          hintText: 'Enter your email here',
+                          hintStyle: TextStyle(
+                            color: const Color(0xFFA1A1AA), 
+                            fontFamily: 'Gilroy', 
+                            fontSize: 13.1.sp, 
+                            fontWeight: FontWeight.w500
+                          ),
+                          style: TextStyle(
+                            fontSize: 13.1.sp,
+                            color: const Color(0xFF191414),
+                            fontFamily: 'Gilroy',
+                            fontWeight: FontWeight.w500
+                          ),
+                          errorStyle: TextStyle(
+                            fontSize: 9.606666666666.sp, 
+                            fontFamily: 'Gilroy',
+                            height: 0.5, 
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                          isDense: true,
+                          filled: true,
+                          fillColor: const Color(0xFFF4FCF7),
+                          contentPaddingVertical: screenWidth * 0.026736,
+                          contentPaddingHorizontal: screenWidth * 0.02430,
+                          validator: (value) {
+                            loginController.validateEmail;
+                            if (value.trim().isEmpty) {
+                              return 'Email cannot be empty';
+                            } else if (!GetUtils.isEmail(value.trim())) {
+                              return 'Enter a valid email';
+                            }
+                            return null;
+                          },
+                        );
+                      }),
                       Flexible(
                         flex: 4,
                         child: Container()
@@ -220,7 +218,6 @@ class LoginForm extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 3),
                             child: GestureDetector(
                               onTap: () async {
-                                // Get.toNamed("/forget_password");
                                 signinSignupNavigationController.navigateTo(1); // Navigate to ForgetPassword
                               },
                               child: Text(

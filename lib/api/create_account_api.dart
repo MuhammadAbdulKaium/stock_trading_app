@@ -15,11 +15,6 @@ class CreateAccountAPI {
         data: {'fullname': fullName, 'email': email, 'password': password},
       );
 
-      // '${AppConstants.baseUrl}${AppConstants.signUpEndpoint}',
-      // print('Response status: ${response.statusCode}');
-      // print('Response data: ${response.data}');
-      // print('${AppConstants.baseUrl}${AppConstants.loginEndpoint}');
-
       if (response.statusCode == 201) {
         return response.data; 
       } else if (response.statusCode == 401) {

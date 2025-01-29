@@ -114,20 +114,19 @@ class InvestmentOpportunities extends StatelessWidget {
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      CircleAvatar(
+                                      investmentOpportunity.imageUrl!.isNotEmpty && investmentOpportunity.imageUrl != null 
+                                      ? CircleAvatar(
+                                        radius: screenHeight * 0.034,
+                                        backgroundColor: const Color(0xFFF4FCF7),
+                                        backgroundImage: NetworkImage(investmentOpportunity.imageUrl!) as ImageProvider<Object>,
+                                      )
+                                      : CircleAvatar(
                                         radius: screenHeight * 0.034,
                                         backgroundColor: const Color(0xFFF4FCF7),
                                         child: Center(
                                           child: SizedBox(
                                             height: screenHeight * 0.0382,
-                                            // child: decideImageToShow(investmentOpportunity.productCategory!),
-                                            child: investmentOpportunity.imageUrl!.isNotEmpty && investmentOpportunity.imageUrl != null
-                                            ? Image.network(
-                                              investmentOpportunity.imageUrl!,
-                                              height: screenWidth * 0.07 * 2,  // Adjust based on your layout
-                                              fit: BoxFit.cover,
-                                            )
-                                            : Image.asset(
+                                            child: Image.asset(
                                               'images/rice.png',
                                               fit: BoxFit.contain,
                                             ),
@@ -148,29 +147,29 @@ class InvestmentOpportunities extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                          SizedBox(height: screenHeight * 0.0030,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                // '${investmentOpportunity.conversionPercentage!}%',
-                                                '+5%',
-                                                style: TextStyle(
-                                                  fontSize: 11.015625.sp,
-                                                  fontFamily: 'Gilroy',
-                                                  fontWeight: FontWeight.w600,
-                                                  color: const Color(0xFF008037),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ),
-                                              Icon(
-                                                CustomIcons.arrowUp,
-                                                color: const Color(0xFF008037),
-                                                size: screenHeight * 0.018,
-                                              ),
-                                            ],
-                                          )
+                                          // SizedBox(height: screenHeight * 0.0030,),
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment.center,
+                                          //   crossAxisAlignment: CrossAxisAlignment.center,
+                                          //   children: [
+                                          //     Text(
+                                          //       // '${investmentOpportunity.conversionPercentage!}%',
+                                          //       '+5%',
+                                          //       style: TextStyle(
+                                          //         fontSize: 11.015625.sp,
+                                          //         fontFamily: 'Gilroy',
+                                          //         fontWeight: FontWeight.w600,
+                                          //         color: const Color(0xFF008037),
+                                          //         overflow: TextOverflow.ellipsis,
+                                          //       ),
+                                          //     ),
+                                          //     Icon(
+                                          //       CustomIcons.arrowUp,
+                                          //       color: const Color(0xFF008037),
+                                          //       size: screenHeight * 0.018,
+                                          //     ),
+                                          //   ],
+                                          // )
                                         ],
                                       ),
                                       const Spacer(flex: 10,),

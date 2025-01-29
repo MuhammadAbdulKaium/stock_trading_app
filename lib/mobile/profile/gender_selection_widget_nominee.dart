@@ -9,7 +9,8 @@ class GenderSelectionWidgetNominee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NomineeController nomineeController = Get.put(NomineeController());
+    // final NomineeController nomineeController = Get.put(NomineeController());
+    final NomineeController nomineeController = Get.find<NomineeController>();
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Obx(() {

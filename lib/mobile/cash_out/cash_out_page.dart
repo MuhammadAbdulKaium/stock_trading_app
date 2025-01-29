@@ -7,14 +7,13 @@ import 'package:stock_trading_app/helpers/custom_icons.dart';
 import 'package:stock_trading_app/mobile/cash_out/bank_details.dart';
 import 'package:stock_trading_app/mobile/cash_out/withdrawable_balance.dart';
 
-// final CashOutController cashOutController = Get.put(CashOutController());
-
 class CashOutPage extends StatelessWidget {
   const CashOutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final CashOutController cashOutController = Get.put(CashOutController());
+    // final CashOutController cashOutController = Get.find<CashOutController>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -25,9 +24,9 @@ class CashOutPage extends StatelessWidget {
           PopScope(
             canPop: true,
             onPopInvoked: (_) async{
-              // if(!landingPageController.canGoBack.value) {
-              //   landingPageController.goBack();
-              // }
+              Future.delayed(const Duration(milliseconds: 300), () {
+                cashOutController.resetVariables();
+              });
             },
             child: CustomScrollView(
               slivers: [

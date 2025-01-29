@@ -23,6 +23,7 @@ import 'package:stock_trading_app/mobile/sell/sell_page.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/forget_password.dart';
 import 'package:stock_trading_app/mobile/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:stock_trading_app/mobile/summary/summary_page.dart';
+import 'package:stock_trading_app/mobile/support/support_page.dart';
 import 'package:stock_trading_app/service/shared_preferences_service.dart';
 import 'package:stock_trading_app/web/landing_web.dart';
 import 'package:stock_trading_app/web/sign_in_sign_up/sign_in_sign_up.dart';
@@ -39,6 +40,11 @@ void main() async   {
       statusBarBrightness: Brightness.dark, // This is used for iOS (optional)
     )
   );
+
+  // Get.lazyPut<CashOutController>(() => CashOutController());
+  // Get.lazyPut<ProfileController>(() => ProfileController());
+  // Get.lazyPut(() => ProfileController(), fenix: true);
+
   
   runApp(const MyApp());
 }
@@ -89,6 +95,7 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/news_and_blogs_page', page: () => const NewsAndBlogsPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
             GetPage(name: '/how_munafa_works_page', page: () => const HowMunafaWorksPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
             GetPage(name: '/contact_us_page', page: () => const ContactUsPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
+            GetPage(name: '/support', page: () => const SupportPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
             GetPage(name: '/notification_page', page: () => const NotificationPage(), transition: Transition.rightToLeft, transitionDuration: const Duration(milliseconds: 300)),
 
             GetPage(name: '/sign_in_sign_up_web', page: () => const SignInSignUpWeb()),

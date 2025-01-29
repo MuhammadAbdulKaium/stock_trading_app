@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stock_trading_app/common/common_button.dart';
-import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/common/custom_check_box.dart';
 import 'package:stock_trading_app/controller/booking_page_controller.dart';
 import 'package:stock_trading_app/controller/confirmation_controller.dart';
@@ -61,7 +60,7 @@ class BookingBasicInfo extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.007,),
                   Row(
                     children: [
-                      Text(bookingPageController.bankDetails.value.bankName!,
+                      Text(bookingPageController.adminBankInfo.value.bankName ?? 'Not Provided',
                         style: TextStyle(
                           fontSize: 13.7.sp,
                           fontFamily: 'Gilroy',
@@ -89,7 +88,7 @@ class BookingBasicInfo extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.007,),
                   Row(
                     children: [
-                      Text(bookingPageController.bankDetails.value.branchName!,
+                      Text(bookingPageController.adminBankInfo.value.branchName ?? 'Not Provided',
                         style: TextStyle(
                           fontSize: 13.7.sp,
                           fontFamily: 'Gilroy',
@@ -118,7 +117,7 @@ class BookingBasicInfo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(bookingPageController.bankDetails.value.accountHolderName!,
+                      Text(bookingPageController.adminBankInfo.value.accountHolderName ?? 'Not Provided',
                         style: TextStyle(
                           fontSize: 13.7.sp,
                           fontFamily: 'Gilroy',
@@ -134,7 +133,7 @@ class BookingBasicInfo extends StatelessWidget {
                           },
                           onTapUp: (_) {
                             bookingPageController.toggleAccountNameCopyIcon(false);
-                            bookingPageController.copyToClipboard(bookingPageController.bankDetails.value.accountHolderName!, "'Account Name'");
+                            bookingPageController.copyToClipboard(bookingPageController.adminBankInfo.value.accountHolderName ?? '', "'Account Name'");
                           },
                           onTapCancel: () {
                             bookingPageController.toggleAccountNameCopyIcon(false);
@@ -166,7 +165,7 @@ class BookingBasicInfo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(bookingPageController.bankDetails.value.accountNumber!,
+                      Text(bookingPageController.adminBankInfo.value.accountNumber ?? 'Not Provided',
                         style: TextStyle(
                           fontSize: 13.7.sp,
                           fontFamily: 'Gilroy',
@@ -182,7 +181,7 @@ class BookingBasicInfo extends StatelessWidget {
                           },
                           onTapUp: (_) {
                             bookingPageController.toggleAccountNumberCopyIcon(false);
-                            bookingPageController.copyToClipboard(bookingPageController.bankDetails.value.accountNumber!, "'Account Number'");
+                            bookingPageController.copyToClipboard(bookingPageController.adminBankInfo.value.accountNumber ?? '', "'Account Number'");
                           },
                           onTapCancel: () {
                             bookingPageController.toggleAccountNumberCopyIcon(false);
@@ -214,7 +213,7 @@ class BookingBasicInfo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(bookingPageController.bankDetails.value.routingNumber!,
+                      Text(bookingPageController.adminBankInfo.value.routingNumber ?? 'Not Provided',
                         style: TextStyle(
                           fontSize: 13.7.sp,
                           fontFamily: 'Gilroy',
@@ -230,7 +229,7 @@ class BookingBasicInfo extends StatelessWidget {
                           },
                           onTapUp: (_) {
                             bookingPageController.toggleRoutingNumberCopyIcon(false);
-                            bookingPageController.copyToClipboard(bookingPageController.bankDetails.value.routingNumber!, "'Routing Number'");
+                            bookingPageController.copyToClipboard(bookingPageController.adminBankInfo.value.routingNumber ?? '', "'Routing Number'");
                           },
                           onTapCancel: () {
                             bookingPageController.toggleRoutingNumberCopyIcon(false);
@@ -327,7 +326,7 @@ class BookingBasicInfo extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 55,
-                              child: Text(bookingPageController.bankDetails.value.bankName!,
+                              child: Text(bookingPageController.adminBankInfo.value.bankName ?? 'Not Provided',
                                 style: TextStyle(
                                   fontSize: 11.95.sp,
                                   fontFamily: 'Gilroy',
@@ -356,7 +355,7 @@ class BookingBasicInfo extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 55,
-                              child: Text(bookingPageController.bankDetails.value.accountHolderName!,
+                              child: Text(bookingPageController.adminBankInfo.value.accountHolderName ?? 'Not Provided',
                                 style: TextStyle(
                                   fontSize: 11.95.sp,
                                   fontFamily: 'Gilroy',
@@ -385,7 +384,7 @@ class BookingBasicInfo extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 55,
-                              child: Text(bookingPageController.bankDetails.value.accountNumber!,
+                              child: Text(bookingPageController.adminBankInfo.value.accountNumber ?? 'Not Provided',
                                 style: TextStyle(
                                   fontSize: 11.95.sp,
                                   fontFamily: 'Gilroy',
@@ -414,7 +413,7 @@ class BookingBasicInfo extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 55,
-                              child: Text(bookingPageController.bankDetails.value.branchName!,
+                              child: Text(bookingPageController.adminBankInfo.value.branchName ?? 'Not Provided',
                                 style: TextStyle(
                                   fontSize: 11.95.sp,
                                   fontFamily: 'Gilroy',
@@ -443,7 +442,7 @@ class BookingBasicInfo extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 55,
-                              child: Text(bookingPageController.bankDetails.value.routingNumber!,
+                              child: Text(bookingPageController.adminBankInfo.value.routingNumber ?? 'Not Provided',
                                 style: TextStyle(
                                   fontSize: 11.95.sp,
                                   fontFamily: 'Gilroy',

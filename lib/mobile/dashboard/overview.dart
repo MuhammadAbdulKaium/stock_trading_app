@@ -13,7 +13,7 @@ class Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     final DashboardController dashboardController = Get.put(DashboardController());
     double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
+
     return Row(
       children: [
         Expanded(
@@ -35,18 +35,7 @@ class Overview extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              // Text(
-              //   '৳200',
-              //   style: TextStyle(
-              //     fontSize: 17.25.sp,
-              //     fontFamily: 'Gilroy',
-              //     fontWeight: FontWeight.w700,
-              //     color: const Color(0xFF1D192B),
-              //     overflow: TextOverflow.ellipsis,
-              //   ),
-              // ),
               SizedBox(
-                // width: screenWidth * 0.456,
                 child: Obx(() => 
                   CommonDropdownButton(
                     padding: EdgeInsets.only(left: screenWidth * 0.022, right: screenWidth * 0.017),
@@ -64,7 +53,11 @@ class Overview extends StatelessWidget {
                     onChanged: (value) {
                       dashboardController.changeSelectedTimeframe(value!);
                       // dashboardController.selectedTimeframe.value = value.toString();
-                    }
+                    },
+                    onMenuStateChange: (isOpen) {
+                      dashboardController.isDropdownOpened.value = isOpen;
+                    },
+                    iconRotationTransition: dashboardController.isDropdownOpened.value,
                   ),
                 )
               )

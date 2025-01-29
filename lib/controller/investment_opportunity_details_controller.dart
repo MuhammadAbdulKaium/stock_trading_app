@@ -8,11 +8,11 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
   var investmentOpportunityDetails = ProductModel().obs;
   late TabController tabController;
 
-  Rx<num> maximumLot = 0.obs;
-  Rx<num> remainingLot = 0.obs;
-  Rx<num> totalPayableAmount = 0.0.obs;
-  Rx<num> enteredLotNumerToBuy = 0.obs;
-  Rx<num> currentBuyingPrice = 0.0.obs;
+  final maximumLot = 0.obs;
+  final remainingLot = 0.obs;
+  final totalPayableAmount = 0.0.obs;
+  final enteredLotNumerToBuy = 0.obs;
+  final currentBuyingPrice = 0.0.obs;
   final enteredLotNumerToBuyPlaceHolder = ''.obs;
   late TextEditingController enteredLotNumerToBuyTextEditingController;
   RxBool isenteredLotNumerToBuyFieldClicked = false.obs;
@@ -24,7 +24,7 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
       // print(enteredLotNumerToBuyPlaceHolder);
       enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
       remainingLot.value -= 1;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = calculateTotalPayableAmount();
 
       // print(enteredLotNumerToBuy.value);
     }
@@ -36,12 +36,23 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
       enteredLotNumerToBuyPlaceHolder.value = enteredLotNumerToBuy.value.toString();
       enteredLotNumerToBuyTextEditingController = TextEditingController(text: enteredLotNumerToBuyPlaceHolder.value.toString());
       remainingLot.value += 1;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = calculateTotalPayableAmount();
     }
   }
 
+  double calculateTotalPayableAmount() {
+    return enteredLotNumerToBuy.value.toDouble() 
+    * (
+      investmentOpportunityDetails.value.pricePerUnit!.toDouble() 
+      + (investmentOpportunityDetails.value.warehouse?.monthlyStorageCost ?? 0.0)
+      + (investmentOpportunityDetails.value.transportCost ?? 0.0)
+      + (investmentOpportunityDetails.value.handlingCost ?? 0.0)
+      + (investmentOpportunityDetails.value.additionalCost ?? 0.0)
+    );
+  }
+
   bool validateAmount(String value) {
-    final regex = RegExp(r'^\d*\.?\d*$');   // Regular expression to match numbers with at most one decimal point
+    final regex = RegExp(r'^\d+$');  // Regular expression to match whole numbers only
     final amount = value.trim().isNotEmpty ? num.tryParse(value) : 0;           // Check if value is a valid number (either int or double)
 
     if (value.trim().isEmpty) {
@@ -58,13 +69,13 @@ class InvestmentOpportunityDetailsController extends GetxController with GetSing
   }
 
   void setEnteredLotNumerToBuy(value) {
-    var parsedValue = value.trim().isNotEmpty ? num.tryParse(value) : 0;
+    var parsedValue = value.trim().isNotEmpty ? int.tryParse(value) : 0;
     remainingLot.value = maximumLot.value;
     if(validateAmount(value)) {
       enteredLotNumerToBuy.value = parsedValue ?? 0;
       enteredLotNumerToBuyPlaceHolder.value = value.toString();
       remainingLot.value -= parsedValue ?? 0;
-      totalPayableAmount.value = enteredLotNumerToBuy.value.toDouble() * investmentOpportunityDetails.value.pricePerUnit!.toDouble();
+      totalPayableAmount.value = calculateTotalPayableAmount();
     }
   }
 

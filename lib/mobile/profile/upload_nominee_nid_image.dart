@@ -6,12 +6,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stock_trading_app/controller/nominee_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final NomineeController nomineeController = Get.put(NomineeController());
+// final NomineeController nomineeController = Get.find<NomineeController>();
 
 class UploadNomineeNidImage extends StatelessWidget {
   const UploadNomineeNidImage({super.key});
 
   void _showImagePickerOptions(BuildContext context) {
+    final NomineeController nomineeController = Get.find<NomineeController>();
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -42,6 +43,7 @@ class UploadNomineeNidImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NomineeController nomineeController = Get.find<NomineeController>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -170,6 +172,7 @@ class UploadNomineeNidImage extends StatelessWidget {
   }
 
   Widget _buildSelectedNidFileView(double screenWidth, String fileExtension) {
+    final NomineeController nomineeController = Get.find<NomineeController>();
     return Stack(
       children: [
         Container(
@@ -319,6 +322,7 @@ class UploadNomineeNidImage extends StatelessWidget {
   }
 
   Widget _buildApiNidImageView(double screenWidth, String imageUrl, BuildContext context) {
+    final NomineeController nomineeController = Get.find<NomineeController>();
     return Stack(
       children: [
         Container(

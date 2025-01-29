@@ -22,7 +22,8 @@ class CommonDropdownButton extends StatelessWidget {
   final Color? borderSideColor;
   final double? borderWidth;
   final double? borderRadius;
-  // final TextStyle? hintTextStyle,
+  final Function(bool)? onMenuStateChange;
+  final bool iconRotationTransition;
   const CommonDropdownButton(
     {Key? key,
     this.height,
@@ -44,6 +45,8 @@ class CommonDropdownButton extends StatelessWidget {
     this.borderSideColor,
     this.borderWidth,
     this.borderRadius,
+    required this.onMenuStateChange,
+    required this.iconRotationTransition,
     })
     : super(key: key);
 
@@ -77,9 +80,7 @@ class CommonDropdownButton extends StatelessWidget {
             )
             .toList(),
         onChanged: onChanged,
-        // onChanged: (value) {
-        //   selectedDropdownValue = value.toString();
-        // },
+        onMenuStateChange: onMenuStateChange,
         buttonStyleData: ButtonStyleData(
           height: height ?? 35,
           width: width ?? 120,
@@ -110,9 +111,13 @@ class CommonDropdownButton extends StatelessWidget {
           elevation: 2,
         ),
         iconStyleData: IconStyleData(
-          icon: const Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: Color(0xFF008037),
+          icon: AnimatedRotation(
+            turns: iconRotationTransition ? 0.5 : 0.0,
+            duration: const Duration(milliseconds: 300),
+            child: const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: Color(0xFF008037),
+            ),
           ),
           iconSize: dropdownArrowSize ?? 24,
           // iconEnabledColor: Colors.yellow,

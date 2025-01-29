@@ -7,6 +7,7 @@ class DashboardController extends GetxController {
   final selectedTimeframe = ''.obs;
   List<String> availableTimeframeList = ['Lifetime', 'Today'].obs;
   var isLoading = false.obs;
+  final isDropdownOpened = false.obs;
 
   final totalFunded = 200.obs;
   final totalEarnings = 250.obs;

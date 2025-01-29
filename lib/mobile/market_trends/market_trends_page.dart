@@ -124,7 +124,7 @@ class MarketTrendsPage extends StatelessWidget {
                                     ),
                                   ),
                                   onChanged:  (value) {
-                                    print(value);
+                                    // print(value);
                                     marketTrendsController.updateFilterMarketTrends(value!);
                                   },
                                   items: marketTrendsController.marketTrendsFilteringList.map(

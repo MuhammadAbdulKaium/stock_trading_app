@@ -122,21 +122,7 @@ class ForgetPassword extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (forgetPasswordFormkey.currentState!.validate()) {
-                              forgetPasswordController.forgetPasswordSendCodeToEmail(forgetPasswordController.email.value);
-                  
-                              // Get.offNamed('/landing');
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   const SnackBar(
-                              //     content: Text('Grate!',
-                              //       style: TextStyle(
-                              //         fontSize: 12,
-                              //         color: Color.fromARGB(255, 255, 255, 255),
-                              //         fontFamily: 'FontCircularStd',
-                              //         fontWeight: FontWeight.w400
-                              //       ),
-                              //     ),
-                              //   ),
-                              // );
+                              forgetPasswordController.sendCodeToEmailToResetPassword(forgetPasswordController.email.value);
                             }
                           },
                         ),

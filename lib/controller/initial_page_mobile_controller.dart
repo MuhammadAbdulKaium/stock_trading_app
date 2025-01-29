@@ -41,10 +41,4 @@ class InitialPageMobileController extends GetxController {
     });
     checkFirstTime();
   }
-
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  //   print('$runtimeType is being removed from memory');
-  // }
 }

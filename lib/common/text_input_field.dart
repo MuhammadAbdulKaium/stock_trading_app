@@ -115,6 +115,10 @@ class TextInputField extends StatelessWidget {
           borderSide: BorderSide(color: Color.fromARGB(61, 70, 70, 70), width: 0.8),
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
+        disabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent, width: 0), // Make the disabled border invisible
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
         border: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFF008037), width: 1.0,),
           borderRadius: BorderRadius.all(Radius.circular(8),),

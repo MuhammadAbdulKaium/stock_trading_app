@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/reset_password_controller.dart';
@@ -65,91 +65,35 @@ class ResetPassword extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      Obx(() => Flex(
-                        direction: Axis.horizontal,
-                        children: List.generate(9, (index) {
-                          if(index % 2 == 0) {
-                            int fieldIndex = index ~/ 2;
-                            return Expanded(
-                              flex: 12,
-                              child: TextFormField(
-                                controller: resetPasswordController.codeControllers[fieldIndex],
-                                focusNode: resetPasswordController.focusNodes[fieldIndex],
-                                keyboardType: TextInputType.number,
-                                maxLength: 1,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  filled: true,
-                                  fillColor: const Color(0xFFF4FCF7),
-                                  counterText: "",
-                                  errorText: resetPasswordController.isValidationAttempted.value &&
-                                          !resetPasswordController.isCodeValid.value
-                                      ? (fieldIndex == 0 ? null : null)
-                                      : null, // Empty string to show error only once
-                                  contentPadding: EdgeInsets.symmetric(vertical: screenWidth * 0.02430, horizontal: screenHeight * 0.0115131578947),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
-                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
-                                    borderRadius: BorderRadius.all(Radius.circular(7),),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
-                                    borderRadius: BorderRadius.all(Radius.circular(7),),
-                                  ),
-                                ),
-                                onChanged: (value) {
-                                  if (value.length == 1 && fieldIndex < 4) {
-                                    resetPasswordController.focusNodes[fieldIndex + 1].requestFocus();
-                                  } else if (value.isEmpty && fieldIndex > 0) {
-                                    resetPasswordController.focusNodes[fieldIndex - 1].requestFocus();
-                                  }
-                                  resetPasswordController.validateCode();
-                                },
-                                onFieldSubmitted: (value) {
-                                  resetPasswordController.validateCode();
-                                },
-                                onTap: () async {
-                                  final clipboardData =
-                                      await Clipboard.getData('text/plain');
-                                  if (clipboardData?.text != null &&
-                                      clipboardData?.text!.length == 5) {
-                                    resetPasswordController.handlePaste(clipboardData!.text!);
-                                  }
-                                },
-                              ),
-                            );
-                          } else {
-                            // Spacers between input fields
-                            return const Spacer(flex: 3);
-                          }
-                        }),
-                      )),
-
-                      Obx(() => Visibility(
-                          visible: !resetPasswordController.isCodeValid.value && resetPasswordController.isValidationAttempted.value,
-                          child: const Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 8.0, left: 11),
-                                child: Text(
-                                  'Invalid Code',
-                                  style: TextStyle(
-                                    fontSize: 10.85, 
-                                    fontFamily: 'Gilroy',
-                                    // height: 0.5, 
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFFB32921)
-                                  ),
-                                ),
-                              ),
-                            ],
+                      SizedBox(
+                        height: 22.sp + (screenHeight * 0.0115131578947 * 2),
+                        child: PinCodeTextField(
+                          appContext: context,
+                          length: 5,
+                          obscureText: false,
+                          animationType: AnimationType.fade,
+                          pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(8),
+                            fieldHeight: 22.sp + (screenHeight * 0.0115131578947 * 2),
+                            fieldWidth: 13.1.sp + (screenWidth * 0.051 * 2),
+                            inactiveFillColor: const Color(0xFFF4FCF7),
+                            activeFillColor: const Color(0xFFF4FCF7),
+                            selectedFillColor: const Color(0xFFF4FCF7),
+                            activeColor: const Color(0xFF008037),
+                            selectedColor: const Color.fromARGB(255, 1, 168, 73),
+                            inactiveColor: const Color(0xFFF4FCF7),
+                            borderWidth: 0.0,
+                            activeBorderWidth: 1.0,
+                            inactiveBorderWidth: 0.0,
+                            selectedBorderWidth: 1.0,
                           ),
-                        )
+                          animationDuration: const Duration(milliseconds: 300),
+                          enableActiveFill: true,
+                          onChanged: (value) {
+                            resetPasswordController.confirmationCode.value = value;
+                          },
+                        ),
                       ),
                       Flexible(
                         flex: 10,
@@ -245,12 +189,8 @@ class ResetPassword extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            resetPasswordController.validationAttempt();
                             if (resetPasswordFormkey.currentState!.validate()) {
-                              if(resetPasswordController.isCodeValid.value) {
-                                resetPasswordController.resetPassword(resetPasswordController.confirmationCodeByUser, resetPasswordController.newPassword.value);
-                              }
-                              // resetPasswordController.resetPassword(resetPasswordController.confirmationCodeByUser, resetPasswordController.newPassword.value);
+                              resetPasswordController.resetPassword(resetPasswordController.confirmationCode.value, resetPasswordController.newPassword.value);
                             }
                           },
                         ),

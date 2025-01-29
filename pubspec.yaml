@@ -60,6 +60,8 @@ dependencies:
   geolocator: ^13.0.1
   geocoding: ^3.0.0
   http: ^1.2.2
+  pin_code_fields: ^8.0.1
+  flutter_sound: ^9.16.3
   
 
 dev_dependencies:
@@ -216,6 +218,12 @@ flutter:
     - family: account-page-icon
       fonts:
         - asset: images/icons/account-page-icon.ttf
+    - family: contact-us-page
+      fonts:
+        - asset: images/icons/contact-us-page.ttf
+    - family: support-icons
+      fonts:
+        - asset: images/icons/support-icons.ttf
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

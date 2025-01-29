@@ -11,15 +11,13 @@ import 'package:stock_trading_app/helpers/custom_icons.dart';
 import 'package:stock_trading_app/mobile/profile/gender_selection_widget.dart';
 import 'package:stock_trading_app/mobile/profile/upload_profile_nid_image.dart';
 import 'package:stock_trading_app/models/personal_details_model.dart';
-// import 'package:stock_trading_app/mobile/profile/date_picker_form_field.dart';
-
-// final ProfileController profileController = Get.put(ProfileController());
-final PersonalController personalController = Get.put(PersonalController());
 
 class Personal extends StatelessWidget {
   const Personal({super.key});
 
   void _showImagePickerOptions(BuildContext context) {
+    // final PersonalController personalController = Get.put(PersonalController());
+    final PersonalController personalController = Get.find<PersonalController>();
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -53,6 +51,7 @@ class Personal extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final GlobalKey<FormState> personalDetailsFormkey = GlobalKey<FormState>();
+    final PersonalController personalController = Get.put(PersonalController());
     
     return SingleChildScrollView(
       child: Form(
@@ -67,14 +66,12 @@ class Personal extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: screenWidth * 0.11861,
+                      backgroundColor: Colors.white,
                       backgroundImage: personalController.selectedImage.value != null
                       ? FileImage(personalController.selectedImage.value!) as ImageProvider<Object>?
                       : personalController.profilePicturePathFromApi.value.isNotEmpty
                           ? NetworkImage(personalController.profilePicturePathFromApi.value) as ImageProvider<Object>?
                           : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider<Object>?,
-                      // backgroundImage: personalController.selectedImage.value != null 
-                      // ? FileImage(personalController.selectedImage.value!) 
-                      // : const AssetImage('images/blank_profile_picture.jpg') as ImageProvider,
                     ),
                     Positioned(
                       bottom: 0,

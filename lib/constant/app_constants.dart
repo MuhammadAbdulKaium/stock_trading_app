@@ -7,11 +7,14 @@ class AppConstants {
   static const String sendVerificationMail = '/api/users/send-verification-mail/';
   static const String verifyAccount = '/api/users/verify/';
 
+  static const String sendForgetPasswordMailEndpoint = '/api/users/send-forget-password-mail/';
+  static const String resetPasswordEndpoint = '/api/users/forget-password';
+
   static const String updatePersonalInfoEndpoint = '/api/users/';
   static const String updateUserPhoto = '/api/users/picture';
   static const String updateUserNid = '/api/users/nid';
 
-  static const String getMyBankInfoEndpoint = '/api/user-bank-info/my';
+  static const String getUserBankInfoEndpoint = '/api/user-bank-info/my';
   static const String updateBankInfoEndpoint = '/api/user-bank-info';
 
   static const String getNomineeInfoEndpoint = '/api/user-nominee-info/my';
@@ -19,4 +22,13 @@ class AppConstants {
   static const String updateNomineeNid = '/api/user-nominee-info/nid';
 
   static const String getAllProductToInvest = '/api/products';
+
+  static const String getAdminBankInfoEndpoint = '/api/admin-bank-info';
+
+  static const String contactUsEndpoint = '/api/contact';
+
+  static const String bookingProductEndpoint = '/api/user-product-mapping/buy';
+  static const String uploadPaymentProofEndpoint = '/api/payment-proof';
+
+  static const String myInvestmentsEndpoint = '/api/user-product-mapping/my-investment';
 }

@@ -78,19 +78,10 @@ class CustomDrawer extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: Ink(
-                      // decoration: BoxDecoration(
-                      //   color: const Color(0xFFF4FCF7),
-                      //   borderRadius: BorderRadius.circular(8),
-                      //   border: Border.all(
-                      //     color: const Color(0xFFE8E8EA), // Border color
-                      //     width: 1, // Border width
-                      //   ),
-                      // ),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(8),
                         onTap: () {
                           landingPageController.changePage(4);
-                          // landingPageController.selectedDrawerPageIndex.value = 3;
                           Navigator.pop(context);
                         },
                         child: Container(

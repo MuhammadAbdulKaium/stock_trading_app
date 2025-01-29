@@ -62,4 +62,17 @@ class CustomIcons {
   static const IconData calendarEdit = IconData(0xe000, fontFamily: 'account-page-icon');
   static const IconData male = IconData(0xe001, fontFamily: 'account-page-icon');
   static const IconData female = IconData(0xe002, fontFamily: 'account-page-icon');
+
+  static const IconData bold = IconData(0xe000, fontFamily: 'contact-us-page');
+  static const IconData image = IconData(0xe001, fontFamily: 'contact-us-page');
+  static const IconData italic = IconData(0xe002, fontFamily: 'contact-us-page');
+  static const IconData personCall = IconData(0xe003, fontFamily: 'contact-us-page');
+
+  static const IconData call = IconData(0xe000, fontFamily: 'support-icons');
+  static const IconData gallery = IconData(0xe001, fontFamily: 'support-icons');
+  static const IconData microphone = IconData(0xe002, fontFamily: 'support-icons');
+  static const IconData send = IconData(0xe003, fontFamily: 'support-icons');
+  static const IconData sendFill = IconData(0xe004, fontFamily: 'support-icons');
+  static const IconData microphoneFill = IconData(0xe005, fontFamily: 'support-icons');
+  static const IconData galleryFill = IconData(0xe006, fontFamily: 'support-icons');
 }

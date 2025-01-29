@@ -7,15 +7,14 @@ import 'package:stock_trading_app/common/text_input_field.dart';
 import 'package:stock_trading_app/controller/cash_out_controller.dart';
 import 'package:stock_trading_app/controller/summary_controller.dart';
 
-// final CashOutController cashOutController = Get.put(CashOutController());
-
 class BankDetails extends StatelessWidget {
   const BankDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
     final SummaryController summaryController = Get.put(SummaryController());
-    final CashOutController cashOutController = Get.put(CashOutController());
+    // final CashOutController cashOutController = Get.put(CashOutController());
+    final CashOutController cashOutController = Get.find<CashOutController>();
     final GlobalKey<FormState> cashOutFormkey = GlobalKey<FormState>();
 
     double screenWidth = MediaQuery.of(context).size.width;
@@ -51,12 +50,10 @@ class BankDetails extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.0091,),
                 TextInputField(
                   textAlign: TextAlign.center,
-                  controller: TextEditingController(
-                    text: cashOutController.enterAmount.isNotEmpty 
-                    ? '৳${cashOutController.enterAmount.value.toString()}'
-                    : ''
-                  ),
-                  onChanged: cashOutController.updateEnterAmount,
+                  controller: cashOutController.enterAmount.value,
+                  onChanged: (value) {
+                    cashOutController.updateEnterAmount(value);
+                  },
                   keyboardType: TextInputType.number,
                   hintText: '৳0',
                   hintStyle: TextStyle(
@@ -89,18 +86,14 @@ class BankDetails extends StatelessWidget {
                   contentPaddingVertical: screenHeight * 0.0108,
                   contentPaddingHorizontal: 10,
                   validator: (value) {
-                    final regex = RegExp(r'^\d*\.?\d*$');
-                    final amount = num.tryParse(value);
+                    // final regex = RegExp(r'^\d*\.?\d*$');
+                    // final amount = num.tryParse(value);
           
-                    cashOutController.updateEnterAmount;
+                    // cashOutController.updateEnterAmount;
           
-                    if (value.trim().isEmpty) {
-                      return 'Amount cannot be empty.';
-                    } else if (amount == null || amount <= 0) {
+                    if (cashOutController.getEnteredAmount() <= 0) {
                       return 'Enter a valid amount.';
-                    } else if (!regex.hasMatch(value.trim())) {
-                      return 'Enter a valid amount.';
-                    } else if (cashOutController.withdrawableBalance.value < amount) {
+                    } else if (cashOutController.withdrawableBalance.value < cashOutController.getEnteredAmount()) {
                       return 'Insufficient balance.';
                     }
                     return null;
@@ -168,6 +161,7 @@ class BankDetails extends StatelessWidget {
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  enabled: false,
                   isDense: true,
                   filled: true,
                   fillColor: const Color(0xFFF4FCF7),
@@ -231,6 +225,7 @@ class BankDetails extends StatelessWidget {
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  enabled: false,
                   isDense: true,
                   filled: true,
                   fillColor: const Color(0xFFF4FCF7),
@@ -294,6 +289,7 @@ class BankDetails extends StatelessWidget {
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  enabled: false,
                   isDense: true,
                   filled: true,
                   fillColor: const Color(0xFFF4FCF7),
@@ -357,6 +353,7 @@ class BankDetails extends StatelessWidget {
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  enabled: false,
                   isDense: true,
                   filled: true,
                   fillColor: const Color(0xFFF4FCF7),
@@ -420,6 +417,7 @@ class BankDetails extends StatelessWidget {
                     borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
+                  enabled: false,
                   isDense: true,
                   filled: true,
                   fillColor: const Color(0xFFF4FCF7),

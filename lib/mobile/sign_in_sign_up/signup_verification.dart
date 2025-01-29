@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stock_trading_app/common/common_button.dart';
 import 'package:stock_trading_app/controller/sign_in_sign_up_navigation_controller.dart';
 import 'package:stock_trading_app/controller/signup_verification_controller.dart';
@@ -11,7 +11,6 @@ class SignupVerification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> resetPasswordFormkey = GlobalKey<FormState>();
     final SignupVerificationController signupVerificationController = Get.put(SignupVerificationController());
     final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
     double screenWidth = MediaQuery.of(context).size.width;
@@ -31,7 +30,6 @@ class SignupVerification extends StatelessWidget {
               Flexible(
                 flex: 36,
                 child: Form(
-                  key: resetPasswordFormkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -61,94 +59,36 @@ class SignupVerification extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      // Obx(() => 
-                      Flex(
-                        direction: Axis.horizontal,
-                        children: List.generate(9, (index) {
-                          if(index % 2 == 0) {
-                            int fieldIndex = index ~/ 2;
-                            return Expanded(
-                              flex: 12,
-                              child: TextFormField(
-                                controller: signupVerificationController.codeControllers[fieldIndex],
-                                focusNode: signupVerificationController.focusNodes[fieldIndex],
-                                keyboardType: TextInputType.number,
-                                maxLength: 1,
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  filled: true,
-                                  fillColor: const Color(0xFFF4FCF7),
-                                  counterText: "",
-                                  // errorText: signupVerificationController.isValidationAttempted.value &&
-                                  //         !signupVerificationController.isCodeValid.value
-                                  //     ? (fieldIndex == 0 ? null : null)
-                                  //     : null, // Empty string to show error only once
-                                  contentPadding: EdgeInsets.symmetric(vertical: screenWidth * 0.02430, horizontal: screenHeight * 0.0115131578947),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color.fromARGB(159, 226, 224, 224), width: 0.2),
-                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                  ),
-                                  border: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
-                                    borderRadius: BorderRadius.all(Radius.circular(7),),
-                                  ),
-                                  focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Color(0xFF008037), width: 0.8,),
-                                    borderRadius: BorderRadius.all(Radius.circular(7),),
-                                  ),
-                                ),
-                                onChanged: (value) {
-                                  if (value.length == 1 && fieldIndex < 4) {
-                                    signupVerificationController.focusNodes[fieldIndex + 1].requestFocus();
-                                  } else if (value.isEmpty && fieldIndex > 0) {
-                                    signupVerificationController.focusNodes[fieldIndex - 1].requestFocus();
-                                  }
-                                  signupVerificationController.validateCode();
-                                },
-                                onFieldSubmitted: (value) {
-                                  signupVerificationController.validateCode();
-                                },
-                                onTap: () async {
-                                  final clipboardData =
-                                      await Clipboard.getData('text/plain');
-                                  if (clipboardData?.text != null &&
-                                      clipboardData?.text!.length == 5) {
-                                    signupVerificationController.handlePaste(clipboardData!.text!);
-                                  }
-                                },
-                              ),
-                            );
-                          } else {
-                            // Spacers between input fields
-                            return const Spacer(flex: 3);
-                          }
-                        }),
+                      SizedBox(
+                        height: 22.sp + (screenHeight * 0.0115131578947 * 2),
+                        child: PinCodeTextField(
+                          appContext: context,
+                          length: 5,
+                          obscureText: false,
+                          animationType: AnimationType.fade,
+                          pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(8),
+                            fieldHeight: 22.sp + (screenHeight * 0.0115131578947 * 2),
+                            fieldWidth: 13.1.sp + (screenWidth * 0.051 * 2),
+                            inactiveFillColor: const Color(0xFFF4FCF7),
+                            activeFillColor: const Color(0xFFF4FCF7),
+                            selectedFillColor: const Color(0xFFF4FCF7),
+                            activeColor: const Color(0xFF008037),
+                            selectedColor: const Color.fromARGB(255, 1, 168, 73),
+                            inactiveColor: const Color(0xFFF4FCF7),
+                            borderWidth: 0.0,
+                            activeBorderWidth: 1.0,
+                            inactiveBorderWidth: 0.0,
+                            selectedBorderWidth: 1.0,
+                          ),
+                          animationDuration: const Duration(milliseconds: 300),
+                          enableActiveFill: true,
+                          onChanged: (value) {
+                            signupVerificationController.verificationCode.value = value;
+                          },
+                        ),
                       ),
-                      // ),
-
-                      // Obx(() => Visibility(
-                      //     visible: !signupVerificationController.isCodeValid.value && signupVerificationController.isValidationAttempted.value,
-                      //     child: const Row(
-                      //       children: [
-                      //         Padding(
-                      //           padding: EdgeInsets.only(top: 8.0, left: 11),
-                      //           child: Text(
-                      //             'Invalid Code',
-                      //             style: TextStyle(
-                      //               fontSize: 10.85, 
-                      //               fontFamily: 'Gilroy',
-                      //               // height: 0.5, 
-                      //               fontWeight: FontWeight.w500,
-                      //               color: Color(0xFFB32921)
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   )
-                      // ),
                       SizedBox(height: screenHeight * 0.03,),
                       SizedBox(
                         width: double.maxFinite,
@@ -164,7 +104,7 @@ class SignupVerification extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            signupVerificationController.verifyEmail(signupVerificationController.verificationCodeByUser);
+                            signupVerificationController.verifyEmail(signupVerificationController.verificationCode.value);
                           },
                         ),
                       ),

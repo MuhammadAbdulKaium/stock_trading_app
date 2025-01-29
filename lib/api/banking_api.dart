@@ -13,7 +13,7 @@ class BankingApi {
   Future<BankDetailsModel?> getBankData(String token) async {
     try {
       final response = await _dio.get(
-        AppConstants.getMyBankInfoEndpoint,
+        AppConstants.getUserBankInfoEndpoint,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

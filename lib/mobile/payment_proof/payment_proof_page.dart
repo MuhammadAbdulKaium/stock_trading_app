@@ -61,26 +61,26 @@ class PaymentProofPage extends StatelessWidget {
                                         ),
                                         Expanded(
                                           flex: 3,
-                                          child: GestureDetector(
-                                            child: CircleAvatar(
-                                              radius: screenWidth * 0.0520,
-                                              backgroundColor: const Color(0xFFF4FCF7),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(top: 0, bottom: screenWidth * 0.003),
+                                          child: CircleAvatar(
+                                            radius: screenWidth * 0.0520,
+                                            backgroundColor: const Color(0xFFF4FCF7),
+                                            child: SizedBox(
+                                              height: screenWidth * 0.1040,
+                                              width: screenWidth * 0.1040,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: Center(
                                                   child: Icon(
                                                     CustomIcons.backArrow2,
                                                     size: screenWidth * 0.054,
                                                     color: Colors.black,
                                                   ),
                                                 ),
+                                                splashRadius: screenWidth * 0.052,
                                               ),
                                             ),
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                              // Scaffold.of(context).openDrawer();
-                                              // drawerController.toggleDrawer();
-                                            },
                                           ),
                                         ),
                                       ],
@@ -118,7 +118,7 @@ class PaymentProofPage extends StatelessWidget {
                 ),
                 SliverToBoxAdapter(
                   child: Container(
-                    height: screenHeight - screenHeight * 0.15,
+                    height: screenHeight - screenHeight * 0.1225,
                     alignment: Alignment.topCenter,
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

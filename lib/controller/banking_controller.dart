@@ -164,8 +164,6 @@ class BankingController extends GetxController {
   final BankingApi _bankingApi = BankingApi();
   Future<void> loadBankingDetails() async {
     try {
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // String? token = prefs.getString('token') ?? '';
       BankDetailsModel? data = await _bankingApi.getBankData(token.value);
 
       if (data != null) {

@@ -12,7 +12,8 @@ class TotalPayableAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
+    // final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.put(InvestmentOpportunityDetailsController());
+    final InvestmentOpportunityDetailsController investmentOpportunityDetailsController = Get.find<InvestmentOpportunityDetailsController>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -50,8 +51,8 @@ class TotalPayableAmount extends StatelessWidget {
                           ),
                           Obx(() =>
                             Text(
-                              '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize! < investmentOpportunityDetailsController.maximumLot.value 
-                              ? investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize!.toString()
+                              '${(investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize ?? 0.0) < investmentOpportunityDetailsController.maximumLot.value 
+                              ? investmentOpportunityDetailsController.investmentOpportunityDetails.value.lotSize ?? '0'
                               : investmentOpportunityDetailsController.maximumLot} Lot',
                               style: AppTextStyles.cardPropertyNormal1,
                             )
@@ -128,7 +129,7 @@ class TotalPayableAmount extends StatelessWidget {
                           investmentOpportunityDetailsController.setEnteredLotNumerToBuy(value);
                         },
                         validator: (value) {
-                          final regex = RegExp(r'^\d*\.?\d*$');
+                          final regex = RegExp(r'^\d+$');
                           final amount = value.trim().isNotEmpty ? num.tryParse(value) : 0;
                 
                           investmentOpportunityDetailsController.setEnteredLotNumerToBuy;
@@ -168,7 +169,7 @@ class TotalPayableAmount extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: '${investmentOpportunityDetailsController.totalPayableAmount} BDT',
+                                text: '${investmentOpportunityDetailsController.totalPayableAmount.value.toDouble().toStringAsFixed(2)} BDT',
                                 style: TextStyle(
                                   fontSize: 15.1.sp,
                                   fontFamily: 'Gilroy',
@@ -209,7 +210,7 @@ class TotalPayableAmount extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.transportCost!.toString()} BDT',
+                        '${investmentOpportunityDetailsController.investmentOpportunityDetails.value.additionalCost ?? '0.0'} BDT',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontFamily: 'Gilroy',

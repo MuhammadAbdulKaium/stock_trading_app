@@ -5,10 +5,12 @@ class ProductModel {
   double? lotSize;
   String? lotUnit;
   double? pricePerUnit;
+  String? storageCondition;
   String? precaution;
   String? imageUrl;
   double? transportCost;
   double? handlingCost;
+  double? additionalCost;
   bool? status;
   String? createdAt;
   String? updatedAt;
@@ -24,10 +26,12 @@ class ProductModel {
     this.lotSize,
     this.lotUnit,
     this.pricePerUnit,
+    this.storageCondition,
     this.precaution,
     this.imageUrl,
     this.transportCost,
     this.handlingCost,
+    this.additionalCost,
     this.status,
     this.createdAt,
     this.updatedAt,
@@ -46,10 +50,12 @@ class ProductModel {
       lotSize: (json['lot_size'] as num?)?.toDouble(),
       lotUnit: json['lot_unit'],
       pricePerUnit: (json['price_per_unit'] as num?)?.toDouble(),
+      storageCondition: json['storage_condition'],
       precaution: json['precaution'],
       imageUrl: json['image'],
       transportCost: (json['transport_cost'] as num?)?.toDouble(),
       handlingCost: (json['handling_cost'] as num?)?.toDouble(),
+      additionalCost: (json['additional_cost'] as num?)?.toDouble(),
       status: json['status'],
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
@@ -69,10 +75,12 @@ class ProductModel {
       'lot_size': lotSize,
       'lot_unit': lotUnit,
       'price_per_unit': pricePerUnit,
+      'storage_condition': storageCondition,
       'precaution': precaution,
       'image': imageUrl,
       'transport_cost': transportCost,
       'handling_cost': handlingCost,
+      'additional_cost': additionalCost,
       'status': status,
       'created_at': createdAt,
       'updated_at': updatedAt,

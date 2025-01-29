@@ -14,7 +14,8 @@ class Banking extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final GlobalKey<FormState> bankingDetailsFormkey = GlobalKey<FormState>();
-    final BankingController bankingController = Get.put(BankingController());
+    // final BankingController bankingController = Get.put(BankingController());
+    final BankingController bankingController = Get.find<BankingController>();
 
     return SingleChildScrollView(
       child: Form(

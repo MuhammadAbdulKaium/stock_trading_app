@@ -7,37 +7,12 @@ import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class SignupVerificationController extends GetxController {
   final SigninSignupNavigationController signinSignupNavigationController = Get.find<SigninSignupNavigationController>();
-  final List<TextEditingController> codeControllers = List.generate(5, (_) => TextEditingController());
-  final List<FocusNode> focusNodes = List.generate(5, (_) => FocusNode());
   final SharedPreferencesService _sharedPreferences = Get.find<SharedPreferencesService>();
+  final verificationCode = ''.obs;
   final email = ''.obs;
-
-  // final RxBool isCodeValid = false.obs;
-  final RxBool isValidationAttempted = false.obs;
   // var isLoading = false.obs;
   final UserVerificationApi _userVerificationApi = UserVerificationApi();
-
-  // Mock confirmation code for demo purposes
-  String verificationCodeByUser = "";
-
-  void validateCode() {
-    verificationCodeByUser = codeControllers.map((c) => c.text).join();
-    // isCodeValid.value = verificationCodeByUser == confirmationCode;
-  }
-
-  void handlePaste(String value) {
-    if (value.length == 5) {
-      for (int i = 0; i < 5; i++) {
-        codeControllers[i].text = value[i];
-      }
-      validateCode();
-      focusNodes[4].requestFocus();
-    }
-  }
-
-  void validationAttempt() {
-    isValidationAttempted.value = true;
-  }
+  
 
   Future<void> verifyEmail(String code) async {
     try {
@@ -46,7 +21,6 @@ class SignupVerificationController extends GetxController {
       final response = await _userVerificationApi.userVerification(code);
 
       if (response.statusCode == 200) {
-
         Get.snackbar("Success", "Email verified successfully!");
         signinSignupNavigationController.navigateTo(0);
       } else {

@@ -19,7 +19,8 @@ class Nominee extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final GlobalKey<FormState> nomineeDetailsFormkey = GlobalKey<FormState>();
-    final NomineeController nomineeController = Get.put(NomineeController());
+    // final NomineeController nomineeController = Get.put(NomineeController());
+    final NomineeController nomineeController = Get.find<NomineeController>();
     
     return SingleChildScrollView(
       child: Form(

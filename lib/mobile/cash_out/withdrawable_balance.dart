@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:stock_trading_app/controller/cash_out_controller.dart';
-
-// final CashOutController cashOutController = Get.find<CashOutController>();
-// final CashOutController cashOutController = Get.put(CashOutController());
 
 class WithdrawableBalance extends StatelessWidget {
   const WithdrawableBalance({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final CashOutController cashOutController = Get.put(CashOutController());
+    // final CashOutController cashOutController = Get.put(CashOutController());
+    final CashOutController cashOutController = Get.find<CashOutController>();
     // double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -46,52 +45,50 @@ class WithdrawableBalance extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.003,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '৳',
-                      style: TextStyle(
-                        fontSize: 42.sp,
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF008037),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Obx(() => 
+                Obx(() {
+                  double cashoutValue = cashOutController.withdrawableBalance.value.toDouble();
+                  String cashoutAmount = NumberFormat("#,##0.0").format(cashoutValue);
+
+                  double dynamicFontSize = 42;
+                  if (cashoutAmount.length > 8) {
+                    dynamicFontSize = 40;
+                  } 
+                  if (cashoutAmount.length > 10) {
+                    dynamicFontSize = 38;
+                  }
+                  if (cashoutAmount.length > 11) {
+                    dynamicFontSize = 35;
+                  }
+                  if (cashoutAmount.length > 12) {
+                    dynamicFontSize = 32;
+                  }
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Text(
-                        cashOutController.withdrawableBalance.value.toString(),
+                        '৳',
                         style: TextStyle(
-                          fontSize: 42.sp,
+                          fontSize: dynamicFontSize.sp,
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF008037),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        cashoutAmount,
+                        style: TextStyle(
+                          fontSize: dynamicFontSize.sp,
                           fontFamily: 'Gilroy',
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF008037),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                // SizedBox(height: screenHeight * 0.003,),
-                // SizedBox(
-                //   width: screenWidth * 0.700,
-                //   height: screenHeight * 0.040,
-                //   child: CommonButton(
-                //     borderRadius: 8,
-                //     backgroundColor: const Color(0xFF008037),
-                //     child: Text('Withdraw',
-                //       style: TextStyle(
-                //         fontSize: 12.sp,
-                //         fontFamily: 'Gilroy',
-                //         fontWeight: FontWeight.w600
-                //       ),
-                //     ),
-                //     onPressed: () {
-                //       dashboardController.loadCashOut();
-                //     },
-                //   ),
-                // )
+                    ],
+                  );
+                }),
               ],
             ),
           ),

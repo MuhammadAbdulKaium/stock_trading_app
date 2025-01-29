@@ -6,12 +6,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stock_trading_app/controller/personal_controller.dart';
 import 'package:stock_trading_app/helpers/custom_icons.dart';
 
-final PersonalController personalController = Get.put(PersonalController());
+// final PersonalController personalController = Get.find<PersonalController>();
 
 class UploadProfileNidImage extends StatelessWidget {
   const UploadProfileNidImage({super.key});
 
   void _showImagePickerOptions(BuildContext context) {
+    final PersonalController personalController = Get.find<PersonalController>();
     showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -42,6 +43,7 @@ class UploadProfileNidImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PersonalController personalController = Get.find<PersonalController>();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     
@@ -170,6 +172,7 @@ class UploadProfileNidImage extends StatelessWidget {
   }
 
   Widget _buildSelectedNidFileView(double screenWidth, String fileExtension) {
+    final PersonalController personalController = Get.find<PersonalController>();
     return Stack(
       children: [
         Container(
@@ -319,6 +322,7 @@ class UploadProfileNidImage extends StatelessWidget {
   }
 
   Widget _buildApiNidImageView(double screenWidth, String imageUrl) {
+    final PersonalController personalController = Get.find<PersonalController>();
     return Stack(
       children: [
         Container(
@@ -354,39 +358,6 @@ class UploadProfileNidImage extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    // SizedBox(width: screenWidth * 0.015),
-                    // Flexible(
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Padding(
-                    //         padding: EdgeInsets.only(top: screenWidth * 0.005, right: screenWidth * 0.04),
-                    //         child: Text(
-                    //           personalController.nidFileName.toString(),
-                    //           overflow: TextOverflow.ellipsis,
-                    //           maxLines: 1,
-                    //           style: TextStyle(
-                    //             fontSize: 13.15.sp,
-                    //             fontFamily: 'Gilroy',
-                    //             fontWeight: FontWeight.w500,
-                    //             color: const Color(0xFF1D192B),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       Text(
-                    //         '${personalController.nidFileSize.value.toStringAsFixed(3)} MB',
-                    //         overflow: TextOverflow.ellipsis,
-                    //         style: TextStyle(
-                    //           fontSize: 12.15.sp,
-                    //           fontFamily: 'Gilroy',
-                    //           fontWeight: FontWeight.w500,
-                    //           color: const Color(0xFFA1A1AA),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               )

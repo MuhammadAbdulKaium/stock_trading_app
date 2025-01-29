@@ -1,38 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stock_trading_app/common/custom_alart_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_trading_app/api/banking_api.dart';
+import 'package:stock_trading_app/api/my_investments_api.dart';
+import 'package:stock_trading_app/common/common_error_dialog.dart';
+import 'package:stock_trading_app/mobile/cash_out/bank_details_incomplete_dialog.dart';
+import 'package:stock_trading_app/models/bank_details_model.dart';
+import 'package:stock_trading_app/models/my_investment_model.dart';
 
 class CashOutController extends GetxController {
   var isLoading = false.obs;
-  final withdrawableBalance = 200.obs;
-  final enterAmount = ''.obs;
+  final withdrawableBalance = 0.0.obs;
+  final enterAmount = TextEditingController().obs;
+  var rawAmount = 0.0.obs;
   final bankName = ''.obs;
   final branchName = ''.obs;
   final accountHolderName = ''.obs;
   final accountNumber = ''.obs;
   final routingNumber = ''.obs;
+  final myInvestment = MyInvestmentModel().obs;
+  var bankDetails = BankDetailsModel().obs;
 
-  bool validateAmount(String value) {
-    final regex = RegExp(r'^\d*\.?\d*$');   // Regular expression to match numbers with at most one decimal point
-    final amount = value.trim().isNotEmpty ? num.tryParse(value) : 0;           // Check if value is a valid number (either int or double)
+  void updateEnterAmount(String value) {
+    if (value.isEmpty) {
+      enterAmount.value.text = '';
+    } else {
+      // Get the current cursor position before formatting
+      final oldText = enterAmount.value.text;
+      final oldSelection = enterAmount.value.selection;
 
-    if (value.trim().isEmpty) {
-      return false;
-    } else if (amount == null || amount < 0) {
-      return false;
-    } else if (!regex.hasMatch(value.trim())) {
-      return false;
-    } else if (withdrawableBalance < amount) {
-      return false;
+      // Remove all non-numeric characters except the decimal point
+      final input = value.replaceAll(RegExp(r'[^\d.]'), '');
+      final parts = input.split('.');
+
+      // Handling integer part (before the decimal)
+      String integerPart = parts[0];  // No need to format with commas
+
+      // Allow decimals if the user includes a decimal point
+      String decimalPart = '';
+      if (parts.length > 1) {
+        decimalPart = parts[1].substring(0, parts[1].length <= 2 ? parts[1].length : 2); // Allow max 2 digits after decimal
+      }
+
+      // Recombine the integer and decimal parts
+      String formattedValue = '৳$integerPart';
+      
+      // Check if the input contains a decimal point
+      if (value.contains('.')) {
+        formattedValue += '.$decimalPart';
+      }
+
+      // Convert to double for internal API calls
+      rawAmount.value = (num.tryParse(input) ?? 0.0).toDouble();
+
+      // Set the formatted text
+      enterAmount.value.text = formattedValue;
+
+      // Calculate the new cursor position
+      final newTextLength = formattedValue.length;
+      final oldTextLength = oldText.length;
+      final selectionIndex = oldSelection.baseOffset + (newTextLength - oldTextLength);
+
+      // Set the new selection based on the old position and adjustment
+      enterAmount.value.selection = TextSelection.fromPosition(
+        TextPosition(offset: selectionIndex.clamp(0, newTextLength)),  // Ensure the new position is within bounds
+      );
     }
-
-    return true;
   }
 
-  void updateEnterAmount(String input) {
-    if (validateAmount(input)) {
-      enterAmount.value = input.trim();
-    }
+  double getEnteredAmount() {
+    return rawAmount.value;
   }
 
   bool validateName(String value) {
@@ -104,44 +141,70 @@ class CashOutController extends GetxController {
     }
   }
 
+  var token = ''.obs;
+  late SharedPreferences prefs;
+  Future<void> initializeToken() async {
+    prefs = await SharedPreferences.getInstance();
+    token.value = prefs.getString('token') ?? '';
+  }
+
+  final MyInvestmentsApi _myInvestmentsApi = MyInvestmentsApi();
+  final BankingApi _bankingApi = BankingApi();
   Future<void> loadCashOut() async {
     isLoading(true);
     try {
       Get.toNamed("/cash_out");
-      // Get.toNamed("/summary");
+
+      final response = await _myInvestmentsApi.getMyInvestments(token.value);
+      if (response.statusCode == 200) {
+        myInvestment.value = MyInvestmentModel.fromJson(response.data);
+        withdrawableBalance.value = myInvestment.value.readyForCashout ?? 0.0;
+      } else {
+        Get.dialog(const CommonErrorDialog(title: 'Something went wrong please try again later.', message: ''));
+      }
+
+      BankDetailsModel? data = await _bankingApi.getBankData(token.value);
+      if (data != null) {
+        bankDetails.value = data;
+
+        if (bankDetails.value.bankName != null &&
+        bankDetails.value.branchName != null &&
+        bankDetails.value.accountHolderName != null &&
+        bankDetails.value.accountNumber != null &&
+        bankDetails.value.routingNumber != null) {
+          bankName.value = bankDetails.value.bankName ?? '';
+          branchName.value = bankDetails.value.branchName ?? '';
+          accountHolderName.value = bankDetails.value.accountHolderName ?? '';
+          accountNumber.value = bankDetails.value.accountNumber ?? '';
+          routingNumber.value = bankDetails.value.routingNumber ?? '';
+        } else {
+          Get.dialog(const BankDetailsIncompleteDialog());
+        }
+      } else {
+        Get.dialog(const BankDetailsIncompleteDialog());
+      }
     } catch (e) {
-      Get.dialog(
-        CustomAlartDialog(
-          begin: 0,
-          end: 0,
-          alignment: Alignment.bottomCenter,
-          duration: 300,
-          borderRadius: const BorderRadius.all(Radius.circular(0)),
-          horizontalPadding: 0,
-          backgroundColor: Colors.red,
-          dialogHeader: const SizedBox(
-            height: 50,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Something went wrong please try again.',
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: Colors.white,
-                    fontFamily: 'FontCircularStd',
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-              ],
-            ),
-          ),
-          dialogContent: Container(),
-        )
-      );
+      Get.dialog(const CommonErrorDialog(title: 'Something went wrong please try again later.', message: ''));
     } finally {
       isLoading(false);
     }
+  }
+
+  void resetVariables() {
+    enterAmount.value.text = '';
+    rawAmount = 0.0.obs;
+    withdrawableBalance.value = 0.0;
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await initializeToken();
+  }
+
+  @override
+  void onClose() {
+    enterAmount.value.dispose();
+    super.onClose();
   }
 }

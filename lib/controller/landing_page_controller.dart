@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:stock_trading_app/service/shared_preferences_service.dart';
 
 class LandingPageController extends GetxController {
   var isLoading = false.obs;
@@ -11,6 +10,7 @@ class LandingPageController extends GetxController {
   final previousPageIndex = 0.obs;
   final canGoBack = true.obs;
   final isBanglaActive = false.obs;
+  final profilePageTabController = 0.obs;
 
   late ScrollController scrollController;
   final scrollPosition = 0.0.obs;
@@ -30,28 +30,14 @@ class LandingPageController extends GetxController {
       if(index <= 4) {
         bottomNavigationPageIndex.value = index;
       }
-
-      // print('Selected Page Index:::: ${selectedPageIndex.value}');
-      // scrollController.addListener(() {
-      //   scrollPosition.value = scrollController.offset;
-      //   pageScrollPositionHistoryStack[selectedPageIndex.value] = scrollController.offset;
-      // });
     }
 
     if(selectedPageIndex.value < 5) {
       canGoBack.value = true;
-      // visitedPageHistoryStack.clear();
     }
     else if(selectedPageIndex.value >= 5) {
       canGoBack.value = false;
-
-      // visitedPageHistoryStack.add(previousPageIndex.value);
     }
-    
-
-    // if (scrollController.hasClients) {
-    //   scrollController.jumpTo(pageScrollPositionHistoryStack[selectedPageIndex.value]);
-    // }
   }
 
   void goBack() {
@@ -110,20 +96,24 @@ class LandingPageController extends GetxController {
     }
 
     Get.offAllNamed('/sign_in_sign_up_mobile');
+    
     isLoading(false);
   }
 
   @override
   void onInit() async {
     super.onInit();
+    changePage(0);
     scrollController = ScrollController();
     _loadUserInfo();
+    // Get.lazyPut<CashOutController>(() => CashOutController());
+    // Get.lazyPut<ProfileController>(() => ProfileController());
+    // Get.lazyPut(() => ProfileController(), fenix: true);
   }
 
   @override
   void onClose() {
     scrollController.dispose();
-    resetVariables();
     super.onClose();
   }
 }

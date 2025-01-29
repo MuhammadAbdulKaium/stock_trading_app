@@ -43,19 +43,35 @@ class MarketplaceController extends GetxController {
     }
   }
 
+  Future<void> updateAllProductToInvest() async {
+    try {
+      landingPageController.isLoading(true);
+      
+      dio.Response response = await _productsToInvestApi.getAllProduct(token.value);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = response.data;
+        
+        // Convert the list of JSON objects into a list of ProductModel
+        final products = data.map((jsonItem) => ProductModel.fromJson(jsonItem)).toList();
+
+        // Assign the products to investmentOpportunities
+        investmentOpportunities.assignAll(products);
+      } else {
+        // Handle non-200 responses, show error if necessary
+        // Get.snackbar('Error', 'Failed to fetch products');
+      }
+    } catch (e) {
+      // Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      landingPageController.isLoading(false);
+    }
+  }
+
   @override
   void onInit() async {
     super.onInit();
     await initializeToken();
     await getAllProductToInvest();
-    // investmentOpportunities.assignAll([
-    //   Product(productId: '1', productName: 'Aman Rice', productCategory: 'rice', productStatus: 'Active', conversionPercentage: '+5', purchasePrice: 1000, sellingPrice: 1000, monthlyStorageCost: 1000),
-    //   Product(productId: '2', productName: 'Corn', productCategory: 'corn', productStatus: 'Active', conversionPercentage: '+5', purchasePrice: 1000, sellingPrice: 1000, monthlyStorageCost: 1000),
-    // ]);
-
-    // profitableSellings.assignAll([
-    //   ProductModel(id: '1', name: 'Corn', imageUrl: '', status: true,),
-    //   // Product(productId: '1', productName: 'Corn', productCategory: 'corn', productStatus: 'Active', conversionPercentage: '+5', purchasePrice: 1000, sellingPrice: 1000, monthlyStorageCost: 1000)
-    // ]);
   }
 }

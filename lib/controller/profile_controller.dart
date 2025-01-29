@@ -48,6 +48,10 @@ class ProfileController extends GetxController with GetSingleTickerProviderState
     });
   }
 
+  void changeTab(int index) {
+    tabController.index = index;
+  }
+
   @override
   void onClose() {
     tabController.dispose();

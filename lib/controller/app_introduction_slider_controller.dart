@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppIntroductionSliderController extends GetxController {
   var currentIndex = 0.obs;

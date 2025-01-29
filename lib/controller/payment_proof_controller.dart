@@ -1,42 +1,27 @@
 import 'dart:io';
-import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_trading_app/api/upload_payment_proof_api.dart';
+import 'package:stock_trading_app/common/common_error_dialog.dart';
 import 'package:stock_trading_app/common/custom_alart_dialog.dart';
 import 'package:stock_trading_app/mobile/payment_proof/payment_confirmation_dialog.dart';
 
 class PaymentProofController extends GetxController {
   var isLoading = false.obs;
+  var investedProductId = ''.obs;
   var selectedFile = Rx<File?>(null);
   var fileName = ''.obs;
   var fileSize = 0.0.obs;
   var fileExtension = ''.obs;
   var filePath = ''.obs;
   var isPickerActive = false.obs;  // Flag to check if picker is active
+  final RxBool isPaymentProofSelected = false.obs;
 
-  Future<void> loadPaymentProofPage() async {
+  Future<void> uploadPaymentProof1() async {
     isLoading(true);
     try {
-      // confirmingOrderDetails.value = OrderDetailsModel(
-      //   id: '1',
-      //   name: 'Aman Rice',
-      //   category: 'rice',
-      //   status: 'active',
-      //   warehouse: 'Kaunia, Rangpur',
-      //   type: 'Premium',
-      //   regionOfOrigin: 'Rajshahi',
-      //   lotSize: 10,
-      //   pricePerUnit: 1000,
-      //   storageConditions: 'Cool, dry place',
-      //   optimalStorageTemperature: '15-20',
-      //   monthlyStoreCost: 100,
-      //   transportCost: 100,
-      //   handlingFees: 20,
-      //   quantityAvailable: 19,
-      // );
-
-      // remainingLot.value = maximumLot.value = confirmingOrderDetails.value.lotSize!.toInt();
       // currentBuyingPrice.value = confirmingOrderDetails.value.pricePerUnit!.toDouble();
 
       Get.toNamed("/payment_proof_page");
@@ -97,11 +82,6 @@ class PaymentProofController extends GetxController {
           fileSize.value = file.lengthSync() / (1024 * 1024);
           fileExtension.value = fileName.split('.').last;
           filePath.value = file.path;
-
-          // print('Name: ${fileName.value}');
-          // print('Name: ${fileSize.value / (1024 * 1024)}');
-          // print('Name: ${fileExtension.value}');
-          // print('Name: ${filePath.value}');
         } else {
           Get.snackbar('Error', 'File size exceeds 5MB');
         }
@@ -113,27 +93,31 @@ class PaymentProofController extends GetxController {
     }
   }
 
-  void uploadFile() async {
+  var token = ''.obs;
+  late SharedPreferences prefs;
+  Future<void> initializeToken() async {
+    prefs = await SharedPreferences.getInstance();
+    token.value = prefs.getString('token') ?? '';
+  }
+
+  final UploadPaymentProofApi _uploadPaymentProofApi = UploadPaymentProofApi();
+  void uploadPaymentProof() async {
     if (selectedFile.value != null) {
       isLoading.value = true;
       try {
-        // Replace with your file upload logic
-        dio.Dio dioInstance = dio.Dio();
-        dio.FormData formData = dio.FormData.fromMap({
-          'file': await dio.MultipartFile.fromFile(selectedFile.value!.path),
-        });
+        final response = await _uploadPaymentProofApi.uploadPaymentProof(investedProductId.value, selectedFile.value!, token.value);
 
-        // Example API call
-        var response = await dioInstance.post('https://your-api-endpoint.com/upload', data: formData);
-        
-        if (response.statusCode == 200) {
-          // Get.snackbar('Success', 'File uploaded successfully');
+        if (response.statusCode == 201) {
           Get.dialog(const PaymentConfirmationDialog());
         } else {
-          Get.snackbar('Error', 'File upload failed');
+          Get.dialog(const CommonErrorDialog(title: 'Error', message: 'File upload failed'));
         }
       } catch (e) {
-        Get.snackbar('Error', 'An error occurred: $e');
+        Get.snackbar(
+          'Error', 
+          'An error occurred: $e',
+          duration: const Duration(seconds: 5),
+        );
       } finally {
         isLoading.value = false;
       }
@@ -144,5 +128,20 @@ class PaymentProofController extends GetxController {
 
   void resetVariables() {
     // selectedFile.value = null;
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    // Retrieve the passed ID from arguments
+    if (Get.arguments != null) {
+      investedProductId.value = Get.arguments['id'];
+    }
+
+    ever(selectedFile, (_) {
+      isPaymentProofSelected.value = selectedFile.value != null;
+    });
+
+    await initializeToken();
   }
 }

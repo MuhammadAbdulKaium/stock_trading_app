@@ -22,114 +22,82 @@ class ConfirmationPage extends StatelessWidget {
           PopScope(
             canPop: true,
             onPopInvoked: (_) async{
-              Future.delayed(const Duration(milliseconds: 300), () {
-                confirmationController.resetVariables();
-              });
+              // Future.delayed(const Duration(milliseconds: 300), () {
+              //   confirmationController.resetVariables();
+              // });
             },
-            child: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  backgroundColor: Colors.white,
-                  expandedHeight: screenHeight * 0.095,
-                  floating: true,
-          
-                  automaticallyImplyLeading: false,
-                  leading: null,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: screenWidth * 0.013, right: screenWidth * 0.013, top: screenHeight * 0.020, bottom: screenHeight * 0.020),
-                          margin: const EdgeInsets.only(top: 0, left: 0, right: 0),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Builder(builder: (context) => Padding(
-                                    padding: const EdgeInsets.only(top: 0, left: 0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Expanded(
-                                          flex: 1,
-                                          child: Container()
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: GestureDetector(
-                                            child: CircleAvatar(
-                                              radius: screenWidth * 0.0520,
-                                              backgroundColor: const Color(0xFFF4FCF7),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(top: 0, bottom: screenWidth * 0.003),
-                                                  child: Icon(
-                                                    CustomIcons.backArrow2,
-                                                    size: screenWidth * 0.054,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              Navigator.pop(context);
-                                              // Scaffold.of(context).openDrawer();
-                                              // drawerController.toggleDrawer();
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: screenWidth * 0.013, right: screenWidth * 0.013, top: screenHeight * 0.0525, bottom: screenHeight * 0.020),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: CircleAvatar(
+                          radius: screenWidth * 0.0520,
+                          backgroundColor: const Color(0xFFF4FCF7),
+                          child: SizedBox(
+                            height: screenWidth * 0.1040,
+                            width: screenWidth * 0.1040,
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Center(
+                                child: Icon(
+                                  CustomIcons.backArrow2,
+                                  size: screenWidth * 0.054,
+                                  color: Colors.black,
                                 ),
                               ),
-                              Expanded(
-                                flex: 15,
-                                child: Container(
-                                  width: double.infinity,
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Confirmation',
-                                    style: TextStyle(
-                                      fontSize: 23.sp,
-                                      fontFamily: 'Gilroy',
-                                      fontWeight: FontWeight.w700,
-                                      color: const Color(0xFF1D192B),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                )
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Container(),
-                              ),
-                            ],
+                              splashRadius: screenWidth * 0.052,
+                            ),
                           ),
-                        )
+                        ),
+                      ),
+                      Expanded(
+                        flex: 15,
+                        child: Container(
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Confirmation',
+                            style: TextStyle(
+                              fontSize: 23.sp,
+                              fontFamily: 'Gilroy',
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF1D192B),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Container(),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: screenHeight * 0.0235,),
+                        const ConfirmationBasicInfo(),
                       ],
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    alignment: Alignment.topCenter,
-                      child: Column(
-                        children: [
-                          SizedBox(height: screenHeight * 0.0235,),
-                          const ConfirmationBasicInfo(),
-                        ],
-                      ),
-                  ),
-                ),
               ],
-            )
+            ),
           ),
-
           Obx(() {
             return confirmationController.isLoading.value ? const CustomLoader() : const SizedBox.shrink();
           }),
